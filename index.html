@@ -21,50 +21,21 @@
   --btn-h:36px;
   --w1:#d49050;--w2:#8b4513;--w3:#5a2e0e;--w4:#2a1005;
   --ws:#1a0803;--wt:#fff5e0;--pc:#c4b090;
-  --bg-gradient:
-    radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
+  --bg:radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
     radial-gradient(ellipse at 10% 80%,rgba(10,50,10,.9) 0%,transparent 35%),
     radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
     radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
     linear-gradient(160deg,#0a2010 0%,#1a3a20 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
 }
+html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;}
+body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;background:var(--bg);background-size:cover;background-attachment:fixed;touch-action:manipulation;}
 
-html{
-  height:100%;
-  width:100%;
-  min-height:-webkit-fill-available;
-  background:var(--bg-gradient);
-  background-size:cover;
-  background-attachment:fixed;
-}
-body{
-  width:100%;
-  height:100%;
-  min-height:-webkit-fill-available;
-  overflow:hidden;
-  font-family:'Crimson Text',Georgia,serif;
-  font-size:16px;
-  background:var(--bg-gradient);
-  background-size:cover;
-  background-attachment:fixed;
-  touch-action:manipulation;
-}
-
-/* LOADING */
 #loadScreen{position:fixed;inset:0;z-index:999;background:#1a1a0e;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
 #loadScreen.hide{opacity:0;pointer-events:none;}
 #loadScreen span{font-family:'Cinzel',serif;font-size:1.4rem;color:#f0e8d0;letter-spacing:2px;text-shadow:0 0 12px rgba(200,212,32,.4);}
 
-/* BG div — same gradient, fixed cover */
-.bg{
-  position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  z-index:0;
-  background:var(--bg-gradient);
-  background-size:cover;
-}
+.bg{position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;background:var(--bg);background-size:cover;}
 
-/* RAYS */
 .rays{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
 .ray{position:absolute;top:-5%;transform-origin:top center;filter:blur(7px);}
 .ray:nth-child(1){left:34%;width:75px;height:120%;transform:rotate(-8deg);background:linear-gradient(180deg,transparent,rgba(255,255,200,.17),transparent);}
@@ -72,23 +43,19 @@ body{
 .ray:nth-child(3){left:62%;width:95px;height:130%;transform:rotate(10deg);background:linear-gradient(180deg,transparent,rgba(255,240,180,.15),transparent);}
 .ray:nth-child(4){left:73%;width:38px;height:100%;transform:rotate(18deg);background:linear-gradient(180deg,transparent,rgba(180,220,255,.11),transparent);}
 
-/* TRUNK */
 .trunk{position:fixed;left:-30px;top:0;bottom:0;width:210px;z-index:2;pointer-events:none;
   background:repeating-linear-gradient(175deg,rgba(200,170,80,.85) 0px,rgba(200,170,80,.85) 8px,rgba(220,190,110,.8) 8px,rgba(220,190,110,.8) 18px,rgba(190,160,70,.85) 18px,rgba(190,160,70,.85) 28px,rgba(210,180,95,.82) 28px,rgba(210,180,95,.82) 40px);
   clip-path:polygon(0 0,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 100%);
   filter:drop-shadow(6px 0 14px rgba(0,0,0,.3));}
 .trunk::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(255,230,140,.3) 0%,transparent 50%),radial-gradient(ellipse at 20% 70%,rgba(180,220,80,.2) 0%,transparent 40%);}
 
-/* MUSHROOMS */
 .mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
-/* APP */
 .app{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10;display:flex;flex-direction:column;align-items:center;
-  padding:calc(var(--safe-t) + 14px) calc(var(--safe-r) + 14px) calc(var(--safe-b) + 14px) calc(var(--safe-l) + 14px);
-  overflow:hidden;}
+  padding:calc(var(--safe-t) + 14px) calc(var(--safe-r) + 14px) calc(var(--safe-b) + 14px) calc(var(--safe-l) + 14px);overflow:hidden;}
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 
-/* EXP BOX */
+/* EXP */
 .exp-box{flex-shrink:0;margin-bottom:11px;background:#1a1a0e;border:2px solid #050500;border-radius:8px;padding:10px 13px 12px;box-shadow:inset 0 2px 8px rgba(0,0,0,.8),0 3px 10px rgba(0,0,0,.5);}
 .app-title{text-align:center;font-family:'Cinzel',serif;font-size:1.45rem;font-weight:900;letter-spacing:2px;color:#f0e8d0;text-shadow:1px 1px 3px rgba(0,0,0,.8),0 0 14px rgba(200,212,32,.2);margin-bottom:8px;}
 .exp-label{display:block;font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:.5px;color:#e8e8d0;text-shadow:0 0 6px rgba(200,220,100,.5),1px 1px 0 #000;margin-bottom:7px;}
@@ -111,9 +78,16 @@ body{
 .panel-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--wt);text-shadow:1px 1px 2px var(--ws);letter-spacing:.5px;}
 .panel-body{padding:10px 12px;position:relative;z-index:1;}
 .hdr-btns{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+
+/* GAMES PANEL — max 40% of remaining space */
+.games-panel{display:flex;flex-direction:column;overflow:hidden;}
+.games-panel .panel-body{display:flex;flex-direction:column;overflow:hidden;min-height:0;}
+.games-list-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;min-height:0;}
+
+/* MECH PANEL — fills remaining space */
 .panel.mech-panel{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;margin-bottom:0;}
 .mech-panel .panel-body{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;}
-.mech-scroll{flex:1;min-height:calc(5*44px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.mech-scroll{flex:1;min-height:calc(5*44px);overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;}
 
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;height:var(--btn-h);padding:0 13px;
@@ -141,23 +115,29 @@ body{
 .search-inp::placeholder{color:var(--pc);opacity:.6;}
 
 /* GAME ROW */
-.game-row{display:flex;align-items:center;padding:9px 10px;margin-bottom:5px;border-radius:5px;border:1px solid rgba(255,200,80,.12);background:rgba(0,0,0,.22);}
+.game-row{
+  display:flex;align-items:center;padding:7px 10px;margin-bottom:5px;border-radius:5px;
+  border:1px solid rgba(100,160,220,.3);
+  background:linear-gradient(135deg,rgba(80,140,200,0.55),rgba(50,100,170,0.55));
+}
 .game-info{flex:1;cursor:pointer;user-select:none;-webkit-user-select:none;}
-.game-name{font-family:'Cinzel',serif;font-size:1rem;color:var(--wt);text-shadow:1px 1px 1px var(--ws);}
-.game-date{font-size:.85rem;color:var(--pc);margin-top:2px;}
+.game-name{font-family:'Cinzel',serif;font-size:1rem;color:#1a1a00;font-weight:700;text-shadow:none;}
+.game-date{font-size:.85rem;color:#1a2a10;margin-top:2px;}
 .game-actions{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+/* Hearts on game rows — dark so visible on blue */
+.game-row .heart{color:#1a1a00;}
+.game-row .heart.on{color:#e83030;}
 
 /* MECH ROWS */
 .mech-row{display:flex;align-items:center;padding:9px 10px;margin-bottom:4px;border-radius:5px;border:1px solid rgba(255,200,80,.07);min-height:44px;background:rgba(0,0,0,.18);}
-.mech-row.ticked{
-  background:linear-gradient(135deg,rgba(200,212,32,0.85),rgba(160,176,0,0.85));
-  border-color:rgba(180,200,0,.5);
-  min-height:0;
-  padding:5px 10px;
-}
+.mech-row.ticked{background:linear-gradient(135deg,rgba(200,212,32,0.85),rgba(160,176,0,0.85));border-color:rgba(180,200,0,.5);min-height:0;padding:5px 10px;}
 .mech-row-name{font-size:1rem;flex:1;color:var(--wt);}
 .mech-row.ticked .mech-row-name{color:#1a1a00;font-weight:700;}
 .tick-sym{color:#3a6010;font-size:.95rem;margin-right:6px;flex-shrink:0;font-weight:900;}
+/* Heart on ticked mech rows — dark so visible on yellow-green */
+.mech-row.ticked .heart{color:#1a1a00;}
+.mech-row.ticked .heart.on{color:#e83030;}
+
 .mech-edit-row{display:flex;align-items:center;gap:6px;padding:7px 8px;margin-bottom:4px;border-radius:5px;border:1px solid rgba(255,200,80,.07);min-height:44px;background:rgba(0,0,0,.18);}
 .mech-chk{width:22px;height:22px;border-radius:3px;flex-shrink:0;border:2px solid var(--w2);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-user-select:none;}
 .mech-chk.on{background:linear-gradient(135deg,#1a6a10,#2a9a20);border-color:#4ac830;}
@@ -190,15 +170,13 @@ textarea.wood-inp{resize:none;}
 .sp-fixed{flex-shrink:0;}
 .chips-row-wrap{display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-shrink:0;}
 .chips-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);letter-spacing:.3px;white-space:nowrap;flex-shrink:0;}
-.chips-scroll{display:flex;gap:5px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex:1;padding-bottom:2px;scrollbar-width:none;}
+.chips-scroll{display:flex;gap:5px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex:1;padding-bottom:2px;scrollbar-width:none;touch-action:pan-x;}
 .chips-scroll::-webkit-scrollbar{display:none;}
 .chip{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(135deg,#c8d420,#a0b000);border:1.5px solid #6a8000;border-radius:4px;padding:3px 6px 3px 8px;font-family:'Crimson Text',serif;font-size:.85rem;color:#1a1a00;font-weight:600;white-space:nowrap;flex-shrink:0;}
 .chip-x{color:#cc0000;font-size:.9rem;font-weight:900;cursor:pointer;padding:1px 2px;user-select:none;-webkit-user-select:none;flex-shrink:0;}
 .paste-wrap{position:relative;margin-bottom:9px;flex-shrink:0;}
 .paste-wrap textarea{margin-bottom:0;}
-.paste-hl{position:absolute;inset:0;padding:9px 12px;font-family:'Crimson Text',serif;font-size:16px;line-height:1.5;pointer-events:none;z-index:2;overflow:hidden;white-space:pre-wrap;word-break:break-word;border-radius:4px;border:2px solid transparent;color:transparent;}
-.paste-hl .bad{background:rgba(255,50,50,.25);color:#ff6666;border-radius:2px;}
-.mech-sel-list{border:2px solid var(--ws);border-radius:4px;background:rgba(0,0,0,.28);overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;min-height:100px;}
+.mech-sel-list{border:2px solid var(--ws);border-radius:4px;background:rgba(0,0,0,.28);overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;min-height:100px;touch-action:pan-y;}
 .mech-sel-row{display:flex;align-items:center;gap:9px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.05);min-height:44px;cursor:pointer;user-select:none;-webkit-user-select:none;}
 .mech-sel-row:last-child{border-bottom:none;}
 .mech-sel-chk{width:22px;height:22px;border-radius:3px;flex-shrink:0;border:2px solid var(--w2);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;pointer-events:none;}
@@ -241,7 +219,7 @@ textarea.wood-inp{resize:none;}
 </div>
 
 <div class="app" id="app" style="display:none">
-  <div class="inner">
+  <div class="inner" id="mainInner">
     <div class="exp-box" id="expBox">
       <div class="app-title">Designer's EXP</div>
       <span class="exp-label" id="expLabel"><span class="ew">EXP.</span> 0/0 [0.00%]</span>
@@ -254,18 +232,20 @@ textarea.wood-inp{resize:none;}
       </div>
     </div>
 
-    <div class="panel" id="gamesPanel">
+    <!-- GAMES PLAYED -->
+    <div class="panel games-panel" id="gamesPanel">
       <div class="panel-hdr">
         <span class="panel-title">Games Played</span>
         <div class="hdr-btns" id="gameHdrBtns"></div>
       </div>
-      <div class="panel-body">
+      <div class="panel-body" id="gamesBody">
         <div id="gamesFilterRow"></div>
-        <div id="gamesList"></div>
+        <div class="games-list-scroll" id="gamesList"></div>
       </div>
     </div>
 
-    <div class="panel mech-panel">
+    <!-- MECHANICS -->
+    <div class="panel mech-panel" id="mechPanel">
       <div class="panel-hdr">
         <span class="panel-title">Mechanics</span>
         <div class="hdr-btns" id="mechHdrBtns"></div>
@@ -299,7 +279,6 @@ textarea.wood-inp{resize:none;}
       </div>
       <div class="paste-wrap">
         <textarea class="wood-inp" id="mechPaste" placeholder="Search or paste list (one per line)..." rows="2" style="margin-bottom:0;"></textarea>
-        <div class="paste-hl" id="pasteHl" aria-hidden="true"></div>
       </div>
     </div>
     <div class="mech-sel-list" id="mechSelList"></div>
@@ -406,7 +385,7 @@ let mechanics=[],meta={},games=[];
 let mechFilter='all',gamesFilter='all';
 let editingGames=false,editingMechanics=false;
 let editGameId=null,detailGameId=null,renamingIdx=null;
-let selMechs=new Set(),pastedMechs=new Set();
+let selMechs=new Set(),pastedLines=new Set(); // pastedLines tracks which lines came from paste/typing
 let mechSnap=null,metaSnap=null,gamesSnap=null;
 
 async function saveAll(){await dbSet('mechanics',mechanics);await dbSet('meta',meta);await dbSet('games',games);}
@@ -418,8 +397,19 @@ function gameTickedSet(){const s=new Set();games.forEach(g=>g.mechanics.forEach(
 function isTicked(m){const mt=getMeta(m);if(mt.manualUntick)return false;if(mt.manualTick)return true;return gameTickedSet().has(m);}
 function mechExists(name,excludeIdx=-1){return mechanics.some((m,i)=>i!==excludeIdx&&m.toLowerCase()===name.toLowerCase());}
 
+// ── LAYOUT: enforce games panel max height = 40% of mech panel available space ──
+function applyPanelLayout(){
+  const inner=document.getElementById('mainInner');
+  const expH=document.getElementById('expBox').offsetHeight+11; // +margin
+  const totalH=inner.offsetHeight;
+  const remaining=totalH-expH;
+  const gamesMax=Math.floor(remaining*0.4);
+  document.getElementById('gamesPanel').style.maxHeight=gamesMax+'px';
+}
+
 // ── PANEL HEIGHTS ──
 function setPanelH(){
+  applyPanelLayout();
   const bottom=document.getElementById('expBox').getBoundingClientRect().bottom;
   const h=Math.max(370,window.innerHeight-bottom-10+50);
   document.getElementById('spGameInner').style.maxHeight=h+'px';
@@ -434,17 +424,28 @@ function closeSP(id){document.getElementById(id).classList.remove('open');if(id=
 function initSP(id){
   const panel=document.getElementById(id);
   const inner=panel.querySelector('.sp-inner');
+  // Backdrop
   panel.addEventListener('click',e=>{if(e.target===panel)closeSP(id);});
-  let sy=0,cy=0,active=false;
-  inner.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;cy=sy;active=true;},{passive:true});
+  // Swipe — but not when touch starts inside scrollable areas
+  let sy=0,cy=0,active=false,blocked=false;
+  inner.addEventListener('touchstart',e=>{
+    // Check if touch started inside a scrollable child
+    const scrollables=inner.querySelectorAll('.mech-sel-list,.chips-scroll,.mech-scroll,.games-list-scroll,.detail-scroll');
+    blocked=false;
+    for(const el of scrollables){
+      if(el.contains(e.target)){blocked=true;break;}
+    }
+    sy=e.touches[0].clientY;cy=sy;active=true;
+  },{passive:true});
   inner.addEventListener('touchmove',e=>{
-    if(!active)return;
+    if(!active||blocked)return;
     cy=e.touches[0].clientY;
     const dy=cy-sy;
     if(dy>0){inner.style.transition='none';inner.style.transform=`translateY(${dy}px)`;}
   },{passive:true});
   inner.addEventListener('touchend',()=>{
     active=false;
+    if(blocked){blocked=false;return;}
     inner.style.transition='';
     if(cy-sy>inner.offsetHeight*.25){inner.style.transform='';closeSP(id);}
     else inner.style.transform='';
@@ -492,6 +493,7 @@ function renderGamesHdr(){
 function startEditGames(){gamesSnap=JSON.parse(JSON.stringify(games));editingGames=true;renderGamesHdr();renderGames();}
 function cancelEditGames(){games=JSON.parse(JSON.stringify(gamesSnap));editingGames=false;renderGamesHdr();renderGames();renderMechs();updateExp();saveAll();}
 function doneEditGames(){editingGames=false;renderGamesHdr();renderGames();saveAll();}
+
 function renderGamesFilter(){
   const el=document.getElementById('gamesFilterRow');el.innerHTML='';
   if(!games.length)return;
@@ -501,6 +503,7 @@ function renderGamesFilter(){
   });
   el.append(row);
 }
+
 function renderGames(){
   renderGamesFilter();
   const el=document.getElementById('gamesList');el.innerHTML='';
@@ -521,6 +524,7 @@ function renderGames(){
     }
     row.append(info,acts);el.append(row);
   });
+  applyPanelLayout();
 }
 function toggleGameLike(i){games[i].liked=!games[i].liked;saveAll();renderGames();if(detailGameId===i){const h=document.getElementById('detailHeart');h.textContent=games[i].liked?'♥':'♡';h.className='heart'+(games[i].liked?' on':'');}}
 function deleteGame(i){if(!confirm('Delete "'+games[i].name+'"?'))return;games.splice(i,1);saveAll();renderGames();renderMechs();updateExp();}
@@ -532,8 +536,7 @@ function openAddGame(){
   document.getElementById('gameNameInp').value='';
   document.getElementById('gameDateInp').value=today();
   document.getElementById('mechPaste').value='';
-  document.getElementById('pasteHl').innerHTML='';
-  selMechs=new Set();pastedMechs=new Set();
+  selMechs=new Set();pastedLines=new Set();
   renderChips();renderMechSelList('');
   setPanelH();openSP('spGame');
 }
@@ -543,8 +546,10 @@ function openEditGame(i){
   document.getElementById('gameNameInp').value=g.name;
   document.getElementById('gameDateInp').value=g.date;
   document.getElementById('mechPaste').value='';
-  document.getElementById('pasteHl').innerHTML='';
-  selMechs=new Set(g.mechanics);pastedMechs=new Set();
+  selMechs=new Set(g.mechanics);pastedLines=new Set();
+  // Populate paste field with existing mechanics
+  document.getElementById('mechPaste').value=g.mechanics.join('\n');
+  pastedLines=new Set(g.mechanics.map(m=>m.toLowerCase()));
   renderChips();renderMechSelList('');
   setPanelH();openSP('spGame');
 }
@@ -572,60 +577,145 @@ function renderChips(){
 }
 function removeChip(m){
   selMechs.delete(m);
-  if(pastedMechs.has(m)){
-    pastedMechs.delete(m);
-    const ta=document.getElementById('mechPaste');
-    const lines=ta.value.split('\n').filter(l=>l.trim().toLowerCase()!==m.toLowerCase());
-    ta.value=lines.join('\n');
-    updatePasteHighlight();
-  }
+  pastedLines.delete(m.toLowerCase());
+  // Remove from paste field
+  const ta=document.getElementById('mechPaste');
+  const lines=ta.value.split('\n').filter(l=>l.trim().toLowerCase()!==m.toLowerCase());
+  ta.value=lines.join('\n');
   renderChips();
   const list=document.getElementById('mechSelList');
   const st=list.scrollTop;
-  renderMechSelList(getCurrentFilter());
+  renderMechSelList(getCurrentLineFilter());
   list.scrollTop=st;
 }
-function getCurrentFilter(){
-  const val=document.getElementById('mechPaste').value;
-  return val.split('\n').length>1?'':(val.trim().toLowerCase());
+
+// ── PASTE/SEARCH ──
+let lastCursorLine='';
+function getCurrentLineFilter(){
+  const ta=document.getElementById('mechPaste');
+  const val=ta.value;
+  const pos=ta.selectionStart||0;
+  const lines=val.split('\n');
+  let charCount=0;
+  for(const line of lines){
+    charCount+=line.length+1;
+    if(charCount>pos)return line.trim().toLowerCase();
+  }
+  return lines[lines.length-1].trim().toLowerCase();
 }
+
 function onPasteInput(){
-  const val=document.getElementById('mechPaste').value;
+  const ta=document.getElementById('mechPaste');
+  const val=ta.value;
   const lines=val.split('\n');
   const ml=mechanics.map(m=>m.toLowerCase());
-  if(lines.length>1){
-    lines.forEach(line=>{const t=line.trim();if(!t)return;const idx=ml.indexOf(t.toLowerCase());if(idx!==-1){selMechs.add(mechanics[idx]);pastedMechs.add(mechanics[idx]);}});
-    updatePasteHighlight();renderChips();
-    const list=document.getElementById('mechSelList');const st=list.scrollTop;
-    renderMechSelList('');list.scrollTop=st;
-  } else {
-    document.getElementById('pasteHl').innerHTML='';
-    if(!val.trim())pastedMechs=new Set();
-    const list=document.getElementById('mechSelList');const st=list.scrollTop;
-    renderMechSelList(val.trim().toLowerCase());list.scrollTop=st;
+
+  // Match all lines to mechanics and update selMechs
+  const newSel=new Set();
+  const newPasted=new Set();
+  lines.forEach(line=>{
+    const t=line.trim();if(!t)return;
+    const idx=ml.indexOf(t.toLowerCase());
+    if(idx!==-1){newSel.add(mechanics[idx]);newPasted.add(mechanics[idx].toLowerCase());}
+  });
+  // Keep manually selected mechs that aren't in paste field
+  selMechs.forEach(m=>{if(!pastedLines.has(m.toLowerCase())&&!newPasted.has(m.toLowerCase()))newSel.add(m);});
+  selMechs=newSel;
+  pastedLines=newPasted;
+  renderChips();
+
+  // Filter list based on current cursor line
+  const curFilter=getCurrentLineFilter();
+  const list=document.getElementById('mechSelList');
+  const st=list.scrollTop;
+  renderMechSelList(curFilter);
+  list.scrollTop=st;
+
+  // Apply red text to completed lines (not current line)
+  applyLineColours();
+}
+
+function applyLineColours(){
+  // We use a div overlay approach — but since we removed the overlay, we instead style the textarea text
+  // Instead: show line colours only on blur/Enter
+  // We handle this in the keydown event
+}
+
+function onPasteKeydown(e){
+  if(e.key==='Enter'){
+    // After pressing Enter, colour the previous line if no match
+    setTimeout(()=>{
+      applyRedLines();
+    },10);
   }
 }
-function updatePasteHighlight(){
-  const val=document.getElementById('mechPaste').value;
+
+function applyRedLines(){
+  // We cannot colour individual lines in a textarea natively
+  // So we show a read-only styled display div below the textarea
+  const ta=document.getElementById('mechPaste');
+  const val=ta.value;
   const lines=val.split('\n');
   const ml=mechanics.map(m=>m.toLowerCase());
-  document.getElementById('pasteHl').innerHTML=lines.map(line=>{
-    const t=line.trim();if(!t)return'\n';
-    return ml.indexOf(t.toLowerCase())!==-1?`<span>${esc(line)}</span>\n`:`<span class="bad">${esc(line)}</span>\n`;
-  }).join('');
+  // Get current line index
+  const pos=ta.selectionStart||val.length;
+  let charCount=0,curLineIdx=0;
+  for(let i=0;i<lines.length;i++){
+    charCount+=lines[i].length+1;
+    if(charCount>pos){curLineIdx=i;break;}
+    if(i===lines.length-1)curLineIdx=i;
+  }
+  // Build display
+  let display=document.getElementById('pasteLineDisplay');
+  if(!display){
+    display=document.createElement('div');display.id='pasteLineDisplay';
+    display.style.cssText='font-size:13px;margin-top:4px;flex-shrink:0;';
+    ta.parentNode.insertBefore(display,ta.nextSibling);
+  }
+  const badLines=[];
+  lines.forEach((line,i)=>{
+    const t=line.trim();
+    if(!t)return;
+    if(i!==curLineIdx&&ml.indexOf(t.toLowerCase())===-1){
+      badLines.push(esc(t));
+    }
+  });
+  if(badLines.length){
+    display.innerHTML='<span style="color:#ff5555;font-family:Crimson Text,serif;">Not found: '+badLines.join(', ')+'</span>';
+  } else {
+    display.innerHTML='';
+  }
 }
+
 function renderMechSelList(filter){
   const list=document.getElementById('mechSelList');list.innerHTML='';
-  const pasted=[...pastedMechs].filter(m=>!filter||m.toLowerCase().includes(filter));
-  const rest=mechanics.filter(m=>!pastedMechs.has(m)&&(!filter||m.toLowerCase().includes(filter)));
+  const ml=mechanics.map(m=>m.toLowerCase());
+  const pasted=mechanics.filter(m=>pastedLines.has(m.toLowerCase())&&(!filter||m.toLowerCase().includes(filter)));
+  const rest=mechanics.filter(m=>!pastedLines.has(m.toLowerCase())&&(!filter||m.toLowerCase().includes(filter)));
   [...pasted,...rest].forEach(m=>{
     const row=document.createElement('div');row.className='mech-sel-row';
     row.innerHTML=`<div class="mech-sel-chk ${selMechs.has(m)?'on':''}"></div><span class="mech-sel-name">${esc(m)}</span>`;
     row.addEventListener('click',()=>{
-      if(pastedMechs.has(m)){removeChip(m);return;}
-      if(selMechs.has(m))selMechs.delete(m);else selMechs.add(m);
+      if(pastedLines.has(m.toLowerCase())){removeChip(m);return;}
+      if(selMechs.has(m)){
+        selMechs.delete(m);
+        // Remove from paste field if present
+        const ta=document.getElementById('mechPaste');
+        const lines=ta.value.split('\n').filter(l=>l.trim().toLowerCase()!==m.toLowerCase());
+        ta.value=lines.join('\n');
+      } else {
+        selMechs.add(m);
+        // Add to paste field
+        const ta=document.getElementById('mechPaste');
+        const cur=ta.value;
+        ta.value=cur?(cur+'\n'+m):m;
+        pastedLines.add(m.toLowerCase());
+      }
       renderChips();
-      const st=list.scrollTop;renderMechSelList(getCurrentFilter());list.scrollTop=st;
+      const st=list.scrollTop;
+      renderMechSelList(getCurrentLineFilter());
+      list.scrollTop=st;
+      applyRedLines();
     });
     list.append(row);
   });
@@ -722,8 +812,10 @@ function renderMechs(){
           errMsg.className='rename-err'+(exists?' show':'');
           doneBtn.disabled=exists||!nv;
         });
+        // Focus directly — triggers keyboard on iOS within same gesture
+        inp.addEventListener('click',()=>inp.focus());
         row.append(wrap,doneBtn,cancelBtn);
-        requestAnimationFrame(()=>{inp.focus();inp.select();});
+        inp.focus();
       } else {
         const nm=document.createElement('span');nm.className='mech-edit-name';nm.textContent=m;
         row.append(nm,
@@ -780,7 +872,6 @@ function generateIcon(){
   const size=180;
   const c=document.createElement('canvas');c.width=size;c.height=size;
   const ctx=c.getContext('2d');
-  // Dark background with grey gradient at bottom
   const grad=ctx.createLinearGradient(0,0,0,size);
   grad.addColorStop(0,'#1a1a0e');
   grad.addColorStop(0.65,'#1a1a0e');
@@ -793,21 +884,16 @@ function generateIcon(){
   ctx.lineTo(0,r);ctx.arcTo(0,0,r,0,r);
   ctx.closePath();
   ctx.fillStyle=grad;ctx.fill();
-  // Subtle grain lines
   ctx.strokeStyle='rgba(200,212,32,0.07)';ctx.lineWidth=1.5;
   for(let i=0;i<size;i+=12){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(size,i+6);ctx.stroke();}
-  // D letter centred
   const fontSize=size*.65;
   ctx.font=`bold ${fontSize}px Cinzel,Georgia,serif`;
   ctx.textAlign='center';ctx.textBaseline='middle';
-  ctx.fillStyle='rgba(0,0,0,0.3)';
-  ctx.fillText('D',size/2+2,size/2+3);
+  ctx.fillStyle='rgba(0,0,0,0.3)';ctx.fillText('D',size/2+2,size/2+3);
   ctx.fillStyle='#f0e8d0';
   ctx.shadowColor='rgba(200,212,32,0.5)';ctx.shadowBlur=12;
-  ctx.fillText('D',size/2,size/2);
-  ctx.shadowBlur=0;
-  const link=document.createElement('link');
-  link.rel='apple-touch-icon';link.href=c.toDataURL('image/png');
+  ctx.fillText('D',size/2,size/2);ctx.shadowBlur=0;
+  const link=document.createElement('link');link.rel='apple-touch-icon';link.href=c.toDataURL('image/png');
   document.head.appendChild(link);
 }
 
@@ -817,6 +903,8 @@ function mkBtn(label,cls,fn){const b=document.createElement('button');b.classNam
 document.getElementById('btnGameCancel').addEventListener('click',()=>closeSP('spGame'));
 document.getElementById('btnGameSave').addEventListener('click',saveGame);
 document.getElementById('mechPaste').addEventListener('input',onPasteInput);
+document.getElementById('mechPaste').addEventListener('keydown',onPasteKeydown);
+document.getElementById('mechPaste').addEventListener('blur',applyRedLines);
 document.getElementById('mechSearch').addEventListener('input',renderMechs);
 document.getElementById('detailHeart').addEventListener('click',()=>{if(detailGameId!==null)toggleGameLike(detailGameId);});
 document.getElementById('btnDetailBack').addEventListener('click',()=>closeSP('spDetail'));
@@ -835,7 +923,7 @@ async function init(){
   updateExp();setPanelH();
   generateIcon();
   window.addEventListener('resize',()=>{drawTicks();setPanelH();});
-  setTimeout(drawTicks,100);
+  setTimeout(()=>{drawTicks();applyPanelLayout();},100);
   document.getElementById('app').style.display='flex';
   const ls=document.getElementById('loadScreen');
   ls.classList.add('hide');

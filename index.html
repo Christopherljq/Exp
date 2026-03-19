@@ -21,24 +21,48 @@
   --btn-h:36px;
   --w1:#d49050;--w2:#8b4513;--w3:#5a2e0e;--w4:#2a1005;
   --ws:#1a0803;--wt:#fff5e0;--pc:#c4b090;
+  --bg-gradient:
+    radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
+    radial-gradient(ellipse at 10% 80%,rgba(10,50,10,.9) 0%,transparent 35%),
+    radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
+    radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
+    linear-gradient(160deg,#0a2010 0%,#1a3a20 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
 }
-html{height:100%;min-height:-webkit-fill-available;background:#6ab080;}
-body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;background:#6ab080;touch-action:manipulation;}
+
+html{
+  height:100%;
+  width:100%;
+  min-height:-webkit-fill-available;
+  background:var(--bg-gradient);
+  background-size:cover;
+  background-attachment:fixed;
+}
+body{
+  width:100%;
+  height:100%;
+  min-height:-webkit-fill-available;
+  overflow:hidden;
+  font-family:'Crimson Text',Georgia,serif;
+  font-size:16px;
+  background:var(--bg-gradient);
+  background-size:cover;
+  background-attachment:fixed;
+  touch-action:manipulation;
+}
 
 /* LOADING */
 #loadScreen{position:fixed;inset:0;z-index:999;background:#1a1a0e;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
 #loadScreen.hide{opacity:0;pointer-events:none;}
 #loadScreen span{font-family:'Cinzel',serif;font-size:1.4rem;color:#f0e8d0;letter-spacing:2px;text-shadow:0 0 12px rgba(200,212,32,.4);}
 
-/* BG — extends 450px below */
-.bg{position:fixed;top:0;left:0;right:0;bottom:-450px;z-index:0;
-  background:
-    radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
-    radial-gradient(ellipse at 10% 80%,rgba(10,50,10,.9) 0%,transparent 35%),
-    radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
-    radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
-    linear-gradient(160deg,#0a2010 0%,#1a3a20 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
-  background-size:100% 100%;}
+/* BG div — same gradient, fixed cover */
+.bg{
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  z-index:0;
+  background:var(--bg-gradient);
+  background-size:cover;
+}
 
 /* RAYS */
 .rays{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
@@ -49,7 +73,7 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .ray:nth-child(4){left:73%;width:38px;height:100%;transform:rotate(18deg);background:linear-gradient(180deg,transparent,rgba(180,220,255,.11),transparent);}
 
 /* TRUNK */
-.trunk{position:fixed;left:-30px;top:0;bottom:-450px;width:210px;z-index:2;pointer-events:none;
+.trunk{position:fixed;left:-30px;top:0;bottom:0;width:210px;z-index:2;pointer-events:none;
   background:repeating-linear-gradient(175deg,rgba(200,170,80,.85) 0px,rgba(200,170,80,.85) 8px,rgba(220,190,110,.8) 8px,rgba(220,190,110,.8) 18px,rgba(190,160,70,.85) 18px,rgba(190,160,70,.85) 28px,rgba(210,180,95,.82) 28px,rgba(210,180,95,.82) 40px);
   clip-path:polygon(0 0,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 100%);
   filter:drop-shadow(6px 0 14px rgba(0,0,0,.3));}
@@ -128,6 +152,8 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .mech-row.ticked{
   background:linear-gradient(135deg,rgba(200,212,32,0.85),rgba(160,176,0,0.85));
   border-color:rgba(180,200,0,.5);
+  min-height:0;
+  padding:5px 10px;
 }
 .mech-row-name{font-size:1rem;flex:1;color:var(--wt);}
 .mech-row.ticked .mech-row-name{color:#1a1a00;font-weight:700;}
@@ -256,7 +282,7 @@ textarea.wood-inp{resize:none;}
 <!-- ADD/EDIT GAME -->
 <div class="sp" id="spGame">
   <div class="sp-inner" id="spGameInner">
-    <div class="sp-handle" id="spGameHandle"></div>
+    <div class="sp-handle"></div>
     <div class="sp-title" id="spGameTitle">Add Game</div>
     <div class="sp-fixed">
       <div style="margin-bottom:10px;">
@@ -336,56 +362,46 @@ function openDB(){
 function dbGet(k){return new Promise((res,rej)=>{const tx=db.transaction('store','readonly');const req=tx.objectStore('store').get(k);req.onsuccess=e=>res(e.target.result);req.onerror=e=>rej(e);});}
 function dbSet(k,v){return new Promise((res,rej)=>{const tx=db.transaction('store','readwrite');const req=tx.objectStore('store').put(v,k);req.onsuccess=()=>res();req.onerror=e=>rej(e);});}
 
-// ── DEFAULT MECHANICS ──
 const DEFAULT_MECHANICS=[
   "Acting","Action Drafting","Action Points","Action Queue","Action Retrieval","Action Timer","Action/Event",
   "Advantage Token","Alliances","Area Majority / Influence","Area Movement","Area-Impulse",
   "Auction: Dutch","Auction: Dutch Priority","Auction: Dexterity","Auction: English","Auction: Fixed Placement",
   "Auction: Once Around","Auction: Sealed Bid","Auction: Turn Order Until Pass","Auction/Bidding",
-  "Automatic Resource Growth",
-  "Betting and Bluffing","Bias","Bingo","Bribery",
+  "Automatic Resource Growth","Betting and Bluffing","Bias","Bingo","Bribery",
   "Campaign / Battle Card Driven","Card Drafting","Card Play Conflict Resolution","Catch the Leader",
   "Chaining","Chit-Pull System","Closed Economy Auction","Command Cards","Communication Limits",
   "Commodity Speculation","Constrained Bidding","Contracts","Cooperative Game","Crayon Rail System",
-  "Critical Hits and Failures","Cube Tower",
-  "Deck Construction","Deck, Bag, and Pool Building","Deduction","Delayed Purchase",
-  "Die Icon Resolution","Different Dice Movement","Dice Rolling","Drafting",
-  "Elapsed Real Time Ending","Enclosure","End Game Bonuses","Events",
-  "Finale Ending","Flicking","Follow","Force Commitment",
-  "Grid Coverage","Grid Movement",
-  "Hand Management","Hexagon Grid","Hidden Movement","Hidden Roles","Hidden Victory Points",
-  "Highest-Lowest Scoring","Hot Potato",
+  "Critical Hits and Failures","Cube Tower","Deck Construction","Deck, Bag, and Pool Building",
+  "Deduction","Delayed Purchase","Die Icon Resolution","Different Dice Movement","Dice Rolling","Drafting",
+  "Elapsed Real Time Ending","Enclosure","End Game Bonuses","Events","Finale Ending","Flicking",
+  "Follow","Force Commitment","Grid Coverage","Grid Movement","Hand Management","Hexagon Grid",
+  "Hidden Movement","Hidden Roles","Hidden Victory Points","Highest-Lowest Scoring","Hot Potato",
   "I Cut, You Choose","Impulse Movement","Income","Increase Value of Unchosen Resources",
-  "Induction","Interrupts","Investment",
-  "Kill Steal","King of the Hill",
-  "Ladder Climbing","Layering","Legacy Game","Line Drawing","Line of Sight","Loans","Lose a Turn",
-  "Mancala","Map Addition","Map Deformation","Map Reduction","Market","Matching",
-  "Measurement Movement","Melding and Splaying","Memory","Minimap Resolution","Modular Board",
-  "Move Through Deck","Movement Points","Movement Template","Moving Multiple Units","Multiple Maps",
-  "Multiple-Lot Auction",
-  "Narrative Choice / Paragraph","Negotiation","Network and Route Building",
-  "Once-Per-Game Abilities","Order Counters","Ownership",
-  "Paper-and-Pencil","Passed Action Token","Pattern Building","Pattern Movement","Pattern Recognition",
-  "Pick-up and Deliver","Physical Removal","Pieces as Map","Player Elimination","Player Judge",
-  "Point to Point Movement","Predictive Bid","Prisoner's Dilemma","Programmed Movement","Push Your Luck",
-  "Race","Random Production","Real-Time","Re-rolling and Locking","Relative Movement",
-  "Resource to Move","Rock-Paper-Scissors","Role Playing","Roles with Asymmetric Information",
-  "Roll / Spin and Move","Rondel","Ratio / Combat Results Table",
+  "Induction","Interrupts","Investment","Kill Steal","King of the Hill","Ladder Climbing","Layering",
+  "Legacy Game","Line Drawing","Line of Sight","Loans","Lose a Turn","Mancala","Map Addition",
+  "Map Deformation","Map Reduction","Market","Matching","Measurement Movement","Melding and Splaying",
+  "Memory","Minimap Resolution","Modular Board","Move Through Deck","Movement Points",
+  "Movement Template","Moving Multiple Units","Multiple Maps","Multiple-Lot Auction",
+  "Narrative Choice / Paragraph","Negotiation","Network and Route Building","Once-Per-Game Abilities",
+  "Order Counters","Ownership","Paper-and-Pencil","Passed Action Token","Pattern Building",
+  "Pattern Movement","Pattern Recognition","Pick-up and Deliver","Physical Removal","Pieces as Map",
+  "Player Elimination","Player Judge","Point to Point Movement","Predictive Bid","Prisoner's Dilemma",
+  "Programmed Movement","Push Your Luck","Race","Random Production","Real-Time","Re-rolling and Locking",
+  "Relative Movement","Resource to Move","Rock-Paper-Scissors","Role Playing",
+  "Roles with Asymmetric Information","Roll / Spin and Move","Rondel","Ratio / Combat Results Table",
   "Scenario / Mission / Campaign Game","Score-and-Reset Game","Secret Unit Deployment",
   "Selection Order Bid","Semi-Cooperative Game","Set Collection","Simulation","Singing",
   "Simultaneous Action Selection","Single Loser Game","Slide/Push","Solo / Solitaire Game",
   "Speed Matching","Square Grid","Stacking and Balancing","Static Capture","Stat Check Resolution",
-  "Stock Holding","Storytelling","Sudden Death Ending",
-  "Take That","Targeted Clues","Team-Based Game","Tech Trees / Tech Tracks",
-  "Three Dimensional Movement","Tile Placement","Time Track","Track Movement","Trading",
-  "Traitor Game","Trick-taking","Tug of War",
-  "Turn Order: Auction","Turn Order: Claim Action","Turn Order: Pass Order","Turn Order: Progressive",
-  "Turn Order: Random","Turn Order: Role Order","Turn Order: Stat-Based",
-  "Variable Phase Order","Variable Player Powers","Variable Setup","Victory Points as a Resource","Voting",
-  "Worker Placement","Worker Placement with Dice Workers","Worker Placement, Different Worker Types"
+  "Stock Holding","Storytelling","Sudden Death Ending","Take That","Targeted Clues","Team-Based Game",
+  "Tech Trees / Tech Tracks","Three Dimensional Movement","Tile Placement","Time Track","Track Movement",
+  "Trading","Traitor Game","Trick-taking","Tug of War","Turn Order: Auction","Turn Order: Claim Action",
+  "Turn Order: Pass Order","Turn Order: Progressive","Turn Order: Random","Turn Order: Role Order",
+  "Turn Order: Stat-Based","Variable Phase Order","Variable Player Powers","Variable Setup",
+  "Victory Points as a Resource","Voting","Worker Placement","Worker Placement with Dice Workers",
+  "Worker Placement, Different Worker Types"
 ];
 
-// ── STATE ──
 let mechanics=[],meta={},games=[];
 let mechFilter='all',gamesFilter='all';
 let editingGames=false,editingMechanics=false;
@@ -405,7 +421,7 @@ function mechExists(name,excludeIdx=-1){return mechanics.some((m,i)=>i!==exclude
 // ── PANEL HEIGHTS ──
 function setPanelH(){
   const bottom=document.getElementById('expBox').getBoundingClientRect().bottom;
-  const h=Math.max(320,window.innerHeight-bottom-10);
+  const h=Math.max(370,window.innerHeight-bottom-10+50);
   document.getElementById('spGameInner').style.maxHeight=h+'px';
   document.getElementById('spDetailInner').style.maxHeight=h+'px';
   document.getElementById('spAddMechInner').style.maxHeight='300px';
@@ -418,54 +434,23 @@ function closeSP(id){document.getElementById(id).classList.remove('open');if(id=
 function initSP(id){
   const panel=document.getElementById(id);
   const inner=panel.querySelector('.sp-inner');
-  // Backdrop tap
   panel.addEventListener('click',e=>{if(e.target===panel)closeSP(id);});
-  // Swipe
-  let sy=0,cy=0,active=false,pastThreshold=false;
-  inner.addEventListener('touchstart',e=>{
-    sy=e.touches[0].clientY;cy=sy;active=true;pastThreshold=false;
-  },{passive:true});
+  let sy=0,cy=0,active=false;
+  inner.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;cy=sy;active=true;},{passive:true});
   inner.addEventListener('touchmove',e=>{
     if(!active)return;
     cy=e.touches[0].clientY;
     const dy=cy-sy;
-    const threshold=inner.offsetHeight*0.25;
-    if(!pastThreshold&&dy>threshold){pastThreshold=true;}
-    if(pastThreshold&&dy>0){
-      inner.style.transition='none';
-      inner.style.transform=`translateY(${dy}px)`;
-    }
+    if(dy>0){inner.style.transition='none';inner.style.transform=`translateY(${dy}px)`;}
   },{passive:true});
   inner.addEventListener('touchend',()=>{
     active=false;
     inner.style.transition='';
-    if(pastThreshold){inner.style.transform='';closeSP(id);}
+    if(cy-sy>inner.offsetHeight*.25){inner.style.transform='';closeSP(id);}
     else inner.style.transform='';
-    pastThreshold=false;
   });
 }
 ['spGame','spDetail','spAddMech'].forEach(initSP);
-
-// ── PREVENT KEYBOARD SCROLL ON ADD GAME PANEL ──
-// Lock the spGame panel position when keyboard appears
-const spGameInner=document.getElementById('spGameInner');
-let spGameBottom=0;
-document.getElementById('spGame').addEventListener('focusin',e=>{
-  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){
-    // Store current bottom and lock position
-    spGameBottom=spGameInner.getBoundingClientRect().bottom;
-    spGameInner.style.position='absolute';
-    spGameInner.style.bottom='0';
-    spGameInner.style.left='50%';
-    spGameInner.style.transform='translateX(-50%)';
-  }
-});
-document.getElementById('spGame').addEventListener('focusout',()=>{
-  spGameInner.style.position='';
-  spGameInner.style.bottom='';
-  spGameInner.style.left='';
-  spGameInner.style.transform='';
-});
 
 // ── EXP ──
 function updateExp(){
@@ -495,7 +480,7 @@ function drawTicks(){
   }
 }
 
-// ── GAMES HDR ──
+// ── GAMES ──
 function renderGamesHdr(){
   const el=document.getElementById('gameHdrBtns');el.innerHTML='';
   if(editingGames){
@@ -507,8 +492,6 @@ function renderGamesHdr(){
 function startEditGames(){gamesSnap=JSON.parse(JSON.stringify(games));editingGames=true;renderGamesHdr();renderGames();}
 function cancelEditGames(){games=JSON.parse(JSON.stringify(gamesSnap));editingGames=false;renderGamesHdr();renderGames();renderMechs();updateExp();saveAll();}
 function doneEditGames(){editingGames=false;renderGamesHdr();renderGames();saveAll();}
-
-// ── GAMES FILTER ──
 function renderGamesFilter(){
   const el=document.getElementById('gamesFilterRow');el.innerHTML='';
   if(!games.length)return;
@@ -518,8 +501,6 @@ function renderGamesFilter(){
   });
   el.append(row);
 }
-
-// ── GAMES LIST ──
 function renderGames(){
   renderGamesFilter();
   const el=document.getElementById('gamesList');el.innerHTML='';
@@ -606,32 +587,22 @@ function removeChip(m){
 }
 function getCurrentFilter(){
   const val=document.getElementById('mechPaste').value;
-  const lines=val.split('\n');
-  return lines.length>1?'':(val.trim().toLowerCase());
+  return val.split('\n').length>1?'':(val.trim().toLowerCase());
 }
 function onPasteInput(){
   const val=document.getElementById('mechPaste').value;
   const lines=val.split('\n');
   const ml=mechanics.map(m=>m.toLowerCase());
   if(lines.length>1){
-    lines.forEach(line=>{
-      const t=line.trim();if(!t)return;
-      const idx=ml.indexOf(t.toLowerCase());
-      if(idx!==-1){selMechs.add(mechanics[idx]);pastedMechs.add(mechanics[idx]);}
-    });
-    updatePasteHighlight();
-    renderChips();
-    const list=document.getElementById('mechSelList');
-    const st=list.scrollTop;
-    renderMechSelList('');
-    list.scrollTop=st;
+    lines.forEach(line=>{const t=line.trim();if(!t)return;const idx=ml.indexOf(t.toLowerCase());if(idx!==-1){selMechs.add(mechanics[idx]);pastedMechs.add(mechanics[idx]);}});
+    updatePasteHighlight();renderChips();
+    const list=document.getElementById('mechSelList');const st=list.scrollTop;
+    renderMechSelList('');list.scrollTop=st;
   } else {
     document.getElementById('pasteHl').innerHTML='';
     if(!val.trim())pastedMechs=new Set();
-    const list=document.getElementById('mechSelList');
-    const st=list.scrollTop;
-    renderMechSelList(val.trim().toLowerCase());
-    list.scrollTop=st;
+    const list=document.getElementById('mechSelList');const st=list.scrollTop;
+    renderMechSelList(val.trim().toLowerCase());list.scrollTop=st;
   }
 }
 function updatePasteHighlight(){
@@ -652,12 +623,9 @@ function renderMechSelList(filter){
     row.innerHTML=`<div class="mech-sel-chk ${selMechs.has(m)?'on':''}"></div><span class="mech-sel-name">${esc(m)}</span>`;
     row.addEventListener('click',()=>{
       if(pastedMechs.has(m)){removeChip(m);return;}
-      if(selMechs.has(m))selMechs.delete(m);
-      else selMechs.add(m);
+      if(selMechs.has(m))selMechs.delete(m);else selMechs.add(m);
       renderChips();
-      const st=list.scrollTop;
-      renderMechSelList(getCurrentFilter());
-      list.scrollTop=st;
+      const st=list.scrollTop;renderMechSelList(getCurrentFilter());list.scrollTop=st;
     });
     list.append(row);
   });
@@ -733,10 +701,8 @@ function renderMechs(){
       });
       row.append(chk);
       if(isRen){
-        const wrap=document.createElement('div');
-        wrap.style.cssText='flex:1;min-width:0;display:flex;flex-direction:column;';
-        const inp=document.createElement('input');
-        inp.className='mech-edit-inp';inp.value=m;inp.id='renInp_'+idx;
+        const wrap=document.createElement('div');wrap.style.cssText='flex:1;min-width:0;display:flex;flex-direction:column;';
+        const inp=document.createElement('input');inp.className='mech-edit-inp';inp.value=m;inp.id='renInp_'+idx;
         const errMsg=document.createElement('div');errMsg.className='rename-err';errMsg.textContent='Mechanic Already Exists';
         wrap.append(inp,errMsg);
         const doneBtn=mkBtn('Done','btn sm',()=>{
@@ -757,7 +723,6 @@ function renderMechs(){
           doneBtn.disabled=exists||!nv;
         });
         row.append(wrap,doneBtn,cancelBtn);
-        // Focus immediately without setTimeout so keyboard appears
         requestAnimationFrame(()=>{inp.focus();inp.select();});
       } else {
         const nm=document.createElement('span');nm.className='mech-edit-name';nm.textContent=m;
@@ -815,20 +780,25 @@ function generateIcon(){
   const size=180;
   const c=document.createElement('canvas');c.width=size;c.height=size;
   const ctx=c.getContext('2d');
-  // Dark background matching EXP container
-  ctx.fillStyle='#1a1a0e';
+  // Dark background with grey gradient at bottom
+  const grad=ctx.createLinearGradient(0,0,0,size);
+  grad.addColorStop(0,'#1a1a0e');
+  grad.addColorStop(0.65,'#1a1a0e');
+  grad.addColorStop(1,'#4a4a4a');
   const r=24;
   ctx.beginPath();
   ctx.moveTo(r,0);ctx.lineTo(size-r,0);ctx.arcTo(size,0,size,r,r);
   ctx.lineTo(size,size-r);ctx.arcTo(size,size,size-r,size,r);
   ctx.lineTo(r,size);ctx.arcTo(0,size,0,size-r,r);
   ctx.lineTo(0,r);ctx.arcTo(0,0,r,0,r);
-  ctx.closePath();ctx.fill();
-  // Subtle grain
-  ctx.strokeStyle='rgba(200,212,32,0.08)';ctx.lineWidth=1.5;
+  ctx.closePath();
+  ctx.fillStyle=grad;ctx.fill();
+  // Subtle grain lines
+  ctx.strokeStyle='rgba(200,212,32,0.07)';ctx.lineWidth=1.5;
   for(let i=0;i<size;i+=12){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(size,i+6);ctx.stroke();}
-  // D letter — cream
-  ctx.font='bold '+(size*.65)+'px Cinzel,Georgia,serif';
+  // D letter centred
+  const fontSize=size*.65;
+  ctx.font=`bold ${fontSize}px Cinzel,Georgia,serif`;
   ctx.textAlign='center';ctx.textBaseline='middle';
   ctx.fillStyle='rgba(0,0,0,0.3)';
   ctx.fillText('D',size/2+2,size/2+3);
@@ -841,7 +811,6 @@ function generateIcon(){
   document.head.appendChild(link);
 }
 
-// ── MAKE BUTTON ──
 function mkBtn(label,cls,fn){const b=document.createElement('button');b.className=cls;b.textContent=label;b.addEventListener('click',fn);return b;}
 
 // ── WIRE BUTTONS ──

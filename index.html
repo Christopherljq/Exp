@@ -16,40 +16,115 @@
   --wood-dark:#2a1005;--wood-mid:#5a2e0e;--wood-light:#8b4513;
   --wood-text:#fff5e0;--wood-shadow:#1a0803;
   --parch:#e8dcc0;--parch-dark:#c4b090;
-  --safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px);
-  --safe-left:env(safe-area-inset-left,0px);--safe-right:env(safe-area-inset-right,0px);
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bot:env(safe-area-inset-bottom,0px);
+  --safe-left:env(safe-area-inset-left,0px);
+  --safe-right:env(safe-area-inset-right,0px);
   --max-w:700px;
+  --btn-h:34px;
+  --base-font:16px;
 }
-html,body{height:100%;overflow:hidden;font-family:'Crimson Text',Georgia,serif;}
+
+html,body{
+  height:100%;width:100%;
+  overflow:hidden;
+  font-family:'Crimson Text',Georgia,serif;
+  font-size:var(--base-font);
+  background:#0a2010;
+}
 
 /* ── BACKGROUND ── */
-.bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 25% 60%,rgba(20,80,20,0.95) 0%,transparent 45%),radial-gradient(ellipse at 10% 80%,rgba(10,50,10,0.9) 0%,transparent 35%),radial-gradient(ellipse at 60% 20%,rgba(80,160,200,0.5) 0%,transparent 55%),radial-gradient(ellipse at 90% 10%,rgba(60,120,160,0.4) 0%,transparent 40%),linear-gradient(160deg,#0a2010 0%,#1a3a20 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);}
+.bg{
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  z-index:0;
+  background:
+    radial-gradient(ellipse at 25% 60%,rgba(20,80,20,0.95) 0%,transparent 45%),
+    radial-gradient(ellipse at 10% 80%,rgba(10,50,10,0.9) 0%,transparent 35%),
+    radial-gradient(ellipse at 60% 20%,rgba(80,160,200,0.5) 0%,transparent 55%),
+    radial-gradient(ellipse at 90% 10%,rgba(60,120,160,0.4) 0%,transparent 40%),
+    linear-gradient(160deg,#0a2010 0%,#1a3a20 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
+  background-size:100% 100%;
+  background-attachment:fixed;
+}
 
 /* ── LIGHT RAYS ── */
-.light-rays{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
+.light-rays{position:fixed;top:0;left:0;right:0;bottom:0;z-index:1;pointer-events:none;overflow:hidden;}
 .ray{position:absolute;top:-5%;transform-origin:top center;filter:blur(6px);}
 .ray:nth-child(1){left:35%;width:80px;height:120%;transform:rotate(-8deg);background:linear-gradient(180deg,transparent,rgba(255,255,200,0.18),transparent);}
 .ray:nth-child(2){left:50%;width:50px;height:110%;transform:rotate(2deg);background:linear-gradient(180deg,transparent,rgba(200,240,255,0.14),transparent);}
 .ray:nth-child(3){left:62%;width:100px;height:130%;transform:rotate(10deg);background:linear-gradient(180deg,transparent,rgba(255,240,180,0.16),transparent);}
 .ray:nth-child(4){left:72%;width:40px;height:100%;transform:rotate(18deg);background:linear-gradient(180deg,transparent,rgba(180,220,255,0.12),transparent);}
 
-/* ── TREE TRUNK (pastel yellow-brown) ── */
-.tree-trunk{position:fixed;left:-30px;top:0;bottom:0;width:220px;z-index:2;pointer-events:none;background:repeating-linear-gradient(175deg,rgba(200,170,80,0.85) 0px,rgba(200,170,80,0.85) 8px,rgba(220,190,110,0.8) 8px,rgba(220,190,110,0.8) 18px,rgba(190,160,70,0.85) 18px,rgba(190,160,70,0.85) 28px,rgba(210,180,95,0.82) 28px,rgba(210,180,95,0.82) 40px);clip-path:polygon(0 0,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 100%);filter:drop-shadow(8px 0 16px rgba(0,0,0,0.3));}
+/* ── TREE TRUNK ── */
+.tree-trunk{
+  position:fixed;left:-30px;top:0;bottom:0;width:220px;z-index:2;pointer-events:none;
+  background:repeating-linear-gradient(175deg,
+    rgba(200,170,80,0.85) 0px,rgba(200,170,80,0.85) 8px,
+    rgba(220,190,110,0.8) 8px,rgba(220,190,110,0.8) 18px,
+    rgba(190,160,70,0.85) 18px,rgba(190,160,70,0.85) 28px,
+    rgba(210,180,95,0.82) 28px,rgba(210,180,95,0.82) 40px);
+  clip-path:polygon(0 0,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 100%);
+  filter:drop-shadow(8px 0 16px rgba(0,0,0,0.3));
+}
 .tree-trunk::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(255,230,140,0.3) 0%,transparent 50%),radial-gradient(ellipse at 20% 70%,rgba(180,220,80,0.2) 0%,transparent 40%);}
 
 /* ── MUSHROOMS ── */
-.mushrooms{position:fixed;bottom:60px;left:20px;z-index:3;pointer-events:none;width:130px;height:160px;}
+.mushrooms{position:fixed;bottom:calc(var(--safe-bot) + 50px);left:20px;z-index:3;pointer-events:none;width:130px;height:160px;}
 
 /* ── MAIN APP ── */
-.app{position:fixed;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;padding:calc(var(--safe-top) + 16px) calc(var(--safe-right) + 16px) calc(var(--safe-bot) + 16px) calc(var(--safe-left) + 16px);overflow:hidden;}
-.app-inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;}
+.app{
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  z-index:6;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:
+    calc(var(--safe-top) + 16px)
+    calc(var(--safe-right) + 16px)
+    calc(var(--safe-bot) + 16px)
+    calc(var(--safe-left) + 16px);
+  overflow:hidden;
+}
+.app-inner{
+  width:100%;
+  max-width:var(--max-w);
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  min-height:0;
+  overflow:hidden;
+}
 
 /* ── EXP CONTAINER ── */
-.exp-container{flex-shrink:0;margin-bottom:12px;background:#1a1a0e;border:2px solid #0a0a00;border-radius:8px;padding:10px 12px 12px;box-shadow:inset 0 2px 8px rgba(0,0,0,0.8),0 2px 8px rgba(0,0,0,0.4);}
-.app-title{text-align:center;font-family:'Cinzel',serif;font-size:1.4rem;font-weight:900;letter-spacing:2px;color:#f0e8d0;text-shadow:1px 1px 3px rgba(0,0,0,0.8);margin-bottom:8px;}
-.exp-label-text{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;color:#e8e8d0;text-shadow:0 0 6px rgba(200,220,100,0.5),1px 1px 0 #000;margin-bottom:6px;letter-spacing:.5px;display:block;}
-.exp-label-text .exp-word{color:#fff;font-size:1em;text-shadow:0 0 8px rgba(255,255,200,0.8),1px 1px 0 #000;}
-.exp-bar-outer{position:relative;width:100%;height:0;padding-bottom:4.8%;border-radius:50px;border:2px solid #0a0a00;overflow:hidden;box-shadow:inset 0 3px 8px rgba(0,0,0,0.7);}
+.exp-container{
+  flex-shrink:0;margin-bottom:12px;
+  background:#1a1a0e;
+  border:2px solid #0a0a00;border-radius:8px;
+  padding:10px 14px 12px;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,0.8),0 2px 8px rgba(0,0,0,0.4);
+}
+.app-title{
+  text-align:center;font-family:'Cinzel',serif;
+  font-size:1.5rem;font-weight:900;letter-spacing:2px;
+  color:#f0e8d0;
+  text-shadow:1px 1px 3px rgba(0,0,0,0.8);
+  margin-bottom:8px;
+}
+.exp-label-text{
+  font-family:'Cinzel',serif;
+  font-size:1rem;font-weight:700;
+  color:#e8e8d0;
+  text-shadow:0 0 6px rgba(200,220,100,0.5),1px 1px 0 #000;
+  margin-bottom:7px;letter-spacing:.5px;display:block;
+}
+.exp-label-text .exp-word{color:#fff;text-shadow:0 0 8px rgba(255,255,200,0.8),1px 1px 0 #000;}
+.exp-bar-outer{
+  position:relative;width:100%;height:0;padding-bottom:4.8%;
+  border-radius:50px;border:2px solid #0a0a00;overflow:hidden;
+  box-shadow:inset 0 3px 8px rgba(0,0,0,0.7);
+}
 .exp-bar-inner{position:absolute;inset:0;display:flex;border-radius:50px;overflow:hidden;}
 .exp-bar-fill{height:100%;flex-shrink:0;background:linear-gradient(180deg,#f0ff60 0%,#d4e820 35%,#a0b800 65%,#c8d820 100%);box-shadow:inset 0 2px 0 rgba(255,255,180,0.6);position:relative;transition:width .6s cubic-bezier(.4,0,.2,1);}
 .exp-bar-fill::after{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,220,0.55),transparent);border-radius:50px 50px 0 0;}
@@ -58,109 +133,239 @@ html,body{height:100%;overflow:hidden;font-family:'Crimson Text',Georgia,serif;}
 .exp-ticks{position:absolute;inset:0;z-index:2;pointer-events:none;width:100%;height:100%;}
 
 /* ── WOOD PANEL ── */
-.wood-panel{position:relative;margin-bottom:12px;border-radius:7px;border:3px solid var(--wood-shadow);overflow:hidden;flex-shrink:0;background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,0.05) 20px,rgba(0,0,0,0.05) 22px),linear-gradient(175deg,#d49050 0%,#8b4513 25%,#5a2e0e 60%,#2a1005 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),inset 0 -2px 0 rgba(0,0,0,0.5),0 4px 16px rgba(0,0,0,0.5);}
-.wood-panel::before{content:'';position:absolute;inset:2px;border-radius:4px;border-top:1px solid rgba(255,255,255,0.15);pointer-events:none;}
-.panel-header{display:flex;align-items:center;justify-content:space-between;padding:9px 12px 8px;border-bottom:2px solid var(--wood-shadow);position:relative;z-index:1;}
-.panel-title{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;color:var(--wood-text);text-shadow:1px 1px 2px var(--wood-shadow);letter-spacing:.5px;}
-.panel-body{padding:9px 12px;position:relative;z-index:1;}
-.wood-panel.mechanics-panel{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;margin-bottom:0;}
-.mechanics-panel .panel-body{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;}
-.mechanics-scroll{flex:1;min-height:calc(5*40px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.wood-panel{
+  position:relative;margin-bottom:12px;border-radius:7px;
+  border:3px solid var(--wood-shadow);overflow:hidden;flex-shrink:0;
+  background:
+    repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,0.05) 20px,rgba(0,0,0,0.05) 22px),
+    linear-gradient(175deg,#d49050 0%,#8b4513 25%,#5a2e0e 60%,#2a1005 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),inset 0 -2px 0 rgba(0,0,0,0.5),0 4px 16px rgba(0,0,0,0.5);
+}
+.wood-panel::before{content:'';position:absolute;inset:2px;border-radius:4px;border-top:1px solid rgba(255,255,255,0.15);pointer-events:none;z-index:0;}
+.panel-header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:2px solid var(--wood-shadow);position:relative;z-index:1;}
+.panel-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--wood-text);text-shadow:1px 1px 2px var(--wood-shadow);letter-spacing:.5px;}
+.panel-body{padding:10px 12px;position:relative;z-index:1;}
 
-/* ── WOOD BUTTON ── */
-.wood-btn{background:linear-gradient(180deg,#d4904a 0%,#8b4513 55%,#4a2008 100%);border:2px solid var(--wood-shadow);border-radius:5px;color:var(--wood-text);font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;padding:5px 11px;cursor:pointer;text-shadow:1px 1px 1px var(--wood-shadow);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 2px 5px rgba(0,0,0,0.35);letter-spacing:.3px;white-space:nowrap;-webkit-appearance:none;touch-action:manipulation;}
-.wood-btn.small{font-size:.68rem;padding:4px 9px;}
+/* ── MECHANICS PANEL fills remaining space ── */
+.wood-panel.mechanics-panel{
+  display:flex;flex-direction:column;
+  flex:1;min-height:0;
+  overflow:hidden;
+  margin-bottom:0;
+}
+.mechanics-panel .panel-body{
+  flex:1;min-height:0;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  padding-bottom:0;
+}
+.mechanics-scroll{
+  flex:1;
+  min-height:calc(5 * 44px);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* ── BUTTONS ── */
+.wood-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:var(--btn-h);
+  background:linear-gradient(180deg,#d4904a 0%,#8b4513 55%,#4a2008 100%);
+  border:2px solid var(--wood-shadow);border-radius:5px;
+  color:var(--wood-text);font-family:'Cinzel',serif;
+  font-size:.82rem;font-weight:700;
+  padding:0 12px;cursor:pointer;
+  text-shadow:1px 1px 1px var(--wood-shadow);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 2px 5px rgba(0,0,0,0.35);
+  letter-spacing:.3px;white-space:nowrap;
+  -webkit-appearance:none;touch-action:manipulation;
+  user-select:none;-webkit-user-select:none;
+}
+.wood-btn.small{font-size:.76rem;padding:0 10px;}
 .wood-btn.danger{background:linear-gradient(180deg,#b03828 0%,#6b1f10 100%);border-color:#2a0800;}
 .wood-btn.blue{background:linear-gradient(180deg,#4a80d4 0%,#1a4a8b 55%,#0a2850 100%);border-color:#0a1a3a;}
-.wood-btn.cancel-btn{background:linear-gradient(180deg,#707070 0%,#404040 55%,#202020 100%);border-color:#101010;}
 
 /* ── HEART ── */
-.heart-btn{background:none;border:none;cursor:pointer;font-size:1.1rem;line-height:1;padding:4px 5px;color:#aaa;flex-shrink:0;touch-action:manipulation;-webkit-appearance:none;}
+.heart-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:var(--btn-h);width:var(--btn-h);
+  background:none;border:none;cursor:pointer;
+  font-size:1.25rem;line-height:1;
+  color:#aaa;flex-shrink:0;
+  touch-action:manipulation;-webkit-appearance:none;
+  user-select:none;-webkit-user-select:none;
+}
 .heart-btn.liked{color:#e83030;}
 
 /* ── GAME ROW ── */
-.game-row{display:flex;align-items:center;padding:8px 10px;margin-bottom:5px;border-radius:5px;border:1px solid rgba(255,200,80,0.12);background:rgba(0,0,0,0.22);}
-.game-row-info{flex:1;cursor:pointer;touch-action:manipulation;}
-.game-name{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wood-text);text-shadow:1px 1px 1px var(--wood-shadow);}
-.game-date{font-size:.74rem;color:var(--parch-dark);margin-top:2px;}
+.game-row{display:flex;align-items:center;padding:9px 10px;margin-bottom:5px;border-radius:5px;border:1px solid rgba(255,200,80,0.12);background:rgba(0,0,0,0.22);}
+.game-row-info{flex:1;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;}
+.game-name{font-family:'Cinzel',serif;font-size:1rem;color:var(--wood-text);text-shadow:1px 1px 1px var(--wood-shadow);}
+.game-date{font-size:.85rem;color:var(--parch-dark);margin-top:2px;}
 .game-row-right{display:flex;align-items:center;gap:5px;flex-shrink:0;}
 
 /* ── FILTER ROW ── */
-.filter-row{display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap;flex-shrink:0;}
+.filter-row{display:flex;gap:5px;margin-bottom:9px;flex-wrap:wrap;flex-shrink:0;}
 
 /* ── SEARCH FIELD ── */
-.search-field{width:100%;background:rgba(0,0,0,0.35);border:2px solid var(--wood-shadow);border-radius:4px;color:var(--wood-text);font-family:'Crimson Text',serif;font-size:.9rem;padding:7px 10px;outline:none;margin-bottom:8px;-webkit-appearance:none;flex-shrink:0;}
+.search-field{
+  width:100%;
+  background:rgba(0,0,0,0.35);border:2px solid var(--wood-shadow);border-radius:4px;
+  color:var(--wood-text);font-family:'Crimson Text',serif;font-size:16px;
+  padding:9px 12px;outline:none;margin-bottom:9px;
+  -webkit-appearance:none;flex-shrink:0;
+  touch-action:manipulation;
+}
 .search-field:focus{border-color:#c4844a;}
 .search-field::placeholder{color:var(--parch-dark);opacity:.6;}
 
 /* ── MECHANIC ROW ── */
-.mechanic-row{display:flex;align-items:center;padding:7px 10px;margin-bottom:4px;border-radius:5px;border:1px solid rgba(255,200,80,0.07);min-height:36px;background:rgba(0,0,0,0.18);}
+.mechanic-row{
+  display:flex;align-items:center;padding:9px 10px;margin-bottom:4px;
+  border-radius:5px;border:1px solid rgba(255,200,80,0.07);
+  min-height:44px;background:rgba(0,0,0,0.18);
+}
 .mechanic-row.ticked{background:rgba(200,212,32,0.18);border-color:rgba(180,200,0,0.2);}
-.mechanic-name{font-size:.86rem;color:var(--wood-text);flex:1;}
+.mechanic-name{font-size:1rem;color:var(--wood-text);flex:1;}
 .mechanic-row.ticked .mechanic-name{color:#e8f080;font-weight:600;}
-/* Edit mode mechanic row */
-.mechanic-row-edit{display:flex;align-items:center;gap:6px;padding:6px 8px;margin-bottom:4px;border-radius:5px;border:1px solid rgba(255,200,80,0.07);min-height:38px;background:rgba(0,0,0,0.18);}
-.edit-mech-check{width:18px;height:18px;border-radius:3px;flex-shrink:0;border:2px solid var(--wood-light);background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;}
+
+/* Edit mechanic row */
+.mechanic-row-edit{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 8px;margin-bottom:4px;
+  border-radius:5px;border:1px solid rgba(255,200,80,0.07);
+  min-height:44px;background:rgba(0,0,0,0.18);
+}
+.edit-mech-check{
+  width:22px;height:22px;border-radius:3px;flex-shrink:0;
+  border:2px solid var(--wood-light);background:rgba(0,0,0,0.3);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;touch-action:manipulation;
+  user-select:none;-webkit-user-select:none;
+}
 .edit-mech-check.checked{background:linear-gradient(135deg,#1a6a10,#2a9a20);border-color:#4ac830;}
-.edit-mech-check.checked::after{content:'✓';color:#a0ff80;font-size:11px;}
-.edit-mech-name{font-size:.84rem;color:var(--wood-text);flex:1;}
-.edit-mech-input{flex:1;background:rgba(0,0,0,0.35);border:1.5px solid #c4844a;border-radius:3px;color:var(--wood-text);font-family:'Crimson Text',serif;font-size:.84rem;padding:4px 7px;outline:none;}
+.edit-mech-check.checked::after{content:'✓';color:#a0ff80;font-size:13px;}
+.edit-mech-name{font-size:1rem;color:var(--wood-text);flex:1;}
+.edit-mech-input{
+  flex:1;background:rgba(0,0,0,0.35);
+  border:1.5px solid #c4844a;border-radius:3px;
+  color:var(--wood-text);font-family:'Crimson Text',serif;
+  font-size:16px;padding:5px 8px;outline:none;
+  -webkit-appearance:none;
+}
 
 /* ── INPUTS ── */
-.wood-input{width:100%;background:rgba(0,0,0,0.38);border:2px solid var(--wood-shadow);border-radius:4px;color:var(--wood-text);font-family:'Crimson Text',serif;font-size:.93rem;padding:8px 10px;outline:none;box-shadow:inset 0 2px 5px rgba(0,0,0,0.4);margin-bottom:10px;-webkit-appearance:none;text-align:left;}
+.wood-input{
+  width:100%;background:rgba(0,0,0,0.38);
+  border:2px solid var(--wood-shadow);border-radius:4px;
+  color:var(--wood-text);font-family:'Crimson Text',serif;
+  font-size:16px;padding:9px 12px;outline:none;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,0.4);
+  margin-bottom:10px;-webkit-appearance:none;text-align:left;
+  touch-action:manipulation;
+}
 .wood-input:focus{border-color:#c4844a;}
 .wood-input::placeholder{color:var(--parch-dark);opacity:.6;}
 input[type="date"].wood-input{color:var(--wood-text);}
 input[type="date"].wood-input::-webkit-date-and-time-value{text-align:left;}
-textarea.wood-input{resize:none;min-height:58px;}
-.input-label{font-family:'Cinzel',serif;font-size:.72rem;color:var(--parch-dark);margin-bottom:4px;display:block;letter-spacing:.3px;}
+textarea.wood-input{resize:none;min-height:62px;}
+.input-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--parch-dark);margin-bottom:5px;display:block;letter-spacing:.3px;}
 
 /* ── SELECTED MECHANICS GRID ── */
-.selected-mechanics-grid{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
-.selected-mechanic-btn{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,#c8d420,#a0b000);border:1.5px solid #6a8000;border-radius:4px;padding:4px 6px 4px 9px;font-family:'Crimson Text',serif;font-size:.78rem;color:#1a1a00;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.3);}
-.remove-cross{color:#cc0000;font-size:.95rem;font-weight:900;line-height:1;cursor:pointer;flex-shrink:0;padding:2px 3px;touch-action:manipulation;}
+.selected-mechanics-grid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px;}
+.selected-mechanic-btn{
+  display:flex;align-items:center;gap:4px;
+  background:linear-gradient(135deg,#c8d420,#a0b000);
+  border:1.5px solid #6a8000;border-radius:4px;
+  padding:5px 7px 5px 10px;
+  font-family:'Crimson Text',serif;font-size:.9rem;color:#1a1a00;font-weight:600;
+  box-shadow:0 1px 3px rgba(0,0,0,0.3);
+}
+.remove-cross{
+  color:#cc0000;font-size:1rem;font-weight:900;line-height:1;
+  cursor:pointer;flex-shrink:0;padding:2px 4px;
+  touch-action:manipulation;
+  user-select:none;-webkit-user-select:none;
+}
 
 /* ── PASTE AREA ── */
-.paste-area-wrap{position:relative;margin-bottom:8px;}
+.paste-area-wrap{position:relative;margin-bottom:9px;}
 .paste-area-wrap textarea.wood-input{margin-bottom:0;}
-.paste-highlight-overlay{position:absolute;inset:0;padding:8px 10px;font-family:'Crimson Text',serif;font-size:.93rem;line-height:1.5;pointer-events:none;z-index:2;overflow:hidden;white-space:pre-wrap;word-break:break-word;border-radius:4px;border:2px solid transparent;color:transparent;}
+.paste-highlight-overlay{
+  position:absolute;inset:0;padding:9px 12px;
+  font-family:'Crimson Text',serif;font-size:16px;line-height:1.5;
+  pointer-events:none;z-index:2;overflow:hidden;
+  white-space:pre-wrap;word-break:break-word;
+  border-radius:4px;border:2px solid transparent;color:transparent;
+}
 .paste-highlight-overlay .bad-line{background:rgba(255,50,50,0.25);color:#ff6666;border-radius:2px;}
 
 /* ── MECHANIC SELECT LIST ── */
-.mechanic-select-list{overflow-y:auto;-webkit-overflow-scrolling:touch;border:2px solid var(--wood-shadow);border-radius:4px;background:rgba(0,0,0,0.28);min-height:120px;max-height:180px;}
-.mechanic-select-row{display:flex;align-items:center;gap:8px;padding:9px 10px;border-bottom:1px solid rgba(255,255,255,0.05);min-height:38px;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;}
+.mechanic-select-list{
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  border:2px solid var(--wood-shadow);border-radius:4px;
+  background:rgba(0,0,0,0.28);
+  min-height:120px;max-height:200px;
+}
+.mechanic-select-row{
+  display:flex;align-items:center;gap:9px;
+  padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.05);
+  min-height:44px;
+  user-select:none;-webkit-user-select:none;
+  touch-action:manipulation;
+}
 .mechanic-select-row:last-child{border-bottom:none;}
-.mechanic-select-check{width:20px;height:20px;border-radius:3px;flex-shrink:0;border:2px solid var(--wood-light);background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;pointer-events:none;}
+.mechanic-select-check{
+  width:22px;height:22px;border-radius:3px;flex-shrink:0;
+  border:2px solid var(--wood-light);background:rgba(0,0,0,0.3);
+  display:flex;align-items:center;justify-content:center;pointer-events:none;
+}
 .mechanic-select-check.selected{background:linear-gradient(135deg,#1a6a10,#2a9a20);border-color:#4ac830;}
-.mechanic-select-check.selected::after{content:'✓';color:#a0ff80;font-size:12px;}
-.mechanic-select-name{font-size:.84rem;color:var(--wood-text);pointer-events:none;flex:1;}
+.mechanic-select-check.selected::after{content:'✓';color:#a0ff80;font-size:13px;}
+.mechanic-select-name{font-size:1rem;color:var(--wood-text);pointer-events:none;flex:1;}
 
 /* ── SLIDE PANEL ── */
-.slide-panel{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;background:rgba(0,0,0,0.55);opacity:0;pointer-events:none;transition:opacity .3s;}
-.slide-panel.open{opacity:1;pointer-events:all;}
+.slide-panel{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  z-index:100;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:center;
+  background:rgba(0,0,0,0);
+  pointer-events:none;
+  transition:background .3s;
+}
+.slide-panel.open{
+  background:rgba(0,0,0,0.55);
+  pointer-events:all;
+}
 .slide-panel-inner{
   width:100%;max-width:var(--max-w);
-  background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,0.05) 20px,rgba(0,0,0,0.05) 22px),linear-gradient(175deg,#d49050 0%,#7a3a10 30%,#2a1005 100%);
-  border-top:4px solid var(--wood-shadow);border-radius:18px 18px 0 0;
-  padding:18px 16px calc(var(--safe-bot) + 20px);
+  background:
+    repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,0.05) 20px,rgba(0,0,0,0.05) 22px),
+    linear-gradient(175deg,#d49050 0%,#7a3a10 30%,#2a1005 100%);
+  border-top:4px solid var(--wood-shadow);
+  border-radius:18px 18px 0 0;
+  padding:16px 16px calc(var(--safe-bot) + 20px);
   overflow-y:auto;-webkit-overflow-scrolling:touch;
-  transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);
+  transform:translateY(100%);
+  transition:transform .38s cubic-bezier(.32,1,.56,1);
   box-shadow:0 -10px 40px rgba(0,0,0,0.6);
-  touch-action:pan-y;
+  will-change:transform;
 }
 .slide-panel.open .slide-panel-inner{transform:translateY(0);}
-.slide-panel-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--wood-text);text-shadow:1px 1px 2px var(--wood-shadow);margin-bottom:14px;text-align:center;letter-spacing:.8px;}
-.swipe-handle{width:40px;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;margin:0 auto 14px;cursor:pointer;}
-.form-row{margin-bottom:10px;}
-.btn-row{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;}
-.btn-row-left{display:flex;gap:8px;justify-content:flex-start;margin-top:12px;}
-.btn-row-space{display:flex;gap:8px;justify-content:space-between;margin-top:12px;}
+.swipe-handle{width:44px;height:5px;background:rgba(255,255,255,0.3);border-radius:3px;margin:0 auto 14px;flex-shrink:0;}
+.slide-panel-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--wood-text);text-shadow:1px 1px 2px var(--wood-shadow);margin-bottom:14px;text-align:center;letter-spacing:.8px;}
+.form-row{margin-bottom:11px;}
+.btn-row{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;}
+.btn-row-left{display:flex;gap:8px;justify-content:flex-start;margin-top:14px;}
 
 /* ── DETAIL ── */
-.detail-section-title{font-family:'Cinzel',serif;font-size:.76rem;color:#d4a060;letter-spacing:.5px;margin:10px 0 4px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:3px;}
-.detail-text{font-size:.88rem;color:var(--wood-text);line-height:1.5;}
-.detail-mechanic-tag{display:inline-block;background:rgba(0,0,0,0.28);border:1px solid rgba(255,200,80,0.18);border-radius:3px;padding:3px 8px;font-size:.76rem;color:var(--wood-text);margin:3px 3px 3px 0;}
-.empty-state{text-align:center;color:var(--parch-dark);font-style:italic;font-size:.82rem;padding:10px 0;}
+.detail-section-title{font-family:'Cinzel',serif;font-size:.85rem;color:#d4a060;letter-spacing:.5px;margin:12px 0 5px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:3px;}
+.detail-text{font-size:1rem;color:var(--wood-text);line-height:1.5;}
+.detail-mechanic-tag{display:inline-block;background:rgba(0,0,0,0.28);border:1px solid rgba(255,200,80,0.18);border-radius:3px;padding:4px 9px;font-size:.88rem;color:var(--wood-text);margin:3px 3px 3px 0;}
+.empty-state{text-align:center;color:var(--parch-dark);font-style:italic;font-size:.95rem;padding:12px 0;}
+
+/* ── HEADER BTNS ROW ── */
+.header-btns{display:flex;align-items:center;gap:5px;flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -186,6 +391,7 @@ textarea.wood-input{resize:none;min-height:58px;}
 
 <div class="app">
   <div class="app-inner">
+
     <!-- EXP -->
     <div class="exp-container" id="expContainer">
       <div class="app-title">Designer's EXP</div>
@@ -203,53 +409,57 @@ textarea.wood-input{resize:none;min-height:58px;}
     <div class="wood-panel" id="gamesPanel">
       <div class="panel-header">
         <span class="panel-title">Games Played</span>
-        <div style="display:flex;gap:5px" id="gamesBtns">
-          <button class="wood-btn small" id="editGamesBtn" onclick="toggleEditGames()">Edit</button>
-          <button class="wood-btn small" onclick="openAddGame()">Add</button>
+        <div class="header-btns" id="gamesBtns">
+          <button class="wood-btn small" id="editGamesBtn">Edit</button>
+          <button class="wood-btn small" id="addGameBtn">Add</button>
         </div>
       </div>
-      <div class="panel-body" id="gamesList"><div class="empty-state">No games recorded yet.</div></div>
+      <div class="panel-body" id="gamesBody">
+        <div id="gamesFilterRow" style="display:none">
+          <div class="filter-row">
+            <button class="wood-btn small" id="gfAll">All</button>
+            <button class="wood-btn small" id="gfLiked">Liked</button>
+          </div>
+        </div>
+        <div id="gamesList"><div class="empty-state">No games recorded yet.</div></div>
+      </div>
     </div>
 
     <!-- MECHANICS -->
     <div class="wood-panel mechanics-panel">
       <div class="panel-header">
         <span class="panel-title">Mechanics</span>
-        <div style="display:flex;gap:5px" id="mechBtns">
-          <button class="wood-btn small" id="editMechBtn" onclick="toggleEditMechanics()">Edit</button>
-          <button class="wood-btn small" onclick="openAddMechanic()">Add</button>
+        <div class="header-btns" id="mechBtns">
+          <button class="wood-btn small" id="editMechBtn">Edit</button>
+          <button class="wood-btn small" id="addMechBtn">Add</button>
         </div>
       </div>
       <div class="panel-body">
-        <input class="search-field" id="mechSearch" placeholder="Search mechanics..." oninput="renderMechanics()"/>
+        <input class="search-field" id="mechSearch" placeholder="Search mechanics..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
         <div class="filter-row" id="mechFilterRow">
-          <button class="wood-btn small" id="mfAll" onclick="setMFilter('all')">All</button>
-          <button class="wood-btn small" id="mfPlayed" onclick="setMFilter('played')">Played</button>
-          <button class="wood-btn small" id="mfNotPlayed" onclick="setMFilter('notplayed')">Not Played</button>
-          <button class="wood-btn small" id="mfLiked" onclick="setMFilter('liked')">Liked</button>
+          <button class="wood-btn small" id="mfAll">All</button>
+          <button class="wood-btn small" id="mfPlayed">Played</button>
+          <button class="wood-btn small" id="mfNotPlayed">Not Played</button>
+          <button class="wood-btn small" id="mfLiked">Liked</button>
         </div>
         <div class="mechanics-scroll" id="mechanicsList"></div>
-        <!-- Edit mode global btns -->
-        <div id="mechEditBtns" style="display:none;flex-shrink:0;margin-top:8px;">
-          <div class="btn-row-space">
-            <button class="wood-btn small cancel-btn" onclick="cancelEditMechanics()">Cancel</button>
-            <button class="wood-btn small" onclick="doneEditMechanics()">Done</button>
-          </div>
+        <div id="mechEditGlobalBtns" style="display:none;flex-shrink:0;padding-top:8px;">
+          <!-- shown in edit mode, but buttons are in header -->
         </div>
       </div>
     </div>
+
   </div>
 </div>
 
-<!-- ADD GAME PANEL -->
+<!-- ADD/EDIT GAME PANEL -->
 <div class="slide-panel" id="addGamePanel">
-  <div class="slide-panel-backdrop" onclick="swipeDismiss('addGamePanel','cancel')"></div>
   <div class="slide-panel-inner" id="addGameInner">
-    <div class="swipe-handle" id="addGameHandle"></div>
+    <div class="swipe-handle"></div>
     <div class="slide-panel-title" id="addGameTitle">Add Game</div>
     <div class="form-row">
       <label class="input-label">Game Name</label>
-      <input class="wood-input" id="gameNameInput" type="text" placeholder="Enter game name"/>
+      <input class="wood-input" id="gameNameInput" type="text" placeholder="Enter game name" autocomplete="off"/>
     </div>
     <div class="form-row">
       <label class="input-label">Date Played</label>
@@ -259,14 +469,14 @@ textarea.wood-input{resize:none;min-height:58px;}
       <label class="input-label">Mechanics</label>
       <div class="selected-mechanics-grid" id="selectedMechanicsGrid"></div>
       <div class="paste-area-wrap">
-        <textarea class="wood-input" id="mechanicsSearch" placeholder="Search or paste list (one per line)..." rows="2" oninput="onMechanicsSearch()"></textarea>
+        <textarea class="wood-input" id="mechanicsSearch" placeholder="Search or paste list (one per line)..." rows="2"></textarea>
         <div class="paste-highlight-overlay" id="pasteHighlight" aria-hidden="true"></div>
       </div>
       <div class="mechanic-select-list" id="mechanicsSelectList"></div>
     </div>
     <div class="btn-row">
-      <button class="wood-btn" onclick="closePanel('addGamePanel','cancel')">Cancel</button>
-      <button class="wood-btn" onclick="saveGame()">Save</button>
+      <button class="wood-btn" id="addGameCancelBtn">Cancel</button>
+      <button class="wood-btn" id="addGameSaveBtn">Save</button>
     </div>
   </div>
 </div>
@@ -277,13 +487,15 @@ textarea.wood-input{resize:none;min-height:58px;}
     <div class="swipe-handle"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <div class="slide-panel-title" id="detailTitle" style="margin-bottom:0;flex:1;text-align:left;"></div>
-      <button class="heart-btn" id="detailHeart" onclick="toggleDetailLike()">♡</button>
+      <button class="heart-btn" id="detailHeart">♡</button>
     </div>
     <div class="detail-section-title">Date Played</div>
     <div class="detail-text" id="detailDate"></div>
     <div class="detail-section-title">Mechanics</div>
     <div id="detailMechanics"></div>
-    <div class="btn-row-left"><button class="wood-btn" onclick="closePanel('gameDetailPanel','back')">Back</button></div>
+    <div class="btn-row-left">
+      <button class="wood-btn" id="detailBackBtn">Back</button>
+    </div>
   </div>
 </div>
 
@@ -294,19 +506,20 @@ textarea.wood-input{resize:none;min-height:58px;}
     <div class="slide-panel-title">Add Mechanic</div>
     <div class="form-row">
       <label class="input-label">Mechanic Name</label>
-      <input class="wood-input" id="newMechInput" type="text" placeholder="Enter mechanic name"/>
+      <input class="wood-input" id="newMechInput" type="text" placeholder="Enter mechanic name" autocomplete="off"/>
     </div>
     <div class="btn-row">
-      <button class="wood-btn" onclick="closePanel('addMechPanel','cancel')">Cancel</button>
-      <button class="wood-btn" onclick="saveNewMechanic()">Save</button>
+      <button class="wood-btn" id="addMechCancelBtn">Cancel</button>
+      <button class="wood-btn" id="addMechSaveBtn">Save</button>
     </div>
   </div>
 </div>
 
 <script>
+// ── DATA ──
 const DEFAULT_MECHANICS=["Acting","Action Drafting","Action Points","Action Queue","Action Retrieval","Action Timer","Action/Event","Advantage Token","Alliances","Area Majority / Influence","Area Movement","Area-Impulse","Auction: Dutch","Auction: Dutch Priority","Auction: Dexterity","Auction: English","Auction: Fixed Placement","Auction: Once Around","Auction: Sealed Bid","Auction: Turn Order Until Pass","Auction/Bidding","Automatic Resource Growth","Betting and Bluffing","Bias","Bingo","Bribery","Campaign / Battle Card Driven","Card Drafting","Card Play Conflict Resolution","Catch the Leader","Chaining","Chit-Pull System","Closed Economy Auction","Command Cards","Communication Limits","Commodity Speculation","Constrained Bidding","Contracts","Cooperative Game","Crayon Rail System","Critical Hits and Failures","Cube Tower","Deck Construction","Deck, Bag, and Pool Building","Deduction","Delayed Purchase","Die Icon Resolution","Different Dice Movement","Dice Rolling","Drafting","Elapsed Real Time Ending","Enclosure","End Game Bonuses","Events","Finale Ending","Flicking","Follow","Force Commitment","Grid Coverage","Grid Movement","Hand Management","Hexagon Grid","Hidden Movement","Hidden Roles","Hidden Victory Points","Highest-Lowest Scoring","Hot Potato","I Cut, You Choose","Impulse Movement","Income","Increase Value of Unchosen Resources","Induction","Interrupts","Investment","Kill Steal","King of the Hill","Ladder Climbing","Layering","Legacy Game","Line Drawing","Line of Sight","Loans","Lose a Turn","Mancala","Map Addition","Map Deformation","Map Reduction","Market","Matching","Measurement Movement","Melding and Splaying","Memory","Minimap Resolution","Modular Board","Move Through Deck","Movement Points","Movement Template","Moving Multiple Units","Multiple Maps","Multiple-Lot Auction","Narrative Choice / Paragraph","Negotiation","Network and Route Building","Once-Per-Game Abilities","Order Counters","Ownership","Paper-and-Pencil","Pattern Building","Pattern Movement","Pattern Recognition","Pick-up and Deliver","Physical Removal","Player Elimination","Player Judge","Point to Point Movement","Predictive Bid","Prisoner's Dilemma","Programmed Movement","Push Your Luck","Race","Random Production","Real-Time","Re-rolling and Locking","Relative Movement","Resource to Move","Rock-Paper-Scissors","Role Playing","Roles with Asymmetric Information","Roll / Spin and Move","Rondel","Ratio / Combat Results Table","Scenario / Mission / Campaign Game","Score-and-Reset Game","Secret Unit Deployment","Selection Order Bid","Semi-Cooperative Game","Set Collection","Simulation","Singing","Simultaneous Action Selection","Single Loser Game","Slide/Push","Solo / Solitaire Game","Speed Matching","Square Grid","Stacking and Balancing","Static Capture","Stat Check Resolution","Stock Holding","Storytelling","Sudden Death Ending","Take That","Team-Based Game","Tech Trees / Tech Tracks","Targeted Clues","Three Dimensional Movement","Tile Placement","Time Track","Track Movement","Trading","Traitor Game","Trick-taking","Tug of War","Turn Order: Auction","Turn Order: Claim Action","Turn Order: Pass Order","Turn Order: Progressive","Turn Order: Random","Turn Order: Role Order","Turn Order: Stat-Based","Variable Phase Order","Variable Player Powers","Variable Setup","Victory Points as a Resource","Voting","Worker Placement","Worker Placement with Dice Workers","Worker Placement, Different Worker Types"];
 
-let mechanics=[...JSON.parse(localStorage.getItem('dexp_mechanics')||'null')||DEFAULT_MECHANICS];
+let mechanics=[...( JSON.parse(localStorage.getItem('dexp_mechanics')||'null')||DEFAULT_MECHANICS)];
 let mechanicMeta=JSON.parse(localStorage.getItem('dexp_mechanic_meta')||'{}');
 let games=JSON.parse(localStorage.getItem('dexp_games')||'[]');
 let mechFilter='all';
@@ -316,15 +529,8 @@ let editingMechanics=false;
 let editingGameId=null;
 let selectedMechanicsInForm=new Set();
 let currentDetailGameIdx=null;
-
-// Edit mechanics snapshot for cancel
-let mechSnapshotBeforeEdit=null;
-let metaSnapshotBeforeEdit=null;
-// Games snapshot for cancel
-let gamesSnapshotBeforeEdit=null;
-
-// Rename state
 let renamingMechIdx=null;
+let mechSnap=null,metaSnap=null,gamesSnap=null;
 
 function save(){
   localStorage.setItem('dexp_mechanics',JSON.stringify(mechanics));
@@ -334,17 +540,6 @@ function save(){
 function getMeta(m){if(!mechanicMeta[m])mechanicMeta[m]={liked:false,manualTick:false,manualUntick:false};return mechanicMeta[m];}
 function isTicked(m){const meta=getMeta(m);if(meta.manualUntick)return false;if(meta.manualTick)return true;return gameTickedSet().has(m);}
 function gameTickedSet(){const s=new Set();games.forEach(g=>g.mechanics.forEach(m=>s.add(m)));return s;}
-
-// ── PANEL HEIGHT ──
-function setPanelHeights(){
-  const expEl=document.getElementById('expContainer');
-  const expBottom=expEl.getBoundingClientRect().bottom;
-  const winH=window.innerHeight;
-  const h=Math.max(320,winH-expBottom-10);
-  document.getElementById('addGameInner').style.maxHeight=h+'px';
-  document.getElementById('addMechInner').style.maxHeight='280px';
-  document.getElementById('gameDetailInner').style.maxHeight=h+'px';
-}
 
 // ── EXP ──
 function updateExp(){
@@ -359,6 +554,7 @@ function drawTicks(){
   const canvas=document.getElementById('expTicks');
   const outer=document.getElementById('expBarOuter');
   const w=outer.offsetWidth,h=outer.offsetHeight;
+  if(!w||!h)return;
   canvas.width=w;canvas.height=h;
   const ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,w,h);
@@ -373,60 +569,154 @@ function drawTicks(){
   }
 }
 
+// ── PANEL HEIGHTS ──
+function setPanelHeights(){
+  const expBottom=document.getElementById('expContainer').getBoundingClientRect().bottom;
+  const winH=window.innerHeight;
+  const h=Math.max(320,winH-expBottom-10);
+  document.getElementById('addGameInner').style.maxHeight=h+'px';
+  document.getElementById('gameDetailInner').style.maxHeight=h+'px';
+  document.getElementById('addMechInner').style.maxHeight='300px';
+}
+
+// ── SLIDE PANELS ──
+function openPanel(id){
+  const panel=document.getElementById(id);
+  panel.style.pointerEvents='all';
+  panel.classList.add('open');
+}
+function closePanel(id){
+  const panel=document.getElementById(id);
+  panel.classList.remove('open');
+  if(id==='gameDetailPanel')currentDetailGameIdx=null;
+}
+
+// Setup swipe-to-dismiss and backdrop tap for each panel
+function setupPanel(id){
+  const panel=document.getElementById(id);
+  const inner=panel.querySelector('.slide-panel-inner');
+  if(!inner)return;
+
+  // Tap backdrop
+  panel.addEventListener('click',(e)=>{
+    if(e.target===panel)closePanel(id);
+  });
+
+  // Swipe dismiss
+  let startY=0,curY=0,dragging=false;
+  inner.addEventListener('touchstart',(e)=>{
+    startY=e.touches[0].clientY;curY=startY;dragging=true;
+  },{passive:true});
+  inner.addEventListener('touchmove',(e)=>{
+    if(!dragging)return;
+    curY=e.touches[0].clientY;
+    const dy=Math.max(0,curY-startY);
+    inner.style.transition='none';
+    inner.style.transform=`translateY(${dy}px)`;
+  },{passive:true});
+  inner.addEventListener('touchend',()=>{
+    dragging=false;
+    const dy=curY-startY;
+    inner.style.transition='';
+    if(dy>inner.offsetHeight*0.25){
+      inner.style.transform='';
+      closePanel(id);
+    } else {
+      inner.style.transform='';
+    }
+  });
+}
+
+['addGamePanel','gameDetailPanel','addMechPanel'].forEach(setupPanel);
+
 // ── GAMES ──
 function renderGames(){
   const el=document.getElementById('gamesList');
+  const filterRow=document.getElementById('gamesFilterRow');
   let list=games;
   if(gamesFilter==='liked')list=games.filter(g=>g.liked);
-  if(!list.length){el.innerHTML='<div class="empty-state">'+(games.length?'No liked games.':'No games recorded yet.')+'</div>';return;}
-  el.innerHTML=list.map((g,fi)=>{
+
+  // Show filter row only if games exist
+  if(games.length>0){
+    filterRow.style.display='block';
+  } else {
+    filterRow.style.display='none';
+  }
+
+  // Update filter btn styles
+  document.getElementById('gfAll').style.background=gamesFilter==='all'?'linear-gradient(180deg,#e0a050 0%,#8b4513 100%)':'';
+  document.getElementById('gfLiked').style.background=gamesFilter==='liked'?'linear-gradient(180deg,#e0a050 0%,#8b4513 100%)':'';
+
+  if(!list.length){
+    el.innerHTML='<div class="empty-state">'+(games.length?'No liked games.':'No games recorded yet.')+'</div>';
+    return;
+  }
+  el.innerHTML=list.map(g=>{
     const i=games.indexOf(g);
-    return`<div class="game-row">
+    return`<div class="game-row" data-i="${i}">
       <div class="game-row-info" data-i="${i}">
         <div class="game-name">${esc(g.name)}</div>
         <div class="game-date">${formatDate(g.date)}</div>
       </div>
       <div class="game-row-right">
-        <button class="heart-btn ${g.liked?'liked':''}" data-i="${i}">${g.liked?'♥':'♡'}</button>
-        ${editingGames?`<button class="wood-btn small blue" data-edit="${i}">Rename</button><button class="wood-btn small danger" data-del="${i}">Delete</button>`:''}
+        <button class="heart-btn ${g.liked?'liked':''}" data-hi="${i}">${g.liked?'♥':'♡'}</button>
+        ${editingGames?`<button class="wood-btn small" data-edit="${i}">Edit</button><button class="wood-btn small danger" data-del="${i}">Delete</button>`:''}
       </div>
     </div>`;
   }).join('');
-  // filter buttons
-  [['gfAll','all'],['gfLiked','liked']].forEach(([id,val])=>{
-    const b=document.getElementById(id);if(!b)return;
-    b.style.background=gamesFilter===val?'linear-gradient(180deg,#e0a050 0%,#8b4513 100%)':'';
+
+  el.querySelectorAll('.game-row-info').forEach(el=>{
+    el.addEventListener('click',()=>{if(!editingGames)openGameDetail(parseInt(el.dataset.i));});
   });
-  // events
-  el.querySelectorAll('.game-row-info').forEach(el=>{addTap(el,()=>{if(!editingGames)openGameDetail(parseInt(el.dataset.i));});});
-  el.querySelectorAll('.heart-btn').forEach(b=>{addTap(b,()=>toggleLike(parseInt(b.dataset.i)));});
-  el.querySelectorAll('[data-edit]').forEach(b=>{addTap(b,()=>openEditGame(parseInt(b.dataset.edit)));});
-  el.querySelectorAll('[data-del]').forEach(b=>{addTap(b,()=>deleteGame(parseInt(b.dataset.del)));});
+  el.querySelectorAll('[data-hi]').forEach(b=>{
+    b.addEventListener('click',(e)=>{e.stopPropagation();toggleLike(parseInt(b.dataset.hi));});
+  });
+  el.querySelectorAll('[data-edit]').forEach(b=>{
+    b.addEventListener('click',(e)=>{e.stopPropagation();openEditGame(parseInt(b.dataset.edit));});
+  });
+  el.querySelectorAll('[data-del]').forEach(b=>{
+    b.addEventListener('click',(e)=>{e.stopPropagation();deleteGame(parseInt(b.dataset.del));});
+  });
 }
 
-function setGamesFilter(f){gamesFilter=f;renderGames();}
+function toggleLike(i){
+  games[i].liked=!games[i].liked;save();renderGames();
+  if(currentDetailGameIdx===i){
+    const hb=document.getElementById('detailHeart');
+    hb.textContent=games[i].liked?'♥':'♡';
+    hb.className='heart-btn'+(games[i].liked?' liked':'');
+  }
+}
+function deleteGame(i){
+  if(confirm('Delete "'+games[i].name+'"?')){
+    games.splice(i,1);save();renderGames();renderMechanics();updateExp();
+  }
+}
+
+// Games edit mode
+function setupGamesEdit(){
+  document.getElementById('editGamesBtn').addEventListener('click',toggleEditGames);
+  document.getElementById('addGameBtn').addEventListener('click',openAddGame);
+  document.getElementById('gfAll').addEventListener('click',()=>{gamesFilter='all';renderGames();});
+  document.getElementById('gfLiked').addEventListener('click',()=>{gamesFilter='liked';renderGames();});
+}
 
 function toggleEditGames(){
   if(!editingGames){
-    gamesSnapshotBeforeEdit=JSON.parse(JSON.stringify(games));
+    gamesSnap=JSON.parse(JSON.stringify(games));
     editingGames=true;
-    // Show filter row with liked + cancel/done
-    const hdr=document.getElementById('gamesBtns');
-    hdr.innerHTML=`<div style="display:flex;gap:5px">
-      <button class="wood-btn small" id="gfAll" onclick="setGamesFilter('all')">All</button>
-      <button class="wood-btn small" id="gfLiked" onclick="setGamesFilter('liked')">Liked</button>
-    </div>
-    <div style="display:flex;gap:5px;margin-top:5px">
-      <button class="wood-btn small cancel-btn" onclick="cancelEditGames()">Cancel</button>
-      <button class="wood-btn small" onclick="doneEditGames()">Done</button>
-    </div>`;
-  } else {
-    doneEditGames();
+    document.getElementById('gamesBtns').innerHTML=`
+      <button class="wood-btn small" id="cancelGamesBtn">Cancel</button>
+      <button class="wood-btn small" id="doneGamesBtn">Done</button>
+      <button class="wood-btn small" id="addGameBtn2">Add</button>`;
+    document.getElementById('cancelGamesBtn').addEventListener('click',cancelEditGames);
+    document.getElementById('doneGamesBtn').addEventListener('click',doneEditGames);
+    document.getElementById('addGameBtn2').addEventListener('click',openAddGame);
   }
   renderGames();
 }
 function cancelEditGames(){
-  games=JSON.parse(JSON.stringify(gamesSnapshotBeforeEdit));
+  games=JSON.parse(JSON.stringify(gamesSnap));
   editingGames=false;
   resetGamesBtns();
   save();renderGames();renderMechanics();updateExp();
@@ -438,20 +728,10 @@ function doneEditGames(){
 }
 function resetGamesBtns(){
   document.getElementById('gamesBtns').innerHTML=`
-    <button class="wood-btn small" id="editGamesBtn" onclick="toggleEditGames()">Edit</button>
-    <button class="wood-btn small" onclick="openAddGame()">Add</button>`;
-}
-function deleteGame(i){
-  if(confirm('Delete "'+games[i].name+'"?')){
-    games.splice(i,1);save();renderGames();renderMechanics();updateExp();
-  }
-}
-function toggleLike(i){
-  games[i].liked=!games[i].liked;save();renderGames();
-  if(currentDetailGameIdx===i){
-    const hb=document.getElementById('detailHeart');
-    if(hb){hb.textContent=games[i].liked?'♥':'♡';hb.className='heart-btn'+(games[i].liked?' liked':'');}
-  }
+    <button class="wood-btn small" id="editGamesBtn">Edit</button>
+    <button class="wood-btn small" id="addGameBtn">Add</button>`;
+  document.getElementById('editGamesBtn').addEventListener('click',toggleEditGames);
+  document.getElementById('addGameBtn').addEventListener('click',openAddGame);
 }
 
 // ── ADD/EDIT GAME ──
@@ -492,8 +772,11 @@ function saveGame(){
   if(editingGameId!==null){
     games[editingGameId]=obj;
     mArr.forEach(m=>{getMeta(m).manualUntick=false;});
-  } else {games.push(obj);}
-  save();renderGames();renderMechanics();updateExp();closePanel('addGamePanel','cancel');
+  } else {
+    games.push(obj);
+  }
+  save();renderGames();renderMechanics();updateExp();
+  closePanel('addGamePanel');
 }
 
 // ── GAME DETAIL ──
@@ -503,13 +786,15 @@ function openGameDetail(i){
   document.getElementById('detailTitle').textContent=g.name;
   document.getElementById('detailDate').textContent=formatDate(g.date)||'—';
   const hb=document.getElementById('detailHeart');
-  hb.textContent=g.liked?'♥':'♡';hb.className='heart-btn'+(g.liked?' liked':'');
+  hb.textContent=g.liked?'♥':'♡';
+  hb.className='heart-btn'+(g.liked?' liked':'');
   const mEl=document.getElementById('detailMechanics');
-  mEl.innerHTML=g.mechanics.length?g.mechanics.map(m=>`<span class="detail-mechanic-tag">${esc(m)}</span>`).join(''):'<span style="color:var(--parch-dark);font-style:italic;font-size:.82rem">None recorded</span>';
+  mEl.innerHTML=g.mechanics.length
+    ?g.mechanics.map(m=>`<span class="detail-mechanic-tag">${esc(m)}</span>`).join('')
+    :'<span style="color:var(--parch-dark);font-style:italic">None recorded</span>';
   setPanelHeights();
   openPanel('gameDetailPanel');
 }
-function toggleDetailLike(){if(currentDetailGameIdx===null)return;toggleLike(currentDetailGameIdx);}
 
 // ── SELECTED GRID ──
 function renderSelectedGrid(){
@@ -520,17 +805,34 @@ function renderSelectedGrid(){
       <span>${esc(m)}</span>
       <span class="remove-cross" data-m="${esc(m)}">✕</span>
     </div>`).join('');
-  grid.querySelectorAll('.remove-cross').forEach(el=>{addTap(el,()=>{selectedMechanicsInForm.delete(el.getAttribute('data-m'));renderSelectedGrid();renderMechanicsSelect(document.getElementById('mechanicsSearch').value.split('\n')[0].trim().toLowerCase());});});
+  grid.querySelectorAll('.remove-cross').forEach(el=>{
+    el.addEventListener('click',()=>{
+      selectedMechanicsInForm.delete(el.getAttribute('data-m'));
+      renderSelectedGrid();
+      renderMechanicsSelect(document.getElementById('mechanicsSearch').value.split('\n')[0].trim().toLowerCase());
+    });
+  });
 }
 
 // ── PASTE/SEARCH ──
+function setupMechanicsSearch(){
+  const ta=document.getElementById('mechanicsSearch');
+  ta.addEventListener('input',onMechanicsSearch);
+}
 function onMechanicsSearch(){
   const val=document.getElementById('mechanicsSearch').value;
   const lines=val.split('\n');
   const ml=mechanics.map(m=>m.toLowerCase());
   if(lines.length>1){
-    lines.forEach(line=>{const t=line.trim();if(!t)return;const idx=ml.indexOf(t.toLowerCase());if(idx!==-1)selectedMechanicsInForm.add(mechanics[idx]);});
-    document.getElementById('pasteHighlight').innerHTML=lines.map(line=>{const t=line.trim();if(!t)return'\n';return ml.indexOf(t.toLowerCase())!==-1?`<span>${esc(line)}</span>\n`:`<span class="bad-line">${esc(line)}</span>\n`;}).join('');
+    lines.forEach(line=>{
+      const t=line.trim();if(!t)return;
+      const idx=ml.indexOf(t.toLowerCase());
+      if(idx!==-1)selectedMechanicsInForm.add(mechanics[idx]);
+    });
+    document.getElementById('pasteHighlight').innerHTML=lines.map(line=>{
+      const t=line.trim();if(!t)return'\n';
+      return ml.indexOf(t.toLowerCase())!==-1?`<span>${esc(line)}</span>\n`:`<span class="bad-line">${esc(line)}</span>\n`;
+    }).join('');
     renderSelectedGrid();
     renderMechanicsSelect('');
   } else {
@@ -538,6 +840,7 @@ function onMechanicsSearch(){
     renderMechanicsSelect(val.trim().toLowerCase());
   }
 }
+
 function renderMechanicsSelect(filter){
   const list=document.getElementById('mechanicsSelectList');
   const sel=mechanics.filter(m=>selectedMechanicsInForm.has(m)&&(!filter||m.toLowerCase().includes(filter)));
@@ -549,7 +852,7 @@ function renderMechanicsSelect(filter){
       <span class="mechanic-select-name">${esc(m)}</span>
     </div>`).join('');
   list.querySelectorAll('.mechanic-select-row').forEach(row=>{
-    addTap(row,()=>{
+    row.addEventListener('click',()=>{
       const name=row.getAttribute('data-m');
       if(selectedMechanicsInForm.has(name))selectedMechanicsInForm.delete(name);
       else selectedMechanicsInForm.add(name);
@@ -562,13 +865,11 @@ function renderMechanicsSelect(filter){
 // ── MECHANICS MAIN ──
 function renderMechanics(){
   const el=document.getElementById('mechanicsList');
-  const search=(document.getElementById('mechSearch')||{}).value||'';
-  const sl=search.trim().toLowerCase();
-  let list=mechanics.filter(m=>!sl||m.toLowerCase().includes(sl));
+  const search=document.getElementById('mechSearch').value.trim().toLowerCase();
+  let list=mechanics.filter(m=>!search||m.toLowerCase().includes(search));
   if(mechFilter==='played')list=list.filter(m=>isTicked(m));
   if(mechFilter==='notplayed')list=list.filter(m=>!isTicked(m));
   if(mechFilter==='liked')list=list.filter(m=>getMeta(m).liked);
-  // Sort: ticked alpha first, then unticked alpha
   const ticked=list.filter(m=>isTicked(m)).sort((a,b)=>a.localeCompare(b));
   const unticked=list.filter(m=>!isTicked(m)).sort((a,b)=>a.localeCompare(b));
   const sorted=[...ticked,...unticked];
@@ -576,71 +877,125 @@ function renderMechanics(){
   if(editingMechanics){
     el.innerHTML=sorted.map(m=>{
       const idx=mechanics.indexOf(m);
-      const isRenaming=renamingMechIdx===idx;
-      return`<div class="mechanic-row-edit" data-idx="${idx}">
+      const isRen=renamingMechIdx===idx;
+      return`<div class="mechanic-row-edit">
         <div class="edit-mech-check ${isTicked(m)?'checked':''}" data-idx="${idx}"></div>
-        ${isRenaming
-          ?`<input class="edit-mech-input" id="renameInput_${idx}" value="${esc(m)}"/>`
+        ${isRen
+          ?`<input class="edit-mech-input" id="renIn_${idx}" value="${esc(m)}"/>`
           :`<span class="edit-mech-name">${esc(m)}</span>`}
-        ${isRenaming
-          ?`<button class="wood-btn small blue" data-done="${idx}">Done</button><button class="wood-btn small cancel-btn" data-rcancel="${idx}">Cancel</button>`
-          :`<button class="wood-btn small blue" data-rename="${idx}">Rename</button>`}
-        <button class="wood-btn small danger" data-del="${idx}">Delete</button>
+        ${isRen
+          ?`<button class="wood-btn small" data-done="${idx}">Done</button>
+             <button class="wood-btn small" data-rcan="${idx}">Cancel</button>`
+          :`<button class="wood-btn small blue" data-ren="${idx}">Rename</button>
+            <button class="wood-btn small danger" data-del="${idx}">Delete</button>`}
       </div>`;
     }).join('')||'<div class="empty-state">Nothing to show.</div>';
+
     el.querySelectorAll('.edit-mech-check').forEach(chk=>{
-      addTap(chk,()=>{
+      chk.addEventListener('click',()=>{
         const idx=parseInt(chk.dataset.idx);const m=mechanics[idx];const meta=getMeta(m);
         if(isTicked(m)){meta.manualUntick=true;meta.manualTick=false;}
         else{meta.manualTick=true;meta.manualUntick=false;}
         renderMechanics();updateExp();
       });
     });
-    el.querySelectorAll('[data-rename]').forEach(b=>{addTap(b,()=>{renamingMechIdx=parseInt(b.dataset.rename);renderMechanics();setTimeout(()=>{const inp=document.getElementById('renameInput_'+renamingMechIdx);if(inp)inp.focus();},50);});});
-    el.querySelectorAll('[data-done]').forEach(b=>{addTap(b,()=>{const idx=parseInt(b.dataset.done);const inp=document.getElementById('renameInput_'+idx);if(inp&&inp.value.trim()){const old=mechanics[idx];const nv=inp.value.trim();mechanics[idx]=nv;if(mechanicMeta[old]){mechanicMeta[nv]=mechanicMeta[old];delete mechanicMeta[old];}games.forEach(g=>{const i=g.mechanics.indexOf(old);if(i!==-1)g.mechanics[i]=nv;});}renamingMechIdx=null;renderMechanics();});});
-    el.querySelectorAll('[data-rcancel]').forEach(b=>{addTap(b,()=>{renamingMechIdx=null;renderMechanics();});});
-    el.querySelectorAll('[data-del]').forEach(b=>{addTap(b,()=>{const idx=parseInt(b.dataset.del);const name=mechanics[idx];if(confirm('Delete "'+name+'"?')){mechanics.splice(idx,1);delete mechanicMeta[name];games.forEach(g=>{g.mechanics=g.mechanics.filter(m=>m!==name);});renderMechanics();updateExp();}});});
+    el.querySelectorAll('[data-ren]').forEach(b=>{
+      b.addEventListener('click',()=>{
+        renamingMechIdx=parseInt(b.dataset.ren);
+        renderMechanics();
+        setTimeout(()=>{const inp=document.getElementById('renIn_'+renamingMechIdx);if(inp){inp.focus();inp.select();}},80);
+      });
+    });
+    el.querySelectorAll('[data-done]').forEach(b=>{
+      b.addEventListener('click',()=>{
+        const idx=parseInt(b.dataset.done);
+        const inp=document.getElementById('renIn_'+idx);
+        if(inp&&inp.value.trim()){
+          const old=mechanics[idx];const nv=inp.value.trim();
+          mechanics[idx]=nv;
+          if(mechanicMeta[old]){mechanicMeta[nv]=mechanicMeta[old];delete mechanicMeta[old];}
+          games.forEach(g=>{const i=g.mechanics.indexOf(old);if(i!==-1)g.mechanics[i]=nv;});
+        }
+        renamingMechIdx=null;renderMechanics();
+      });
+    });
+    el.querySelectorAll('[data-rcan]').forEach(b=>{
+      b.addEventListener('click',()=>{renamingMechIdx=null;renderMechanics();});
+    });
+    el.querySelectorAll('[data-del]').forEach(b=>{
+      b.addEventListener('click',()=>{
+        const idx=parseInt(b.dataset.del);const name=mechanics[idx];
+        if(confirm('Delete "'+name+'"?')){
+          mechanics.splice(idx,1);delete mechanicMeta[name];
+          games.forEach(g=>{g.mechanics=g.mechanics.filter(m=>m!==name);});
+          renderMechanics();updateExp();
+        }
+      });
+    });
   } else {
     el.innerHTML=sorted.map(m=>`
       <div class="mechanic-row ${isTicked(m)?'ticked':''}">
         <span class="mechanic-name">${esc(m)}</span>
         <button class="heart-btn ${getMeta(m).liked?'liked':''}" data-m="${esc(m)}">${getMeta(m).liked?'♥':'♡'}</button>
       </div>`).join('')||'<div class="empty-state">Nothing to show.</div>';
-    el.querySelectorAll('.heart-btn').forEach(b=>{addTap(b,()=>{const meta=getMeta(b.dataset.m);meta.liked=!meta.liked;save();renderMechanics();});});
+    el.querySelectorAll('.heart-btn').forEach(b=>{
+      b.addEventListener('click',()=>{
+        const meta=getMeta(b.dataset.m);meta.liked=!meta.liked;save();renderMechanics();
+      });
+    });
   }
-  // filter btns highlight
+
   [['mfAll','all'],['mfPlayed','played'],['mfNotPlayed','notplayed'],['mfLiked','liked']].forEach(([id,val])=>{
     const b=document.getElementById(id);if(!b)return;
-    b.style.background=mechFilter===val?'linear-gradient(180deg,#e0a050 0%,#8b4513 100%)':'';
-    b.style.boxShadow=mechFilter===val?'0 0 8px rgba(220,140,40,0.4)':'';
+    const active=mechFilter===val;
+    b.style.background=active?'linear-gradient(180deg,#e0a050 0%,#8b4513 100%)':'';
+    b.style.boxShadow=active?'0 0 8px rgba(220,140,40,0.4)':'';
   });
 }
-function setMFilter(f){mechFilter=f;renderMechanics();}
+
+function setupMechEdit(){
+  document.getElementById('editMechBtn').addEventListener('click',toggleEditMechanics);
+  document.getElementById('addMechBtn').addEventListener('click',openAddMechanic);
+  document.getElementById('mechSearch').addEventListener('input',renderMechanics);
+  document.getElementById('mfAll').addEventListener('click',()=>{mechFilter='all';renderMechanics();});
+  document.getElementById('mfPlayed').addEventListener('click',()=>{mechFilter='played';renderMechanics();});
+  document.getElementById('mfNotPlayed').addEventListener('click',()=>{mechFilter='notplayed';renderMechanics();});
+  document.getElementById('mfLiked').addEventListener('click',()=>{mechFilter='liked';renderMechanics();});
+}
 
 function toggleEditMechanics(){
   if(!editingMechanics){
-    mechSnapshotBeforeEdit=JSON.parse(JSON.stringify(mechanics));
-    metaSnapshotBeforeEdit=JSON.parse(JSON.stringify(mechanicMeta));
-    editingMechanics=true;
-    renamingMechIdx=null;
-    document.getElementById('mechEditBtns').style.display='block';
-    document.getElementById('editMechBtn').textContent='Editing...';
+    mechSnap=JSON.parse(JSON.stringify(mechanics));
+    metaSnap=JSON.parse(JSON.stringify(mechanicMeta));
+    editingMechanics=true;renamingMechIdx=null;
+    document.getElementById('mechBtns').innerHTML=`
+      <button class="wood-btn small" id="cancelMechBtn">Cancel</button>
+      <button class="wood-btn small" id="doneMechBtn">Done</button>
+      <button class="wood-btn small" id="addMechBtn2">Add</button>`;
+    document.getElementById('cancelMechBtn').addEventListener('click',cancelEditMechanics);
+    document.getElementById('doneMechBtn').addEventListener('click',doneEditMechanics);
+    document.getElementById('addMechBtn2').addEventListener('click',openAddMechanic);
   }
   renderMechanics();
 }
 function cancelEditMechanics(){
-  mechanics=JSON.parse(JSON.stringify(mechSnapshotBeforeEdit));
-  mechanicMeta=JSON.parse(JSON.stringify(metaSnapshotBeforeEdit));
+  mechanics=JSON.parse(JSON.stringify(mechSnap));
+  mechanicMeta=JSON.parse(JSON.stringify(metaSnap));
   editingMechanics=false;renamingMechIdx=null;
-  document.getElementById('mechEditBtns').style.display='none';
-  document.getElementById('editMechBtn').textContent='Edit';
+  resetMechBtns();
   save();renderMechanics();updateExp();
 }
 function doneEditMechanics(){
   editingMechanics=false;renamingMechIdx=null;
-  document.getElementById('mechEditBtns').style.display='none';
-  document.getElementById('editMechBtn').textContent='Edit';
+  resetMechBtns();
   save();renderMechanics();updateExp();
+}
+function resetMechBtns(){
+  document.getElementById('mechBtns').innerHTML=`
+    <button class="wood-btn small" id="editMechBtn">Edit</button>
+    <button class="wood-btn small" id="addMechBtn">Add</button>`;
+  document.getElementById('editMechBtn').addEventListener('click',toggleEditMechanics);
+  document.getElementById('addMechBtn').addEventListener('click',openAddMechanic);
 }
 
 // ── ADD MECHANIC ──
@@ -651,50 +1006,11 @@ function openAddMechanic(){
 function saveNewMechanic(){
   const val=document.getElementById('newMechInput').value.trim();
   if(!val)return;
-  // Insert alphabetically
   const idx=mechanics.findIndex(m=>m.toLowerCase()>val.toLowerCase());
   if(idx===-1)mechanics.push(val);
   else mechanics.splice(idx,0,val);
-  save();renderMechanics();updateExp();closePanel('addMechPanel','cancel');
-}
-
-// ── SLIDE PANEL OPEN/CLOSE + SWIPE ──
-function openPanel(id){document.getElementById(id).classList.add('open');}
-function closePanel(id,type){document.getElementById(id).classList.remove('open');if(id==='gameDetailPanel')currentDetailGameIdx=null;}
-
-// Tap backdrop to close
-document.querySelectorAll('.slide-panel').forEach(panel=>{
-  addTap(panel,(e)=>{if(e.target===panel)closePanel(panel.id,'cancel');});
-});
-
-// Swipe down to dismiss
-document.querySelectorAll('.slide-panel-inner').forEach(inner=>{
-  let startY=0,startT=0,curY=0;
-  inner.addEventListener('touchstart',e=>{startY=e.touches[0].clientY;startT=Date.now();curY=startY;},{passive:true});
-  inner.addEventListener('touchmove',e=>{
-    curY=e.touches[0].clientY;
-    const dy=curY-startY;
-    if(dy>0)inner.style.transform=`translateY(${dy}px)`;
-  },{passive:true});
-  inner.addEventListener('touchend',()=>{
-    const dy=curY-startY;
-    const threshold=inner.offsetHeight*0.25;
-    if(dy>threshold){
-      inner.style.transform='';
-      closePanel(inner.closest('.slide-panel').id,'cancel');
-    } else {
-      inner.style.transform='';
-    }
-  });
-});
-
-// ── TAP HELPER ──
-function addTap(el,fn){
-  let moved=false;
-  el.addEventListener('touchstart',()=>{moved=false;},{passive:true});
-  el.addEventListener('touchmove',()=>{moved=true;},{passive:true});
-  el.addEventListener('touchend',(e)=>{if(!moved){e.preventDefault();fn(e);}},{passive:false});
-  el.addEventListener('click',(e)=>{fn(e);});
+  save();renderMechanics();updateExp();
+  closePanel('addMechPanel');
 }
 
 // ── UTILS ──
@@ -702,10 +1018,23 @@ function todayStr(){return new Date().toISOString().split('T')[0];}
 function formatDate(s){if(!s)return'';return new Date(s+'T00:00:00').toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
+// ── WIRE UP STATIC BUTTONS ──
+document.getElementById('addGameCancelBtn').addEventListener('click',()=>closePanel('addGamePanel'));
+document.getElementById('addGameSaveBtn').addEventListener('click',saveGame);
+document.getElementById('detailBackBtn').addEventListener('click',()=>closePanel('gameDetailPanel'));
+document.getElementById('detailHeart').addEventListener('click',()=>{if(currentDetailGameIdx!==null)toggleLike(currentDetailGameIdx);});
+document.getElementById('addMechCancelBtn').addEventListener('click',()=>closePanel('addMechPanel'));
+document.getElementById('addMechSaveBtn').addEventListener('click',saveNewMechanic);
+
 // ── INIT ──
-renderGames();renderMechanics();updateExp();
+setupGamesEdit();
+setupMechEdit();
+setupMechanicsSearch();
+renderGames();
+renderMechanics();
+updateExp();
 window.addEventListener('resize',()=>{drawTicks();setPanelHeights();});
-window.addEventListener('load',()=>{drawTicks();setPanelHeights();});
+window.addEventListener('load',()=>{setTimeout(()=>{drawTicks();setPanelHeights();},100);});
 </script>
 </body>
 </html>

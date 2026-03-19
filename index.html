@@ -16,12 +16,13 @@
 --wood-dark:#2a1005;--wood-mid:#5a2e0e;--wood-light:#8b4513;--wood-hi:#c47a3a;
 --wood-text:#fff5e0;--wood-shadow:#1a0803;
 --parch:#e8dcc0;--parch-dark:#c4b090;
+--exp-yellow:#c8d420;
 --safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px);
 }
 
 html,body{height:100%;overflow:hidden;font-family:'Crimson Text',Georgia,serif;}
 
-/* ── BACKGROUND / FOREST ── */
+/* ── BACKGROUND ── */
 .bg{
 position:fixed;inset:0;z-index:0;
 background:
@@ -29,377 +30,227 @@ radial-gradient(ellipse at 25% 60%,rgba(20,80,20,0.95) 0%,transparent 45%),
 radial-gradient(ellipse at 10% 80%,rgba(10,50,10,0.9) 0%,transparent 35%),
 radial-gradient(ellipse at 60% 20%,rgba(80,160,200,0.5) 0%,transparent 55%),
 radial-gradient(ellipse at 90% 10%,rgba(60,120,160,0.4) 0%,transparent 40%),
-radial-gradient(ellipse at 50% 50%,rgba(30,100,40,0.3) 0%,transparent 60%),
 linear-gradient(160deg,#0a2010 0%,#1a3a20 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
 }
 
 /* ── LIGHT RAYS ── */
 .light-rays{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
 .ray{position:absolute;top:-5%;transform-origin:top center;filter:blur(6px);animation:rayPulse 7s ease-in-out infinite;}
-.ray:nth-child(1){left:35%;width:80px;height:120%;transform:rotate(-8deg);background:linear-gradient(180deg,rgba(255,255,220,0.0),rgba(255,255,200,0.18),rgba(255,255,180,0.05),transparent);animation-delay:0s;}
-.ray:nth-child(2){left:50%;width:50px;height:110%;transform:rotate(2deg);background:linear-gradient(180deg,rgba(200,240,255,0.0),rgba(200,240,255,0.14),transparent);animation-delay:2s;}
-.ray:nth-child(3){left:62%;width:100px;height:130%;transform:rotate(10deg);background:linear-gradient(180deg,rgba(255,240,180,0.0),rgba(255,240,180,0.16),transparent);animation-delay:1s;}
-.ray:nth-child(4){left:72%;width:40px;height:100%;transform:rotate(18deg);background:linear-gradient(180deg,rgba(180,220,255,0.0),rgba(180,220,255,0.12),transparent);animation-delay:3.5s;}
+.ray:nth-child(1){left:35%;width:80px;height:120%;transform:rotate(-8deg);background:linear-gradient(180deg,transparent,rgba(255,255,200,0.18),transparent);animation-delay:0s;}
+.ray:nth-child(2){left:50%;width:50px;height:110%;transform:rotate(2deg);background:linear-gradient(180deg,transparent,rgba(200,240,255,0.14),transparent);animation-delay:2s;}
+.ray:nth-child(3){left:62%;width:100px;height:130%;transform:rotate(10deg);background:linear-gradient(180deg,transparent,rgba(255,240,180,0.16),transparent);animation-delay:1s;}
+.ray:nth-child(4){left:72%;width:40px;height:100%;transform:rotate(18deg);background:linear-gradient(180deg,transparent,rgba(180,220,255,0.12),transparent);animation-delay:3.5s;}
 @keyframes rayPulse{0%,100%{opacity:0.5;}50%{opacity:1;}}
 
 /* ── TREE TRUNK ── */
 .tree-trunk{
 position:fixed;left:-30px;top:0;bottom:0;width:220px;z-index:2;pointer-events:none;
-background:
-radial-gradient(ellipse at 60% 50%,rgba(80,50,10,0.0) 30%,rgba(40,20,5,0.8) 100%),
-repeating-linear-gradient(
-175deg,
-rgba(60,35,8,0.9) 0px, rgba(60,35,8,0.9) 8px,
-rgba(80,50,15,0.85) 8px, rgba(80,50,15,0.85) 18px,
-rgba(50,28,6,0.9) 18px, rgba(50,28,6,0.9) 28px,
-rgba(70,42,12,0.88) 28px, rgba(70,42,12,0.88) 40px
-);
+background:repeating-linear-gradient(175deg,rgba(60,35,8,0.9) 0px,rgba(60,35,8,0.9) 8px,rgba(80,50,15,0.85) 8px,rgba(80,50,15,0.85) 18px,rgba(50,28,6,0.9) 18px,rgba(50,28,6,0.9) 28px,rgba(70,42,12,0.88) 28px,rgba(70,42,12,0.88) 40px);
 clip-path:polygon(0 0,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 100%);
 filter:drop-shadow(8px 0 16px rgba(0,0,0,0.6));
 }
-.tree-trunk::after{
-content:'';position:absolute;inset:0;
-background:
-radial-gradient(ellipse at 30% 30%,rgba(120,80,20,0.4) 0%,transparent 50%),
-radial-gradient(ellipse at 20% 70%,rgba(40,80,20,0.5) 0%,transparent 40%),
-radial-gradient(ellipse at 50% 50%,rgba(30,60,15,0.3) 0%,transparent 60%);
-}
+.tree-trunk::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(120,80,20,0.4) 0%,transparent 50%),radial-gradient(ellipse at 20% 70%,rgba(40,80,20,0.5) 0%,transparent 40%);}
 
 /* ── MUSHROOMS ── */
 .mushrooms{position:fixed;bottom:60px;left:20px;z-index:3;pointer-events:none;width:130px;height:160px;}
-.mush{position:absolute;}
-.mush-cap{border-radius:50% 50% 40% 40%;position:absolute;}
-.mush-stem{position:absolute;border-radius:4px 4px 6px 6px;}
-
-/* ── MAPLE LEAF TOP RIGHT ── */
-.maple-leaf-tr{
-position:fixed;top:30px;right:30px;z-index:3;pointer-events:none;
-width:80px;height:80px;opacity:0.9;
-filter:drop-shadow(2px 4px 8px rgba(0,0,0,0.4));
-}
-
-/* ── AUTUMN LEAF BOTTOM RIGHT ── */
-.maple-leaf-br{
-position:fixed;bottom:40px;right:10px;z-index:3;pointer-events:none;
-width:60px;height:60px;opacity:0.85;
-transform:rotate(30deg);
-filter:drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
-}
 
 /* ── BOOK BORDER ── */
 .book-border{position:fixed;inset:0;z-index:4;pointer-events:none;}
 .book-border::before{
 content:'';position:absolute;inset:0;
 border:20px solid var(--parch);
-box-shadow:
-inset 0 0 0 2px var(--parch-dark),
-inset 0 0 30px rgba(0,0,0,0.35),
-inset 20px 0 40px rgba(0,0,0,0.25);
+box-shadow:inset 0 0 0 2px var(--parch-dark),inset 0 0 30px rgba(0,0,0,0.35),inset 20px 0 40px rgba(0,0,0,0.25);
 background:
 linear-gradient(90deg,var(--parch-dark) 0,var(--parch) 8px,transparent 20px,transparent calc(100% - 20px),var(--parch) calc(100% - 8px),var(--parch-dark) 100%),
 linear-gradient(180deg,var(--parch-dark) 0,var(--parch) 8px,transparent 20px,transparent calc(100% - 20px),var(--parch) calc(100% - 8px),var(--parch-dark) 100%);
 }
-.book-spine{
-position:fixed;left:0;top:0;bottom:0;width:28px;z-index:5;pointer-events:none;
-background:linear-gradient(90deg,#7a5a20,#b08840,#7a5a20,#906830,#5a4010);
-box-shadow:3px 0 10px rgba(0,0,0,0.5);
-}
-.book-spine::after{
-content:'';position:absolute;inset:4px 5px;
-background:repeating-linear-gradient(180deg,rgba(255,255,255,0.12) 0,rgba(255,255,255,0.12) 2px,transparent 2px,transparent 16px);
-}
+.book-spine{position:fixed;left:0;top:0;bottom:0;width:28px;z-index:5;pointer-events:none;background:linear-gradient(90deg,#7a5a20,#b08840,#7a5a20,#906830,#5a4010);box-shadow:3px 0 10px rgba(0,0,0,0.5);}
+.book-spine::after{content:'';position:absolute;inset:4px 5px;background:repeating-linear-gradient(180deg,rgba(255,255,255,0.12) 0,rgba(255,255,255,0.12) 2px,transparent 2px,transparent 16px);}
 
 /* ── MAIN APP ── */
 .app{
 position:fixed;inset:0;z-index:6;
+display:flex;flex-direction:column;
 padding:calc(var(--safe-top) + 20px) 18px calc(var(--safe-bot) + 20px) 46px;
-overflow-y:auto;-webkit-overflow-scrolling:touch;
+overflow:hidden;
 }
+
+/* ── SCROLLABLE MAIN CONTENT ── */
+.app-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;}
 
 /* ── TITLE ── */
 .app-title{
 text-align:center;font-family:'Cinzel',serif;font-size:1.5rem;font-weight:900;
 letter-spacing:2px;color:#1a0a00;
 text-shadow:1px 1px 0 rgba(255,200,80,0.4),0 2px 8px rgba(0,0,0,0.3);
-margin-bottom:14px;
+margin-bottom:14px;flex-shrink:0;
 }
 
 /* ── EXP BAR ── */
 .exp-container{
-margin-bottom:16px;
-background:#1a1a0e;
-border:2px solid #0a0a00;
-border-radius:6px;
-padding:8px 10px 10px;
+flex-shrink:0;margin-bottom:16px;background:#1a1a0e;
+border:2px solid #0a0a00;border-radius:6px;padding:8px 10px 10px;
 box-shadow:inset 0 2px 8px rgba(0,0,0,0.8),0 2px 8px rgba(0,0,0,0.4);
 }
-.exp-label-text{
-font-family:'Courier New',Courier,monospace;
-font-size:clamp(11px,2.5vw,15px);
-font-weight:900;
-color:#e8e8d0;
-text-shadow:0 0 6px rgba(200,220,100,0.5),1px 1px 0 #000;
-margin-bottom:6px;
-letter-spacing:1px;
-display:block;
-}
-.exp-label-text span.exp-word{
-color:#ffffff;
-font-size:1.15em;
-text-shadow:0 0 8px rgba(255,255,200,0.8),1px 1px 0 #000;
-}
-.exp-bar-outer{
-position:relative;
-width:100%;
-padding-top:calc(100% * 0.048);/* proportional height ~4.8% of width */
-border-radius:50px;
-border:2px solid #0a0a00;
-overflow:hidden;
-box-shadow:inset 0 3px 8px rgba(0,0,0,0.7),0 1px 0 rgba(255,255,255,0.08);
-}
-.exp-bar-inner{
-position:absolute;inset:0;
-display:flex;border-radius:50px;overflow:hidden;
-}
-.exp-bar-fill{
-height:100%;
-background:linear-gradient(180deg,#f0ff60 0%,#d4e820 35%,#a0b800 65%,#c8d820 100%);
-box-shadow:inset 0 2px 0 rgba(255,255,180,0.6),inset 0 -1px 0 rgba(0,0,0,0.2);
-position:relative;transition:width .6s cubic-bezier(.4,0,.2,1);flex-shrink:0;
-}
-.exp-bar-fill::after{
-content:'';position:absolute;top:0;left:0;right:0;height:45%;
-background:linear-gradient(180deg,rgba(255,255,220,0.55),transparent);
-border-radius:50px 50px 0 0;
-}
-.exp-bar-empty{
-flex:1;height:100%;
-background:linear-gradient(180deg,#d8d8c8 0%,#b8b8a8 40%,#a0a090 70%,#c0c0b0 100%);
-box-shadow:inset 0 2px 0 rgba(255,255,255,0.4),inset 0 -1px 0 rgba(0,0,0,0.15);
-position:relative;
-}
-.exp-bar-empty::after{
-content:'';position:absolute;top:0;left:0;right:0;height:45%;
-background:linear-gradient(180deg,rgba(255,255,255,0.45),transparent);
-border-radius:0 50px 0 0;
-}
+.exp-label-text{font-family:'Courier New',Courier,monospace;font-size:clamp(11px,2.5vw,15px);font-weight:900;color:#e8e8d0;text-shadow:0 0 6px rgba(200,220,100,0.5),1px 1px 0 #000;margin-bottom:6px;letter-spacing:1px;display:block;}
+.exp-label-text .exp-word{color:#fff;font-size:1.15em;text-shadow:0 0 8px rgba(255,255,200,0.8),1px 1px 0 #000;}
+.exp-bar-outer{position:relative;width:100%;height:0;padding-bottom:4.8%;border-radius:50px;border:2px solid #0a0a00;overflow:hidden;box-shadow:inset 0 3px 8px rgba(0,0,0,0.7);}
+.exp-bar-inner{position:absolute;inset:0;display:flex;border-radius:50px;overflow:hidden;}
+.exp-bar-fill{height:100%;flex-shrink:0;background:linear-gradient(180deg,#f0ff60 0%,#d4e820 35%,#a0b800 65%,#c8d820 100%);box-shadow:inset 0 2px 0 rgba(255,255,180,0.6);position:relative;transition:width .6s cubic-bezier(.4,0,.2,1);}
+.exp-bar-fill::after{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,220,0.55),transparent);border-radius:50px 50px 0 0;}
+.exp-bar-empty{flex:1;height:100%;background:linear-gradient(180deg,#d8d8c8 0%,#b8b8a8 40%,#a0a090 70%,#c0c0b0 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,0.4);position:relative;}
+.exp-bar-empty::after{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,0.45),transparent);}
 .exp-ticks{position:absolute;inset:0;z-index:2;pointer-events:none;width:100%;height:100%;}
 
 /* ── WOOD PANEL ── */
-.wood-panel{
-position:relative;margin-bottom:14px;border-radius:7px;
-border:3px solid var(--wood-shadow);overflow:hidden;
-background:
-repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,0.05) 20px,rgba(0,0,0,0.05) 22px),
-linear-gradient(175deg,#d49050 0%,#8b4513 25%,#5a2e0e 60%,#2a1005 100%);
-box-shadow:
-inset 0 1px 0 rgba(255,255,255,0.2),
-inset 0 -2px 0 rgba(0,0,0,0.5),
-0 6px 20px rgba(0,0,0,0.5),
-0 2px 4px rgba(0,0,0,0.3);
-}
+.wood-panel{position:relative;margin-bottom:14px;border-radius:7px;border:3px solid var(--wood-shadow);overflow:hidden;flex-shrink:0;background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,0.05) 20px,rgba(0,0,0,0.05) 22px),linear-gradient(175deg,#d49050 0%,#8b4513 25%,#5a2e0e 60%,#2a1005 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),inset 0 -2px 0 rgba(0,0,0,0.5),0 6px 20px rgba(0,0,0,0.5);}
 .wood-panel::before{content:'';position:absolute;inset:2px;border-radius:4px;border-top:1px solid rgba(255,255,255,0.15);pointer-events:none;}
-.panel-header{
-display:flex;align-items:center;justify-content:space-between;
-padding:10px 14px 9px;
-border-bottom:2px solid var(--wood-shadow);
-box-shadow:0 2px 0 rgba(255,255,255,0.07);
-position:relative;z-index:1;
-}
+.panel-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 9px;border-bottom:2px solid var(--wood-shadow);box-shadow:0 2px 0 rgba(255,255,255,0.07);position:relative;z-index:1;}
 .panel-title{font-family:'Cinzel',serif;font-size:.92rem;font-weight:700;color:var(--wood-text);text-shadow:1px 1px 2px var(--wood-shadow);letter-spacing:.6px;}
 .panel-body{padding:10px 14px;position:relative;z-index:1;}
 
-/* ── WOOD BUTTON ── */
-.wood-btn{
-background:linear-gradient(180deg,#d4904a 0%,#8b4513 55%,#4a2008 100%);
-border:2px solid var(--wood-shadow);border-radius:5px;
-color:var(--wood-text);font-family:'Cinzel',serif;
-font-size:.75rem;font-weight:700;padding:5px 11px;cursor:pointer;
-text-shadow:1px 1px 1px var(--wood-shadow);
-box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 2px 5px rgba(0,0,0,0.35);
-letter-spacing:.3px;white-space:nowrap;transition:all .15s;
+/* ── MECHANICS PANEL — flexible height ── */
+.wood-panel.mechanics-panel{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;margin-bottom:0;}
+.mechanics-panel .panel-body{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;}
+.mechanics-scroll{
+flex:1;
+min-height:calc(5 * 42px);
+overflow-y:auto;-webkit-overflow-scrolling:touch;
 }
+
+/* ── WOOD BUTTON ── */
+.wood-btn{background:linear-gradient(180deg,#d4904a 0%,#8b4513 55%,#4a2008 100%);border:2px solid var(--wood-shadow);border-radius:5px;color:var(--wood-text);font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;padding:5px 11px;cursor:pointer;text-shadow:1px 1px 1px var(--wood-shadow);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 2px 5px rgba(0,0,0,0.35);letter-spacing:.3px;white-space:nowrap;transition:all .15s;}
 .wood-btn:active{transform:translateY(1px);}
 .wood-btn.small{font-size:.68rem;padding:4px 9px;}
 .wood-btn.danger{background:linear-gradient(180deg,#b03828 0%,#6b1f10 100%);border-color:#2a0800;}
 
 /* ── GAME ROW ── */
-.game-row{
-display:flex;align-items:center;
-padding:8px 10px;margin-bottom:6px;
-border-radius:5px;border:1px solid rgba(255,200,80,0.12);
-background:rgba(0,0,0,0.22);
-}
+.game-row{display:flex;align-items:center;padding:8px 10px;margin-bottom:6px;border-radius:5px;border:1px solid rgba(255,200,80,0.12);background:rgba(0,0,0,0.22);}
 .game-row-info{flex:1;cursor:pointer;}
 .game-name{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wood-text);text-shadow:1px 1px 1px var(--wood-shadow);}
 .game-date{font-size:.74rem;color:var(--parch-dark);margin-top:2px;}
 .game-row-right{display:flex;align-items:center;gap:6px;flex-shrink:0;}
-
-/* ── HEART BUTTON ── */
-.heart-btn{
-background:none;border:none;cursor:pointer;
-font-size:1.2rem;line-height:1;padding:2px 4px;
-color:#ccc;transition:transform .15s,color .15s;
-flex-shrink:0;
-}
+.heart-btn{background:none;border:none;cursor:pointer;font-size:1.2rem;line-height:1;padding:2px 4px;color:#ccc;transition:transform .15s,color .15s;flex-shrink:0;}
 .heart-btn.liked{color:#e83030;}
 .heart-btn:active{transform:scale(1.3);}
 
 /* ── MECHANIC ROW ── */
-.mechanic-row{
-display:flex;align-items:center;gap:10px;
-padding:7px 10px;margin-bottom:5px;border-radius:4px;
-border:1px solid rgba(255,200,80,0.07);background:rgba(0,0,0,0.18);
-}
-.mechanic-check{
-width:19px;height:19px;border-radius:3px;flex-shrink:0;
-border:2px solid var(--wood-light);background:rgba(0,0,0,0.3);
-display:flex;align-items:center;justify-content:center;
-}
-.mechanic-check.ticked{background:linear-gradient(135deg,#1a6a10,#2a9a20);border-color:#4ac830;box-shadow:0 0 5px rgba(60,200,40,0.35);}
-.mechanic-check.ticked::after{content:'✓';color:#a0ff80;font-size:12px;line-height:1;}
+.mechanic-row{display:flex;align-items:center;padding:8px 12px;margin-bottom:5px;border-radius:5px;border:1px solid rgba(255,200,80,0.07);background:rgba(0,0,0,0.18);min-height:37px;}
+.mechanic-row.ticked{background:linear-gradient(90deg,#c8d420,#d4e020);border-color:rgba(180,200,0,0.4);}
 .mechanic-name{font-size:.86rem;color:var(--wood-text);flex:1;}
-.mechanic-count{font-size:.72rem;color:#c8a060;}
+.mechanic-row.ticked .mechanic-name{color:#1a1a00;font-weight:600;text-shadow:none;}
 
 /* ── FILTER ── */
-.filter-row{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
+.filter-row{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;flex-shrink:0;}
 
 /* ── INPUTS ── */
-.wood-input{
-width:100%;background:rgba(0,0,0,0.38);
-border:2px solid var(--wood-shadow);border-radius:4px;
-color:var(--wood-text);font-family:'Crimson Text',serif;
-font-size:.93rem;padding:8px 10px;outline:none;
-box-shadow:inset 0 2px 5px rgba(0,0,0,0.4);margin-bottom:10px;
-}
+.wood-input{width:100%;background:rgba(0,0,0,0.38);border:2px solid var(--wood-shadow);border-radius:4px;color:var(--wood-text);font-family:'Crimson Text',serif;font-size:.93rem;padding:8px 10px;outline:none;box-shadow:inset 0 2px 5px rgba(0,0,0,0.4);margin-bottom:10px;text-align:left;}
 .wood-input:focus{border-color:#c4844a;}
 .wood-input::placeholder{color:var(--parch-dark);opacity:.6;}
+input[type="date"].wood-input{-webkit-appearance:none;appearance:none;color:var(--wood-text);}
+input[type="date"].wood-input::-webkit-date-and-time-value{text-align:left;}
 textarea.wood-input{resize:vertical;min-height:60px;}
 .input-label{font-family:'Cinzel',serif;font-size:.74rem;color:var(--parch-dark);margin-bottom:4px;display:block;letter-spacing:.3px;}
 
-/* ── SLIDE PANEL ── */
-.slide-panel{
-position:fixed;inset:0;z-index:50;
-display:flex;flex-direction:column;justify-content:flex-end;
-background:rgba(0,0,0,0.55);
-opacity:0;pointer-events:none;transition:opacity .3s;
+/* ── SELECTED MECHANICS GRID ── */
+.selected-mechanics-grid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.selected-mechanic-btn{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,#c8d420,#a0b000);border:1.5px solid #6a8000;border-radius:4px;padding:4px 6px 4px 9px;font-family:'Crimson Text',serif;font-size:.8rem;color:#1a1a00;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.3);}
+.remove-cross{color:#cc0000;font-size:1rem;font-weight:900;line-height:1;cursor:pointer;flex-shrink:0;padding:0 2px;}
+.remove-cross:active{transform:scale(1.3);}
+
+/* ── PASTE HIGHLIGHT ── */
+.paste-area-wrap{position:relative;margin-bottom:10px;}
+.paste-area-wrap textarea.wood-input{margin-bottom:0;position:relative;z-index:1;background:rgba(0,0,0,0.38);}
+.paste-highlight-overlay{
+position:absolute;inset:0;padding:8px 10px;
+font-family:'Crimson Text',serif;font-size:.93rem;line-height:1.5;
+pointer-events:none;z-index:2;overflow:hidden;white-space:pre-wrap;word-break:break-word;
+border-radius:4px;border:2px solid transparent;
+color:transparent;
 }
+.paste-highlight-overlay .bad-line{background:rgba(255,50,50,0.25);color:#ff6666;border-radius:2px;}
+
+/* ── MECHANIC SELECT LIST ── */
+.mechanic-select-list{max-height:180px;overflow-y:auto;-webkit-overflow-scrolling:touch;border:2px solid var(--wood-shadow);border-radius:4px;background:rgba(0,0,0,0.28);}
+.mechanic-select-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;user-select:none;min-height:36px;}
+.mechanic-select-row:last-child{border-bottom:none;}
+.mechanic-select-row:active{background:rgba(255,255,255,0.07);}
+.mechanic-select-check{width:18px;height:18px;border-radius:3px;flex-shrink:0;border:2px solid var(--wood-light);background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;pointer-events:none;}
+.mechanic-select-check.selected{background:linear-gradient(135deg,#1a6a10,#2a9a20);border-color:#4ac830;}
+.mechanic-select-check.selected::after{content:'✓';color:#a0ff80;font-size:11px;}
+.mechanic-select-name{font-size:.84rem;color:var(--wood-text);pointer-events:none;flex:1;}
+
+/* ── SLIDE PANEL ── */
+.slide-panel{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;justify-content:flex-end;background:rgba(0,0,0,0.55);opacity:0;pointer-events:none;transition:opacity .3s;}
 .slide-panel.open{opacity:1;pointer-events:all;}
 .slide-panel-inner{
-background:
-repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,0.05) 20px,rgba(0,0,0,0.05) 22px),
-linear-gradient(175deg,#d49050 0%,#7a3a10 30%,#2a1005 100%);
-border-top:4px solid var(--wood-shadow);
-border-radius:18px 18px 0 0;
+background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,0.05) 20px,rgba(0,0,0,0.05) 22px),linear-gradient(175deg,#d49050 0%,#7a3a10 30%,#2a1005 100%);
+border-top:4px solid var(--wood-shadow);border-radius:18px 18px 0 0;
 padding:18px 18px calc(var(--safe-bot) + 22px);
-max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
-transform:translateY(100%);
-transition:transform .38s cubic-bezier(.32,1,.56,1);
+overflow-y:auto;-webkit-overflow-scrolling:touch;
+transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);
 box-shadow:0 -10px 40px rgba(0,0,0,0.6);
 }
 .slide-panel.open .slide-panel-inner{transform:translateY(0);}
-.slide-panel-title{
-font-family:'Cinzel',serif;font-size:1rem;font-weight:700;
-color:var(--wood-text);text-shadow:1px 1px 2px var(--wood-shadow);
-margin-bottom:14px;text-align:center;letter-spacing:.8px;
-}
+.slide-panel-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--wood-text);text-shadow:1px 1px 2px var(--wood-shadow);margin-bottom:14px;text-align:center;letter-spacing:.8px;}
 .form-row{margin-bottom:12px;}
 .btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:14px;}
 .btn-row-left{display:flex;gap:10px;justify-content:flex-start;margin-top:14px;}
-
-/* ── MECHANIC SELECTOR ── */
-.mechanic-select-list{
-max-height:200px;overflow-y:auto;-webkit-overflow-scrolling:touch;
-border:2px solid var(--wood-shadow);border-radius:4px;background:rgba(0,0,0,0.28);
-}
-.mechanic-select-row{
-display:flex;align-items:center;gap:8px;
-padding:7px 10px;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;
-}
-.mechanic-select-row:last-child{border-bottom:none;}
-.mechanic-select-row:active{background:rgba(255,255,255,0.07);}
-.mechanic-select-check{
-width:17px;height:17px;border-radius:3px;flex-shrink:0;
-border:2px solid var(--wood-light);background:rgba(0,0,0,0.28);
-display:flex;align-items:center;justify-content:center;
-}
-.mechanic-select-check.selected{background:linear-gradient(135deg,#1a6a10,#2a9a20);border-color:#4ac830;}
-.mechanic-select-check.selected::after{content:'✓';color:#a0ff80;font-size:10px;}
-.mechanic-select-name{font-size:.84rem;color:var(--wood-text);}
 
 /* ── DETAIL ── */
 .detail-section-title{font-family:'Cinzel',serif;font-size:.78rem;color:#d4a060;letter-spacing:.5px;margin:12px 0 5px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:3px;}
 .detail-text{font-size:.88rem;color:var(--wood-text);line-height:1.5;}
 .detail-mechanic-tag{display:inline-block;background:rgba(0,0,0,0.28);border:1px solid rgba(255,200,80,0.18);border-radius:3px;padding:3px 8px;font-size:.76rem;color:var(--wood-text);margin:3px 3px 3px 0;}
 .empty-state{text-align:center;color:var(--parch-dark);font-style:italic;font-size:.84rem;padding:12px 0;}
+
+/* ── EDIT LIST PANEL scroll ── */
+.edit-mechanics-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:calc(5 * 48px);flex:1;}
 </style>
 </head>
 <body>
 
-<!-- BACKGROUND LAYERS -->
 <div class="bg"></div>
 <div class="light-rays">
 <div class="ray"></div><div class="ray"></div>
 <div class="ray"></div><div class="ray"></div>
 </div>
 <div class="tree-trunk"></div>
-
-<!-- MUSHROOMS (SVG) -->
 <div class="mushrooms">
 <svg width="130" height="160" viewBox="0 0 130 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-<!-- Big orange mushroom -->
 <ellipse cx="55" cy="100" rx="18" ry="28" fill="#d4c8a0" stroke="#a09060" stroke-width="1.5"/>
 <ellipse cx="55" cy="100" rx="10" ry="26" fill="#e0d8b0"/>
 <path d="M10 105 Q20 55 55 50 Q90 55 100 105 Q78 118 55 115 Q32 118 10 105Z" fill="#d44010"/>
 <path d="M10 105 Q20 55 55 50 Q90 55 100 105 Q78 118 55 115 Q32 118 10 105Z" fill="none" stroke="#a03008" stroke-width="1.5"/>
 <ellipse cx="30" cy="80" rx="8" ry="5" fill="rgba(255,255,255,0.25)" transform="rotate(-20 30 80)"/>
 <ellipse cx="72" cy="68" rx="6" ry="4" fill="rgba(255,255,255,0.2)" transform="rotate(10 72 68)"/>
-<!-- Small yellow mushroom -->
 <ellipse cx="90" cy="128" rx="10" ry="18" fill="#d4c8a0" stroke="#a09060" stroke-width="1"/>
 <path d="M68 130 Q75 100 90 96 Q105 100 112 130 Q102 138 90 136 Q78 138 68 130Z" fill="#e8b820"/>
 <path d="M68 130 Q75 100 90 96 Q105 100 112 130 Q102 138 90 136 Q78 138 68 130Z" fill="none" stroke="#c09010" stroke-width="1.2"/>
-<!-- Tiny grey mushroom -->
 <ellipse cx="22" cy="145" rx="7" ry="12" fill="#c8c0a0" stroke="#a09880" stroke-width="1"/>
 <path d="M8 147 Q12 128 22 125 Q32 128 36 147 Q30 152 22 151 Q14 152 8 147Z" fill="#b0a890"/>
 <path d="M8 147 Q12 128 22 125 Q32 128 36 147 Q30 152 22 151 Q14 152 8 147Z" fill="none" stroke="#8a8070" stroke-width="1"/>
 </svg>
 </div>
-
-<!-- MAPLE LEAF TOP RIGHT (SVG) -->
-<div class="maple-leaf-tr">
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M50 5 L58 28 L72 18 L65 38 L85 32 L72 48 L90 52 L72 58 L80 75 L60 65 L58 88 L50 72 L42 88 L40 65 L20 75 L28 58 L10 52 L28 48 L15 32 L35 38 L28 18 L42 28 Z" fill="#cc2200" stroke="#991800" stroke-width="1.5"/>
-</svg>
-</div>
-
-<!-- AUTUMN LEAF BOTTOM RIGHT (SVG) -->
-<div class="maple-leaf-br">
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M50 5 L58 28 L72 18 L65 38 L85 32 L72 48 L90 52 L72 58 L80 75 L60 65 L58 88 L50 72 L42 88 L40 65 L20 75 L28 58 L10 52 L28 48 L15 32 L35 38 L28 18 L42 28 Z" fill="#e05010" stroke="#b03808" stroke-width="1.5"/>
-</svg>
-</div>
-
 <div class="book-border"></div>
 <div class="book-spine"></div>
 
-<div class="app">
-
+<div class="app" id="mainApp">
 <div class="app-title">Designer's EXP</div>
 
 <!-- EXP BAR -->
-<div class="exp-container">
+<div class="exp-container" id="expContainer">
 <span class="exp-label-text" id="expLabel"><span class="exp-word">EXP.</span> 0/0 [0.00%]</span>
 <div class="exp-bar-outer" id="expBarOuter">
 <div class="exp-bar-inner">
 <div class="exp-bar-fill" id="expFill" style="width:0%"></div>
-<div class="exp-bar-empty" id="expEmpty"></div>
+<div class="exp-bar-empty"></div>
 </div>
 <canvas class="exp-ticks" id="expTicks"></canvas>
 </div>
 </div>
 
 <!-- GAMES PLAYED -->
-<div class="wood-panel">
+<div class="wood-panel" id="gamesPanel">
 <div class="panel-header">
 <span class="panel-title">Games Played</span>
 <div style="display:flex;gap:6px">
@@ -413,7 +264,7 @@ display:flex;align-items:center;justify-content:center;
 </div>
 
 <!-- MECHANICS -->
-<div class="wood-panel">
+<div class="wood-panel mechanics-panel">
 <div class="panel-header">
 <span class="panel-title">Mechanics</span>
 <button class="wood-btn small" onclick="openEditList()">Edit List</button>
@@ -424,15 +275,14 @@ display:flex;align-items:center;justify-content:center;
 <button class="wood-btn small" id="filterTicked" onclick="setFilter('ticked')">Ticked</button>
 <button class="wood-btn small" id="filterUnticked" onclick="setFilter('unticked')">Unticked</button>
 </div>
-<div id="mechanicsList"></div>
+<div class="mechanics-scroll" id="mechanicsList"></div>
 </div>
 </div>
-
 </div>
 
 <!-- ADD/EDIT GAME PANEL -->
 <div class="slide-panel" id="addGamePanel">
-<div class="slide-panel-inner">
+<div class="slide-panel-inner" id="addGameInner">
 <div class="slide-panel-title" id="addGameTitle">Add Game</div>
 <div class="form-row">
 <label class="input-label">Game Name</label>
@@ -444,7 +294,11 @@ display:flex;align-items:center;justify-content:center;
 </div>
 <div class="form-row">
 <label class="input-label">Mechanics</label>
+<div class="selected-mechanics-grid" id="selectedMechanicsGrid"></div>
+<div class="paste-area-wrap">
 <textarea class="wood-input" id="mechanicsSearch" placeholder="Search or paste list (one per line)..." rows="2" oninput="onMechanicsSearch()"></textarea>
+<div class="paste-highlight-overlay" id="pasteHighlight" aria-hidden="true"></div>
+</div>
 <div class="mechanic-select-list" id="mechanicsSelectList"></div>
 </div>
 <div class="btn-row">
@@ -470,14 +324,14 @@ display:flex;align-items:center;justify-content:center;
 
 <!-- EDIT LIST PANEL -->
 <div class="slide-panel" id="editListPanel">
-<div class="slide-panel-inner">
+<div class="slide-panel-inner" id="editListInner" style="display:flex;flex-direction:column;">
 <div class="slide-panel-title">Edit Mechanics List</div>
-<div style="display:flex;gap:8px;margin-bottom:10px;">
+<div style="display:flex;gap:8px;margin-bottom:10px;flex-shrink:0;">
 <input class="wood-input" id="newMechanicInput" type="text" placeholder="New mechanic name..." style="margin-bottom:0;flex:1"/>
 <button class="wood-btn" onclick="addMechanic()">Add</button>
 </div>
-<div id="editMechanicsList"></div>
-<div class="btn-row-left">
+<div class="edit-mechanics-scroll" id="editMechanicsList"></div>
+<div class="btn-row-left" style="flex-shrink:0;">
 <button class="wood-btn" onclick="closeEditList()">Back</button>
 </div>
 </div>
@@ -537,6 +391,32 @@ localStorage.setItem('dexp_mechanics',JSON.stringify(mechanics));
 localStorage.setItem('dexp_games',JSON.stringify(games));
 }
 
+// ── PANEL HEIGHT ──
+function setAddGamePanelHeight(){
+const expEl=document.getElementById('expContainer');
+const expRect=expEl.getBoundingClientRect();
+const expBottom=expRect.bottom;
+const winH=window.innerHeight;
+// Leave EXP bar visible — panel starts just below EXP bar
+const maxH=winH-expBottom-10;
+const inner=document.getElementById('addGameInner');
+inner.style.maxHeight=Math.max(300,maxH)+'px';
+}
+
+function setEditListPanelHeight(){
+const expEl=document.getElementById('expContainer');
+const expRect=expEl.getBoundingClientRect();
+const expBottom=expRect.bottom;
+const winH=window.innerHeight;
+const maxH=winH-expBottom-10;
+const inner=document.getElementById('editListInner');
+inner.style.maxHeight=Math.max(300,maxH)+'px';
+// set scroll area
+const scroll=document.getElementById('editMechanicsList');
+const usedH=100; // approx for title+input+btn
+scroll.style.maxHeight=Math.max(5*48,maxH-usedH)+'px';
+}
+
 // ── EXP ──
 function getUniqueTickedCount(){
 const t=new Set();
@@ -547,27 +427,22 @@ function updateExp(){
 const total=mechanics.length;
 const ticked=getUniqueTickedCount();
 const pct=total>0?(ticked/total*100):0;
-const fill=document.getElementById('expFill');
-const empty=document.getElementById('expEmpty');
-fill.style.width=pct+'%';
-empty.style.width=(100-pct)+'%';
-document.getElementById('expLabel').innerHTML=
-'<span class="exp-word">EXP.</span> '+ticked+'/'+total+' ['+pct.toFixed(2)+'%]';
+document.getElementById('expFill').style.width=pct+'%';
+document.getElementById('expLabel').innerHTML='<span class="exp-word">EXP.</span> '+ticked+'/'+total+' ['+pct.toFixed(2)+'%]';
 drawTicks();
 }
 function drawTicks(){
 const canvas=document.getElementById('expTicks');
 const outer=document.getElementById('expBarOuter');
-const w=outer.offsetWidth;
-const h=outer.offsetHeight;
-canvas.width=w; canvas.height=h;
+const w=outer.offsetWidth,h=outer.offsetHeight;
+canvas.width=w;canvas.height=h;
 const ctx=canvas.getContext('2d');
 ctx.clearRect(0,0,w,h);
 const n=40;
 for(let i=0;i<=n;i++){
 const x=Math.round(i/n*w);
 const maj=i%10===0,mid=i%5===0;
-const th=maj?h:mid?Math.round(h*0.55):Math.round(h*0.32);
+const th=maj?h:mid?Math.round(h*.55):Math.round(h*.32);
 ctx.strokeStyle=maj?'rgba(0,0,0,0.5)':'rgba(0,0,0,0.28)';
 ctx.lineWidth=maj?1.5:0.8;
 ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,th);ctx.stroke();
@@ -581,12 +456,12 @@ const el=document.getElementById('gamesList');
 if(!games.length){el.innerHTML='<div class="empty-state">No games recorded yet.</div>';return;}
 el.innerHTML=games.map((g,i)=>`
 <div class="game-row">
-<div class="game-row-info" onclick="${editingGames?'':('openGameDetail('+i+')')}">
+<div class="game-row-info" onclick="${editingGames?'void(0)':('openGameDetail('+i+')')}">
 <div class="game-name">${esc(g.name)}</div>
 <div class="game-date">${formatDate(g.date)}</div>
 </div>
 <div class="game-row-right">
-<button class="heart-btn ${g.liked?'liked':''}" onclick="toggleLike(${i})" aria-label="Like">${g.liked?'♥':'♡'}</button>
+<button class="heart-btn ${g.liked?'liked':''}" onclick="toggleLike(${i})">${g.liked?'♥':'♡'}</button>
 ${editingGames?`
 <button class="wood-btn small" onclick="openEditGame(${i})">Edit</button>
 <button class="wood-btn small danger" onclick="deleteGame(${i})">Delete</button>
@@ -594,11 +469,7 @@ ${editingGames?`
 </div>
 </div>`).join('');
 }
-
-function toggleLike(i){
-games[i].liked=!games[i].liked;
-save();renderGames();
-}
+function toggleLike(i){games[i].liked=!games[i].liked;save();renderGames();}
 function toggleEditGames(){
 editingGames=!editingGames;
 document.getElementById('editGamesBtn').textContent=editingGames?'Done':'Edit';
@@ -617,8 +488,11 @@ document.getElementById('addGameTitle').textContent='Add Game';
 document.getElementById('gameNameInput').value='';
 document.getElementById('gameDateInput').value=todayStr();
 document.getElementById('mechanicsSearch').value='';
+document.getElementById('pasteHighlight').innerHTML='';
 selectedMechanicsInForm=new Set();
+renderSelectedGrid();
 renderMechanicsSelect('');
+setAddGamePanelHeight();
 document.getElementById('addGamePanel').classList.add('open');
 }
 function openEditGame(i){
@@ -628,8 +502,11 @@ document.getElementById('addGameTitle').textContent='Edit Game';
 document.getElementById('gameNameInput').value=g.name;
 document.getElementById('gameDateInput').value=g.date;
 document.getElementById('mechanicsSearch').value='';
+document.getElementById('pasteHighlight').innerHTML='';
 selectedMechanicsInForm=new Set(g.mechanics);
+renderSelectedGrid();
 renderMechanicsSelect('');
+setAddGamePanelHeight();
 document.getElementById('addGamePanel').classList.add('open');
 }
 function closeAddGame(){document.getElementById('addGamePanel').classList.remove('open');}
@@ -658,22 +535,69 @@ document.getElementById('gameDetailPanel').classList.add('open');
 }
 function closeDetailPanel(){document.getElementById('gameDetailPanel').classList.remove('open');}
 
-// ── MECHANICS FORM ──
+// ── SELECTED GRID ──
+function renderSelectedGrid(){
+const grid=document.getElementById('selectedMechanicsGrid');
+if(!selectedMechanicsInForm.size){grid.innerHTML='';return;}
+grid.innerHTML=Array.from(selectedMechanicsInForm).map(m=>`
+<div class="selected-mechanic-btn">
+<span>${esc(m)}</span>
+<span class="remove-cross" onclick="removeFromSelected(${JSON.stringify(m)})">✕</span>
+</div>`).join('');
+}
+function removeFromSelected(name){
+selectedMechanicsInForm.delete(name);
+renderSelectedGrid();
+const filter=document.getElementById('mechanicsSearch').value.split('\n')[0].trim().toLowerCase();
+renderMechanicsSelect(filter);
+}
+
+// ── PASTE/SEARCH ──
 function onMechanicsSearch(){
 const val=document.getElementById('mechanicsSearch').value;
-const lines=val.split('\n').map(l=>l.trim().toLowerCase()).filter(Boolean);
+const lines=val.split('\n');
+const mechLower=mechanics.map(m=>m.toLowerCase());
+
 if(lines.length>1){
-mechanics.forEach(m=>{
-if(lines.some(l=>m.toLowerCase().includes(l)||l.includes(m.toLowerCase())))
-selectedMechanicsInForm.add(m);
+// Bulk paste mode — exact match only
+const badLines=[];
+lines.forEach(line=>{
+const t=line.trim();
+if(!t)return;
+const idx=mechLower.indexOf(t.toLowerCase());
+if(idx!==-1){
+selectedMechanicsInForm.add(mechanics[idx]);
+} else {
+badLines.push(t);
+}
 });
+// Build highlight overlay
+const hl=document.getElementById('pasteHighlight');
+hl.innerHTML=lines.map(line=>{
+const t=line.trim();
+if(!t)return'\n';
+const matched=mechLower.indexOf(t.toLowerCase())!==-1;
+return matched
+?`<span>${esc(line)}</span>\n`
+:`<span class="bad-line">${esc(line)}</span>\n`;
+}).join('');
+renderSelectedGrid();
+renderMechanicsSelect('');
+} else {
+// Single line search
+document.getElementById('pasteHighlight').innerHTML='';
+const filter=val.trim().toLowerCase();
+renderMechanicsSelect(filter);
 }
-renderMechanicsSelect(lines.length===1?lines[0]:'');
 }
+
 function renderMechanicsSelect(filter){
 const list=document.getElementById('mechanicsSelectList');
-const filtered=filter?mechanics.filter(m=>m.toLowerCase().includes(filter)):mechanics;
-list.innerHTML=filtered.map(m=>`
+// Sort: selected first, then rest
+const selected=mechanics.filter(m=>selectedMechanicsInForm.has(m)&&(!filter||m.toLowerCase().includes(filter)));
+const unselected=mechanics.filter(m=>!selectedMechanicsInForm.has(m)&&(!filter||m.toLowerCase().includes(filter)));
+const ordered=[...selected,...unselected];
+list.innerHTML=ordered.map(m=>`
 <div class="mechanic-select-row" onclick="toggleFormMechanic(${JSON.stringify(m)})">
 <div class="mechanic-select-check ${selectedMechanicsInForm.has(m)?'selected':''}"></div>
 <span class="mechanic-select-name">${esc(m)}</span>
@@ -682,6 +606,7 @@ list.innerHTML=filtered.map(m=>`
 function toggleFormMechanic(name){
 if(selectedMechanicsInForm.has(name))selectedMechanicsInForm.delete(name);
 else selectedMechanicsInForm.add(name);
+renderSelectedGrid();
 const filter=document.getElementById('mechanicsSearch').value.split('\n')[0].trim().toLowerCase();
 renderMechanicsSelect(filter);
 }
@@ -691,16 +616,12 @@ function renderMechanics(){
 const el=document.getElementById('mechanicsList');
 const ticked=new Set();
 games.forEach(g=>g.mechanics.forEach(m=>ticked.add(m)));
-const counts={};
-games.forEach(g=>g.mechanics.forEach(m=>{counts[m]=(counts[m]||0)+1;}));
 let list=mechanics;
 if(mechanicsFilter==='ticked')list=mechanics.filter(m=>ticked.has(m));
 if(mechanicsFilter==='unticked')list=mechanics.filter(m=>!ticked.has(m));
 el.innerHTML=list.map(m=>`
-<div class="mechanic-row">
-<div class="mechanic-check ${ticked.has(m)?'ticked':''}"></div>
+<div class="mechanic-row ${ticked.has(m)?'ticked':''}">
 <span class="mechanic-name">${esc(m)}</span>
-${counts[m]?`<span class="mechanic-count">${counts[m]}x</span>`:''}
 </div>`).join('')||'<div class="empty-state">Nothing to show.</div>';
 ['All','Ticked','Unticked'].forEach(f=>{
 const btn=document.getElementById('filter'+f);
@@ -712,8 +633,15 @@ btn.style.boxShadow=active?'0 0 8px rgba(220,140,40,0.4)':'';
 function setFilter(f){mechanicsFilter=f;renderMechanics();}
 
 // ── EDIT LIST ──
-function openEditList(){renderEditMechanics();document.getElementById('editListPanel').classList.add('open');}
-function closeEditList(){document.getElementById('editListPanel').classList.remove('open');renderMechanics();updateExp();}
+function openEditList(){
+renderEditMechanics();
+setEditListPanelHeight();
+document.getElementById('editListPanel').classList.add('open');
+}
+function closeEditList(){
+document.getElementById('editListPanel').classList.remove('open');
+renderMechanics();updateExp();
+}
 function renderEditMechanics(){
 const el=document.getElementById('editMechanicsList');
 el.innerHTML=mechanics.map((m,i)=>`
@@ -758,7 +686,7 @@ return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;
 renderGames();
 renderMechanics();
 updateExp();
-window.addEventListener('resize',()=>{drawTicks();});
+window.addEventListener('resize',()=>{drawTicks();setAddGamePanelHeight();setEditListPanelHeight();});
 </script>
 </body>
 </html>

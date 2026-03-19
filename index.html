@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="BG Mechanics Tracker"/>
+<meta name="theme-color" content="#5b3a1e"/>
+<title>BG Mechanics Tracker</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+--wood-dark: #3d1f0a;
+--wood-mid: #6b3a1f;
+--wood-light: #a0622a;
+--wood-highlight: #c4844a;
+--wood-text: #f5e6c8;
+--wood-shadow: #2a1208;
+--parchment: #f0e6c8;
+--parchment-dark: #d4c4a0;
+--sky-top: #4a9ebb;
+--sky-mid: #7bbfd4;
+--sky-bottom: #b8dde8;
+--exp-fill: #c8d420;
+--exp-empty: #4a5020;
+--exp-empty-grey: #5a5a48;
+--safe-top: env(safe-area-inset-top, 0px);
+--safe-bot: env(safe-area-inset-bottom, 0px);
+}
+
+html, body {
+height: 100%;
+font-family: 'Crimson Text', Georgia, serif;
+overflow: hidden;
+}
+
+/* ── BACKGROUND ── */
+.bg {
+position: fixed; inset: 0;
+background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 50%, var(--sky-bottom) 100%);
+z-index: 0;
+}
+
+/* ── PARCHMENT FRAME ── */
+.frame {
+position: fixed; inset: 0;
+z-index: 1;
+pointer-events: none;
+border: 18px solid transparent;
+border-image: none;
+box-shadow: inset 0 0 0 16px var(--parchment-dark), inset 0 0 0 20px var(--parchment);
+}
+.frame::before {
+content: '';
+position: absolute; inset: -18px;
+border: 18px solid var(--parchment);
+border-radius: 8px;
+box-shadow:
+inset 2px 2px 6px rgba(0,0,0,.3),
+inset -2px -2px 6px rgba(0,0,0,.2),
+0 0 0 2px var(--parchment-dark);
+background:
+radial-gradient(ellipse at 10% 10%, rgba(255,255,255,.4) 0%, transparent 40%),
+radial-gradient(ellipse at 90% 90%, rgba(0,0,0,.15) 0%, transparent 40%);
+}
+
+/* ── MAIN SCROLL CONTAINER ── */
+.app {
+position: fixed; inset: 0;
+z-index: 2;
+padding: calc(var(--safe-top) + 20px) 20px calc(var(--safe-bot) + 20px);
+overflow-y: auto;
+-webkit-overflow-scrolling: touch;
+}
+
+/* ── APP TITLE ── */
+.app-title {
+text-align: center;
+font-family: 'Cinzel', serif;
+font-size: 1.5rem;
+font-weight: 700;
+color: var(--wood-shadow);
+text-shadow: 1px 1px 0 var(--wood-highlight), 0 2px 4px rgba(0,0,0,.4);
+margin-bottom: 12px;
+letter-spacing: 1px;
+}
+
+/* ── EXP BAR ── */
+.exp-container {
+margin-bottom: 16px;
+}
+.exp-bar-wrap {
+position: relative;
+height: 18px;
+background: var(--exp-empty-grey);
+border: 2px solid #1a1a0a;
+border-radius: 2px;
+overflow: hidden;
+box-shadow: inset 0 2px 4px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.2);
+}
+.exp-bar-fill {
+height: 100%;
+background: linear-gradient(180deg, #e0f040 0%, #a8b800 50%, #c8d420 100%);
+transition: width .5s ease;
+position: relative;
+z-index: 1;
+}
+.exp-ticks {
+position: absolute; inset: 0;
+z-index: 2;
+pointer-events: none;
+}
+.exp-label {
+position: absolute; inset: 0;
+display: flex; align-items: center; justify-content: center;
+font-family: monospace;
+font-size: 10px;
+font-weight: bold;
+color: #1a1a00;
+text-shadow: 0 0 2px rgba(255,255,255,.8);
+z-index: 3;
+letter-spacing: .5px;
+}
+
+/* ── WOOD PANEL ── */
+.wood-panel {
+background:
+repeating-linear-gradient(
+90deg,
+transparent 0px,
+transparent 18px,
+rgba(0,0,0,.04) 18px,
+rgba(0,0,0,.04) 20px
+),
+linear-gradient(180deg, var(--wood-highlight) 0%, var(--wood-mid) 30%, var(--wood-dark) 100%);
+border-radius: 6px;
+border: 3px solid var(--wood-shadow);
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,.25),
+inset 0 -2px 0 rgba(0,0,0,.4),
+0 4px 12px rgba(0,0,0,.4),
+0 2px 4px rgba(0,0,0,.3);
+margin-bottom: 14px;
+position: relative;
+}
+.wood-panel::before {
+content: '';
+position: absolute; inset: 2px;
+border-radius: 3px;
+border-top: 1px solid rgba(255,255,255,.2);
+pointer-events: none;
+}
+
+.panel-header {
+display: flex; align-items: center; justify-content: space-between;
+padding: 10px 14px 8px;
+border-bottom: 2px solid var(--wood-shadow);
+box-shadow: 0 2px 0 rgba(255,255,255,.1);
+}
+.panel-title {
+font-family: 'Cinzel', serif;
+font-size: 1rem;
+font-weight: 700;
+color: var(--wood-text);
+text-shadow: 1px 1px 2px var(--wood-shadow);
+letter-spacing: .5px;
+}
+.panel-body {
+padding: 10px 14px;
+}
+
+/* ── WOOD BUTTON ── */
+.wood-btn {
+background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood-mid) 60%, var(--wood-dark) 100%);
+border: 2px solid var(--wood-shadow);
+border-radius: 5px;
+color: var(--wood-text);
+font-family: 'Cinzel', serif;
+font-size: .78rem;
+font-weight: 700;
+padding: 5px 12px;
+cursor: pointer;
+text-shadow: 1px 1px 1px var(--wood-shadow);
+box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 2px 4px rgba(0,0,0,.3);
+letter-spacing: .3px;
+white-space: nowrap;
+}
+.wood-btn:active { transform: translateY(1px); box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 2px rgba(0,0,0,.3); }
+.wood-btn.small { font-size: .7rem; padding: 4px 9px; }
+.wood-btn.danger { background: linear-gradient(180deg, #a03020 0%, #6b1f10 100%); border-color: #2a0800; }
+
+/* ── GAMES LIST ── */
+.game-row {
+display: flex; align-items: center; justify-content: space-between;
+padding: 9px 12px;
+background: rgba(0,0,0,.2);
+border-radius: 4px;
+margin-bottom: 6px;
+cursor: pointer;
+border: 1px solid rgba(255,255,255,.08);
+transition: background .15s;
+}
+.game-row:active { background: rgba(0,0,0,.35); }
+.game-name { font-family: 'Cinzel', serif; font-size: .88rem; color: var(--wood-text); text-shadow: 1px 1px 1px var(--wood-shadow); }
+.game-date { font-size: .78rem; color: var(--parchment-dark); margin-top: 2px; }
+.game-row-right { display: flex; align-items: center; gap: 8px; }
+
+/* ── MECHANICS LIST ── */
+.mechanic-row {
+display: flex; align-items: center; gap: 10px;
+padding: 8px 12px;
+background: rgba(0,0,0,.2);
+border-radius: 4px;
+margin-bottom: 5px;
+border: 1px solid rgba(255,255,255,.06);
+}
+.mechanic-check {
+width: 20px; height: 20px; border-radius: 3px;
+border: 2px solid var(--wood-light);
+background: rgba(0,0,0,.3);
+flex-shrink: 0;
+display: flex; align-items: center; justify-content: center;
+}
+.mechanic-check.ticked {
+background: #4a7a20;
+border-color: #6aaa30;
+}
+.mechanic-check.ticked::after {
+content: '✓';
+color: #c8f060;
+font-size: 13px;
+line-height: 1;
+}
+.mechanic-name { font-size: .9rem; color: var(--wood-text); flex: 1; }
+.mechanic-count { font-size: .75rem; color: var(--parchment-dark); }
+
+/* ── FILTER TABS ── */
+.filter-row { display: flex; gap: 6px; margin-bottom: 10px; }
+
+/* ── SEARCH INPUT ── */
+.wood-input {
+width: 100%;
+background: rgba(0,0,0,.35);
+border: 2px solid var(--wood-shadow);
+border-radius: 4px;
+color: var(--wood-text);
+font-family: 'Crimson Text', serif;
+font-size: .95rem;
+padding: 8px 10px;
+outline: none;
+box-shadow: inset 0 2px 4px rgba(0,0,0,.3);
+margin-bottom: 10px;
+}
+.wood-input:focus { border-color: var(--wood-highlight); }
+.wood-input::placeholder { color: var(--parchment-dark); opacity: .7; }
+
+textarea.wood-input { resize: vertical; min-height: 70px; }
+
+.input-label {
+font-family: 'Cinzel', serif;
+font-size: .78rem;
+color: var(--parchment-dark);
+margin-bottom: 4px;
+display: block;
+letter-spacing: .3px;
+}
+
+/* ── SLIDE-UP PANEL ── */
+.slide-panel {
+position: fixed; inset: 0;
+z-index: 100;
+display: flex; flex-direction: column; justify-content: flex-end;
+background: rgba(0,0,0,.5);
+opacity: 0; pointer-events: none;
+transition: opacity .3s;
+}
+.slide-panel.open { opacity: 1; pointer-events: all; }
+.slide-panel-inner {
+background: linear-gradient(180deg, var(--wood-mid) 0%, var(--wood-dark) 100%);
+border-top: 4px solid var(--wood-shadow);
+border-radius: 18px 18px 0 0;
+padding: calc(16px) 18px calc(var(--safe-bot) + 20px);
+max-height: 88vh;
+overflow-y: auto;
+-webkit-overflow-scrolling: touch;
+transform: translateY(100%);
+transition: transform .35s cubic-bezier(.32,1,.56,1);
+box-shadow: 0 -8px 32px rgba(0,0,0,.5);
+}
+.slide-panel.open .slide-panel-inner { transform: translateY(0); }
+
+.slide-panel-title {
+font-family: 'Cinzel', serif;
+font-size: 1.1rem;
+font-weight: 700;
+color: var(--wood-text);
+text-shadow: 1px 1px 2px var(--wood-shadow);
+margin-bottom: 14px;
+text-align: center;
+}
+
+.form-row { margin-bottom: 12px; }
+.btn-row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 14px; }
+
+/* ── MECHANIC SELECTOR IN FORM ── */
+.mechanic-select-list {
+max-height: 220px;
+overflow-y: auto;
+-webkit-overflow-scrolling: touch;
+border: 2px solid var(--wood-shadow);
+border-radius: 4px;
+background: rgba(0,0,0,.25);
+}
+.mechanic-select-row {
+display: flex; align-items: center; gap: 8px;
+padding: 7px 10px;
+border-bottom: 1px solid rgba(255,255,255,.06);
+cursor: pointer;
+}
+.mechanic-select-row:last-child { border-bottom: none; }
+.mechanic-select-row:active { background: rgba(255,255,255,.08); }
+.mechanic-select-check {
+width: 18px; height: 18px; border-radius: 3px;
+border: 2px solid var(--wood-light);
+background: rgba(0,0,0,.3);
+flex-shrink: 0;
+display: flex; align-items: center; justify-content: center;
+}
+.mechanic-select-check.selected {
+background: #4a7a20; border-color: #6aaa30;
+}
+.mechanic-select-check.selected::after { content: '✓'; color: #c8f060; font-size: 11px; }
+.mechanic-select-name { font-size: .88rem; color: var(--wood-text); }
+
+/* ── EDIT MODE ── */
+.edit-delete-btn {
+background: rgba(160,48,32,.6);
+border: 1px solid #6b1f10;
+border-radius: 3px;
+color: #ffaaaa;
+font-size: .72rem;
+padding: 3px 8px;
+cursor: pointer;
+}
+
+.empty-state {
+text-align: center;
+color: var(--parchment-dark);
+font-style: italic;
+font-size: .88rem;
+padding: 14px 0;
+}
+
+.btn-row-left { display: flex; gap: 10px; justify-content: flex-start; margin-top: 14px; }
+
+.detail-section-title {
+font-family: 'Cinzel', serif;
+font-size: .82rem;
+color: var(--parchment-dark);
+letter-spacing: .5px;
+margin: 12px 0 6px;
+border-bottom: 1px solid rgba(255,255,255,.1);
+padding-bottom: 4px;
+}
+.detail-text {
+font-size: .92rem;
+color: var(--wood-text);
+line-height: 1.5;
+}
+.detail-mechanic-tag {
+display: inline-block;
+background: rgba(0,0,0,.3);
+border: 1px solid rgba(255,255,255,.1);
+border-radius: 3px;
+padding: 3px 8px;
+font-size: .8rem;
+color: var(--wood-text);
+margin: 3px 3px 3px 0;
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="frame"><div class="frame" style="pointer-events:none"></div></div>
+
+<div class="app" id="app">
+
+<!-- TITLE -->
+<div class="app-title">BG Mechanics Tracker</div>
+
+<!-- EXP BAR -->
+<div class="exp-container">
+<div class="exp-bar-wrap">
+<div class="exp-bar-fill" id="expFill" style="width:0%"></div>
+<canvas class="exp-ticks" id="expTicks"></canvas>
+<div class="exp-label" id="expLabel">EXP. 0/0 [0.00%]</div>
+</div>
+</div>
+
+<!-- GAMES PLAYED -->
+<div class="wood-panel">
+<div class="panel-header">
+<span class="panel-title">Games Played</span>
+<div style="display:flex;gap:6px">
+<button class="wood-btn small" id="editGamesBtn" onclick="toggleEditGames()">Edit</button>
+<button class="wood-btn small" onclick="openAddGame()">Add</button>
+</div>
+</div>
+<div class="panel-body" id="gamesList">
+<div class="empty-state">No games recorded yet.</div>
+</div>
+</div>
+
+<!-- MECHANICS -->
+<div class="wood-panel">
+<div class="panel-header">
+<span class="panel-title">Mechanics</span>
+<button class="wood-btn small" onclick="openEditList()">Edit List</button>
+</div>
+<div class="panel-body">
+<div class="filter-row">
+<button class="wood-btn small" id="filterAll" onclick="setFilter('all')">All</button>
+<button class="wood-btn small" id="filterTicked" onclick="setFilter('ticked')">Ticked</button>
+<button class="wood-btn small" id="filterUnticked" onclick="setFilter('unticked')">Unticked</button>
+</div>
+<div id="mechanicsList"></div>
+</div>
+</div>
+
+</div>
+
+<!-- ── ADD / EDIT GAME PANEL ── -->
+<div class="slide-panel" id="addGamePanel">
+<div class="slide-panel-inner">
+<div class="slide-panel-title" id="addGameTitle">Add Game</div>
+<div class="form-row">
+<label class="input-label">Game Name</label>
+<input class="wood-input" id="gameNameInput" type="text" placeholder="Enter game name"/>
+</div>
+<div class="form-row">
+<label class="input-label">Date Played</label>
+<input class="wood-input" id="gameDateInput" type="date"/>
+</div>
+<div class="form-row">
+<label class="input-label">Notes</label>
+<textarea class="wood-input" id="gameNotesInput" placeholder="Any notes..."></textarea>
+</div>
+<div class="form-row">
+<label class="input-label">Mechanics</label>
+<textarea class="wood-input" id="mechanicsSearch" placeholder="Search or paste list (one per line)..." rows="2" oninput="onMechanicsSearch()"></textarea>
+<div class="mechanic-select-list" id="mechanicsSelectList"></div>
+</div>
+<div class="btn-row">
+<button class="wood-btn" onclick="closeAddGame()">Cancel</button>
+<button class="wood-btn" onclick="saveGame()">Save</button>
+</div>
+</div>
+</div>
+
+<!-- ── GAME DETAIL PANEL ── -->
+<div class="slide-panel" id="gameDetailPanel">
+<div class="slide-panel-inner">
+<div class="slide-panel-title" id="detailTitle"></div>
+<div class="detail-section-title">Date Played</div>
+<div class="detail-text" id="detailDate"></div>
+<div class="detail-section-title">Notes</div>
+<div class="detail-text" id="detailNotes"></div>
+<div class="detail-section-title">Mechanics</div>
+<div id="detailMechanics"></div>
+<div class="btn-row-left">
+<button class="wood-btn" onclick="closeDetailPanel()">Back</button>
+</div>
+</div>
+</div>
+
+<!-- ── EDIT LIST PANEL ── -->
+<div class="slide-panel" id="editListPanel">
+<div class="slide-panel-inner">
+<div class="slide-panel-title">Edit Mechanics List</div>
+<div style="display:flex;gap:8px;margin-bottom:10px">
+<input class="wood-input" id="newMechanicInput" type="text" placeholder="New mechanic name..." style="margin-bottom:0;flex:1"/>
+<button class="wood-btn" onclick="addMechanic()">Add</button>
+</div>
+<div id="editMechanicsList"></div>
+<div class="btn-row-left">
+<button class="wood-btn" onclick="closeEditList()">Back</button>
+</div>
+</div>
+</div>
+
+<script>
+// ── DEFAULT MECHANICS LIST ──
+const DEFAULT_MECHANICS = [
+"Acting","Action Drafting","Action Points","Action Queue","Action Retrieval","Action Timer","Action/Event",
+"Advantage Token","Alliances","Area Majority / Influence","Area Movement","Area-Impulse",
+"Auction: Dutch","Auction: Dutch Priority","Auction: Dexterity","Auction: English","Auction: Fixed Placement",
+"Auction: Once Around","Auction: Sealed Bid","Auction: Turn Order Until Pass","Auction/Bidding",
+"Automatic Resource Growth",
+"Betting and Bluffing","Bias","Bingo","Bribery",
+"Campaign / Battle Card Driven","Card Drafting","Card Play Conflict Resolution","Catch the Leader",
+"Chaining","Chit-Pull System","Closed Economy Auction","Command Cards","Communication Limits",
+"Commodity Speculation","Constrained Bidding","Contracts","Cooperative Game","Crayon Rail System",
+"Critical Hits and Failures","Cube Tower",
+"Deck Construction","Deck, Bag, and Pool Building","Deduction","Delayed Purchase",
+"Die Icon Resolution","Different Dice Movement","Dice Rolling","Drafting",
+"Elapsed Real Time Ending","Enclosure","End Game Bonuses","Events",
+"Finale Ending","Flicking","Follow","Force Commitment",
+"Grid Coverage","Grid Movement",
+"Hand Management","Hexagon Grid","Hidden Movement","Hidden Roles","Hidden Victory Points",
+"Highest-Lowest Scoring","Hot Potato",
+"I Cut, You Choose","Impulse Movement","Income","Increase Value of Unchosen Resources",
+"Induction","Interrupts","Investment",
+"Kill Steal","King of the Hill",
+"Ladder Climbing","Layering","Legacy Game","Line Drawing","Line of Sight","Loans","Lose a Turn",
+"Mancala","Map Addition","Map Deformation","Map Reduction","Market","Matching",
+"Measurement Movement","Melding and Splaying","Memory","Minimap Resolution","Modular Board",
+"Move Through Deck","Movement Points","Movement Template","Moving Multiple Units","Multiple Maps",
+"Multiple-Lot Auction",
+"Narrative Choice / Paragraph","Negotiation","Network and Route Building",
+"Once-Per-Game Abilities","Order Counters","Ownership",
+"Paper-and-Pencil","Pattern Building","Pattern Movement","Pattern Recognition",
+"Pick-up and Deliver","Physical Removal","Player Elimination","Player Judge",
+"Point to Point Movement","Predictive Bid","Prisoner's Dilemma","Programmed Movement","Push Your Luck",
+"Race","Random Production","Real-Time","Re-rolling and Locking","Relative Movement",
+"Resource to Move","Rock-Paper-Scissors","Role Playing","Roles with Asymmetric Information",
+"Roll / Spin and Move","Rondel","Ratio / Combat Results Table",
+"Scenario / Mission / Campaign Game","Score-and-Reset Game","Secret Unit Deployment",
+"Selection Order Bid","Semi-Cooperative Game","Set Collection","Simulation","Singing",
+"Simultaneous Action Selection","Single Loser Game","Slide/Push","Solo / Solitaire Game",
+"Speed Matching","Square Grid","Stacking and Balancing","Static Capture","Stat Check Resolution",
+"Stock Holding","Storytelling","Sudden Death Ending",
+"Take That","Team-Based Game","Tech Trees / Tech Tracks","Targeted Clues","Three Dimensional Movement",
+"Tile Placement","Time Track","Track Movement","Trading","Traitor Game","Trick-taking","Tug of War",
+"Turn Order: Auction","Turn Order: Claim Action","Turn Order: Pass Order","Turn Order: Progressive",
+"Turn Order: Random","Turn Order: Role Order","Turn Order: Stat-Based",
+"Variable Phase Order","Variable Player Powers","Variable Setup","Victory Points as a Resource","Voting",
+"Worker Placement","Worker Placement with Dice Workers","Worker Placement, Different Worker Types"
+];
+
+// ── STATE ──
+let mechanics = JSON.parse(localStorage.getItem('bgmt_mechanics') || 'null') || [...DEFAULT_MECHANICS];
+let games = JSON.parse(localStorage.getItem('bgmt_games') || '[]');
+let mechanicsFilter = 'all';
+let editingGames = false;
+let editingGameId = null;
+let selectedMechanicsInForm = new Set();
+
+function save() {
+localStorage.setItem('bgmt_mechanics', JSON.stringify(mechanics));
+localStorage.setItem('bgmt_games', JSON.stringify(games));
+}
+
+// ── EXP BAR ──
+function getUniqueTickedCount() {
+const ticked = new Set();
+games.forEach(g => g.mechanics.forEach(m => ticked.add(m)));
+return ticked.size;
+}
+
+function updateExp() {
+const total = mechanics.length;
+const ticked = getUniqueTickedCount();
+const pct = total > 0 ? (ticked / total * 100) : 0;
+document.getElementById('expFill').style.width = pct + '%';
+document.getElementById('expLabel').textContent =
+'EXP. ' + ticked + '/' + total + ' [' + pct.toFixed(2) + '%]';
+drawTicks();
+}
+
+function drawTicks() {
+const canvas = document.getElementById('expTicks');
+const wrap = canvas.parentElement;
+const w = wrap.offsetWidth;
+const h = wrap.offsetHeight;
+canvas.width = w;
+canvas.height = h;
+const ctx = canvas.getContext('2d');
+ctx.clearRect(0, 0, w, h);
+const numTicks = 40;
+ctx.strokeStyle = 'rgba(0,0,0,0.45)';
+for (let i = 0; i <= numTicks; i++) {
+const x = Math.round(i / numTicks * w);
+const isMajor = i % 10 === 0;
+const isMid = i % 5 === 0;
+const tickH = isMajor ? h : isMid ? Math.round(h * 0.55) : Math.round(h * 0.35);
+ctx.lineWidth = isMajor ? 1.5 : 1;
+// top tick
+ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, tickH); ctx.stroke();
+// bottom tick
+ctx.beginPath(); ctx.moveTo(x, h); ctx.lineTo(x, h - tickH); ctx.stroke();
+}
+}
+
+// ── GAMES LIST ──
+function renderGames() {
+const el = document.getElementById('gamesList');
+if (games.length === 0) {
+el.innerHTML = '<div class="empty-state">No games recorded yet.</div>';
+return;
+}
+el.innerHTML = games.map((g, i) => `
+<div class="game-row" onclick="${editingGames ? '' : 'openGameDetail(' + i + ')'}">
+<div>
+<div class="game-name">${esc(g.name)}</div>
+<div class="game-date">${formatDate(g.date)}</div>
+</div>
+<div class="game-row-right">
+${editingGames ? `
+<button class="wood-btn small" onclick="event.stopPropagation();openEditGame(${i})">Edit</button>
+<button class="wood-btn small danger" onclick="event.stopPropagation();deleteGame(${i})">Delete</button>
+` : ''}
+</div>
+</div>
+`).join('');
+}
+
+function toggleEditGames() {
+editingGames = !editingGames;
+document.getElementById('editGamesBtn').textContent = editingGames ? 'Done' : 'Edit';
+renderGames();
+}
+
+function deleteGame(i) {
+if (confirm('Delete "' + games[i].name + '"?')) {
+games.splice(i, 1);
+save();
+renderGames();
+renderMechanics();
+updateExp();
+}
+}
+
+// ── ADD / EDIT GAME ──
+function openAddGame() {
+editingGameId = null;
+document.getElementById('addGameTitle').textContent = 'Add Game';
+document.getElementById('gameNameInput').value = '';
+document.getElementById('gameDateInput').value = todayStr();
+document.getElementById('gameNotesInput').value = '';
+document.getElementById('mechanicsSearch').value = '';
+selectedMechanicsInForm = new Set();
+renderMechanicsSelect('');
+document.getElementById('addGamePanel').classList.add('open');
+}
+
+function openEditGame(i) {
+editingGameId = i;
+const g = games[i];
+document.getElementById('addGameTitle').textContent = 'Edit Game';
+document.getElementById('gameNameInput').value = g.name;
+document.getElementById('gameDateInput').value = g.date;
+document.getElementById('gameNotesInput').value = g.notes || '';
+document.getElementById('mechanicsSearch').value = '';
+selectedMechanicsInForm = new Set(g.mechanics);
+renderMechanicsSelect('');
+document.getElementById('addGamePanel').classList.add('open');
+}
+
+function closeAddGame() {
+document.getElementById('addGamePanel').classList.remove('open');
+}
+
+function saveGame() {
+const name = document.getElementById('gameNameInput').value.trim();
+if (!name) { alert('Please enter a game name.'); return; }
+const date = document.getElementById('gameDateInput').value;
+const notes = document.getElementById('gameNotesInput').value.trim();
+const mArr = Array.from(selectedMechanicsInForm);
+const gameObj = { name, date, notes, mechanics: mArr };
+if (editingGameId !== null) {
+games[editingGameId] = gameObj;
+} else {
+games.push(gameObj);
+}
+save();
+renderGames();
+renderMechanics();
+updateExp();
+closeAddGame();
+}
+
+// ── GAME DETAIL ──
+function openGameDetail(i) {
+const g = games[i];
+document.getElementById('detailTitle').textContent = g.name;
+document.getElementById('detailDate').textContent = formatDate(g.date) || '—';
+document.getElementById('detailNotes').textContent = g.notes || '—';
+const mEl = document.getElementById('detailMechanics');
+if (g.mechanics.length === 0) {
+mEl.innerHTML = '<span style="color:var(--parchment-dark);font-style:italic;font-size:.88rem">None recorded</span>';
+} else {
+mEl.innerHTML = g.mechanics.map(m => `<span class="detail-mechanic-tag">${esc(m)}</span>`).join('');
+}
+document.getElementById('gameDetailPanel').classList.add('open');
+}
+
+function closeDetailPanel() {
+document.getElementById('gameDetailPanel').classList.remove('open');
+}
+
+// ── MECHANICS SELECT IN FORM ──
+function onMechanicsSearch() {
+const val = document.getElementById('mechanicsSearch').value;
+const lines = val.split('\n').map(l => l.trim().toLowerCase()).filter(Boolean);
+if (lines.length > 1) {
+// Bulk match
+mechanics.forEach(m => {
+if (lines.some(l => m.toLowerCase().includes(l) || l.includes(m.toLowerCase()))) {
+selectedMechanicsInForm.add(m);
+}
+});
+}
+renderMechanicsSelect(lines.length === 1 ? lines[0] : '');
+}
+
+function renderMechanicsSelect(filter) {
+const list = document.getElementById('mechanicsSelectList');
+const filtered = filter ? mechanics.filter(m => m.toLowerCase().includes(filter)) : mechanics;
+list.innerHTML = filtered.map(m => `
+<div class="mechanic-select-row" onclick="toggleFormMechanic('${esc(m)}')">
+<div class="mechanic-select-check ${selectedMechanicsInForm.has(m) ? 'selected' : ''}"></div>
+<span class="mechanic-select-name">${esc(m)}</span>
+</div>
+`).join('');
+}
+
+function toggleFormMechanic(name) {
+if (selectedMechanicsInForm.has(name)) selectedMechanicsInForm.delete(name);
+else selectedMechanicsInForm.add(name);
+const filter = document.getElementById('mechanicsSearch').value.split('\n')[0].trim().toLowerCase();
+renderMechanicsSelect(filter);
+}
+
+// ── MECHANICS MAIN LIST ──
+function renderMechanics() {
+const el = document.getElementById('mechanicsList');
+const ticked = new Set();
+games.forEach(g => g.mechanics.forEach(m => ticked.add(m)));
+let list = mechanics;
+if (mechanicsFilter === 'ticked') list = mechanics.filter(m => ticked.has(m));
+if (mechanicsFilter === 'unticked') list = mechanics.filter(m => !ticked.has(m));
+// Count per mechanic
+const counts = {};
+games.forEach(g => g.mechanics.forEach(m => { counts[m] = (counts[m] || 0) + 1; }));
+el.innerHTML = list.map(m => `
+<div class="mechanic-row">
+<div class="mechanic-check ${ticked.has(m) ? 'ticked' : ''}"></div>
+<span class="mechanic-name">${esc(m)}</span>
+${counts[m] ? `<span class="mechanic-count">${counts[m]}x</span>` : ''}
+</div>
+`).join('') || '<div class="empty-state">Nothing to show.</div>';
+// Highlight active filter
+['All','Ticked','Unticked'].forEach(f => {
+const btn = document.getElementById('filter' + f);
+btn.style.background = mechanicsFilter === f.toLowerCase()
+? 'linear-gradient(180deg,#c4844a 0%,#6b3a1f 100%)'
+: '';
+btn.style.color = mechanicsFilter === f.toLowerCase() ? '#fff5e0' : '';
+});
+}
+
+function setFilter(f) {
+mechanicsFilter = f;
+renderMechanics();
+}
+
+// ── EDIT MECHANICS LIST ──
+function openEditList() {
+renderEditMechanics();
+document.getElementById('editListPanel').classList.add('open');
+}
+
+function closeEditList() {
+document.getElementById('editListPanel').classList.remove('open');
+renderMechanics();
+updateExp();
+}
+
+function renderEditMechanics() {
+const el = document.getElementById('editMechanicsList');
+el.innerHTML = mechanics.map((m, i) => `
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+<input class="wood-input" style="margin-bottom:0;flex:1;padding:5px 8px;font-size:.85rem"
+value="${esc(m)}" onchange="renameMechanic(${i}, this.value)"/>
+<button class="wood-btn small danger" onclick="deleteMechanic(${i})">Delete</button>
+</div>
+`).join('');
+}
+
+function addMechanic() {
+const val = document.getElementById('newMechanicInput').value.trim();
+if (!val) return;
+mechanics.push(val);
+document.getElementById('newMechanicInput').value = '';
+save();
+renderEditMechanics();
+}
+
+function renameMechanic(i, val) {
+const oldName = mechanics[i];
+mechanics[i] = val.trim();
+// Update in games too
+games.forEach(g => {
+const idx = g.mechanics.indexOf(oldName);
+if (idx !== -1) g.mechanics[idx] = mechanics[i];
+});
+save();
+}
+
+function deleteMechanic(i) {
+const name = mechanics[i];
+if (confirm('Delete mechanic "' + name + '"?')) {
+mechanics.splice(i, 1);
+games.forEach(g => {
+g.mechanics = g.mechanics.filter(m => m !== name);
+});
+save();
+renderEditMechanics();
+}
+}
+
+// ── UTILS ──
+function todayStr() {
+const d = new Date();
+return d.toISOString().split('T')[0];
+}
+function formatDate(str) {
+if (!str) return '';
+const d = new Date(str + 'T00:00:00');
+return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+}
+function esc(str) {
+return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ── INIT ──
+renderGames();
+renderMechanics();
+updateExp();
+window.addEventListener('resize', drawTicks);
+</script>
+</body>
+</html>

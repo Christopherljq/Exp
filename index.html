@@ -22,53 +22,23 @@
   --w1:#d49050;--w2:#8b4513;--w3:#5a2e0e;--w4:#2a1005;
   --ws:#1a0803;--wt:#fff5e0;--pc:#c4b090;
 }
-html{
-  height:100%;
-  min-height:-webkit-fill-available;
-  background:#6ab080;
-}
-body{
-  width:100%;
-  height:100%;
-  min-height:-webkit-fill-available;
-  overflow:hidden;
-  font-family:'Crimson Text',Georgia,serif;
-  font-size:16px;
-  background:#6ab080;
-  touch-action:manipulation;
-}
+html{height:100%;min-height:-webkit-fill-available;background:#6ab080;}
+body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;background:#6ab080;touch-action:manipulation;}
 
 /* LOADING */
-#loadScreen{
-  position:fixed;inset:0;z-index:999;
-  background:#1a1a0e;
-  display:flex;align-items:center;justify-content:center;
-  transition:opacity .5s;
-}
+#loadScreen{position:fixed;inset:0;z-index:999;background:#1a1a0e;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
 #loadScreen.hide{opacity:0;pointer-events:none;}
-#loadScreen span{
-  font-family:'Cinzel',serif;font-size:1.4rem;
-  color:#f0e8d0;letter-spacing:2px;
-  text-shadow:0 0 12px rgba(200,212,32,.4);
-  position:relative;
-  left:0;top:0;
-  transform:none;
-}
+#loadScreen span{font-family:'Cinzel',serif;font-size:1.4rem;color:#f0e8d0;letter-spacing:2px;text-shadow:0 0 12px rgba(200,212,32,.4);}
 
-/* BG — extends below screen to avoid gap */
-.bg{
-  position:fixed;
-  top:0;left:0;right:0;
-  bottom:-100px;
-  z-index:0;
+/* BG — extends 450px below */
+.bg{position:fixed;top:0;left:0;right:0;bottom:-450px;z-index:0;
   background:
     radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
     radial-gradient(ellipse at 10% 80%,rgba(10,50,10,.9) 0%,transparent 35%),
     radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
     radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
     linear-gradient(160deg,#0a2010 0%,#1a3a20 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
-  background-size:100% 100%;
-}
+  background-size:100% 100%;}
 
 /* RAYS */
 .rays{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
@@ -79,7 +49,7 @@ body{
 .ray:nth-child(4){left:73%;width:38px;height:100%;transform:rotate(18deg);background:linear-gradient(180deg,transparent,rgba(180,220,255,.11),transparent);}
 
 /* TRUNK */
-.trunk{position:fixed;left:-30px;top:0;bottom:-100px;width:210px;z-index:2;pointer-events:none;
+.trunk{position:fixed;left:-30px;top:0;bottom:-450px;width:210px;z-index:2;pointer-events:none;
   background:repeating-linear-gradient(175deg,rgba(200,170,80,.85) 0px,rgba(200,170,80,.85) 8px,rgba(220,190,110,.8) 8px,rgba(220,190,110,.8) 18px,rgba(190,160,70,.85) 18px,rgba(190,160,70,.85) 28px,rgba(210,180,95,.82) 28px,rgba(210,180,95,.82) 40px);
   clip-path:polygon(0 0,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 100%);
   filter:drop-shadow(6px 0 14px rgba(0,0,0,.3));}
@@ -89,13 +59,9 @@ body{
 .mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
 /* APP */
-.app{
-  position:fixed;top:0;left:0;right:0;bottom:0;
-  z-index:10;
-  display:flex;flex-direction:column;align-items:center;
+.app{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10;display:flex;flex-direction:column;align-items:center;
   padding:calc(var(--safe-t) + 14px) calc(var(--safe-r) + 14px) calc(var(--safe-b) + 14px) calc(var(--safe-l) + 14px);
-  overflow:hidden;
-}
+  overflow:hidden;}
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 
 /* EXP BOX */
@@ -159,10 +125,13 @@ body{
 
 /* MECH ROWS */
 .mech-row{display:flex;align-items:center;padding:9px 10px;margin-bottom:4px;border-radius:5px;border:1px solid rgba(255,200,80,.07);min-height:44px;background:rgba(0,0,0,.18);}
-.mech-row.ticked{background:rgba(200,212,32,.18);border-color:rgba(180,200,0,.2);}
+.mech-row.ticked{
+  background:linear-gradient(135deg,rgba(200,212,32,0.85),rgba(160,176,0,0.85));
+  border-color:rgba(180,200,0,.5);
+}
 .mech-row-name{font-size:1rem;flex:1;color:var(--wt);}
-.mech-row.ticked .mech-row-name{color:#2a1a00;font-weight:700;}
-.tick-sym{color:#8ec870;font-size:.95rem;margin-right:6px;flex-shrink:0;}
+.mech-row.ticked .mech-row-name{color:#1a1a00;font-weight:700;}
+.tick-sym{color:#3a6010;font-size:.95rem;margin-right:6px;flex-shrink:0;font-weight:900;}
 .mech-edit-row{display:flex;align-items:center;gap:6px;padding:7px 8px;margin-bottom:4px;border-radius:5px;border:1px solid rgba(255,200,80,.07);min-height:44px;background:rgba(0,0,0,.18);}
 .mech-chk{width:22px;height:22px;border-radius:3px;flex-shrink:0;border:2px solid var(--w2);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-user-select:none;}
 .mech-chk.on{background:linear-gradient(135deg,#1a6a10,#2a9a20);border-color:#4ac830;}
@@ -287,7 +256,7 @@ textarea.wood-inp{resize:none;}
 <!-- ADD/EDIT GAME -->
 <div class="sp" id="spGame">
   <div class="sp-inner" id="spGameInner">
-    <div class="sp-handle"></div>
+    <div class="sp-handle" id="spGameHandle"></div>
     <div class="sp-title" id="spGameTitle">Add Game</div>
     <div class="sp-fixed">
       <div style="margin-bottom:10px;">
@@ -425,7 +394,6 @@ let selMechs=new Set(),pastedMechs=new Set();
 let mechSnap=null,metaSnap=null,gamesSnap=null;
 
 async function saveAll(){await dbSet('mechanics',mechanics);await dbSet('meta',meta);await dbSet('games',games);}
-
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function today(){return new Date().toISOString().split('T')[0];}
 function fmtDate(s){if(!s)return'';return new Date(s+'T00:00:00').toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}
@@ -447,36 +415,57 @@ function setPanelH(){
 function openSP(id){document.getElementById(id).classList.add('open');}
 function closeSP(id){document.getElementById(id).classList.remove('open');if(id==='spDetail')detailGameId=null;}
 
-function initSP(id,allowSwipe=true){
+function initSP(id){
   const panel=document.getElementById(id);
   const inner=panel.querySelector('.sp-inner');
+  // Backdrop tap
   panel.addEventListener('click',e=>{if(e.target===panel)closeSP(id);});
-  if(!allowSwipe)return;
-  let sy=0,cy=0,dragging=false;
-  inner.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;cy=sy;dragging=true;},{passive:true});
+  // Swipe
+  let sy=0,cy=0,active=false,pastThreshold=false;
+  inner.addEventListener('touchstart',e=>{
+    sy=e.touches[0].clientY;cy=sy;active=true;pastThreshold=false;
+  },{passive:true});
   inner.addEventListener('touchmove',e=>{
-    if(!dragging)return;
+    if(!active)return;
     cy=e.touches[0].clientY;
     const dy=cy-sy;
-    if(dy>0){
-      // Only move if past threshold to avoid accidental movement
-      if(dy>inner.offsetHeight*0.1){
-        inner.style.transition='none';
-        inner.style.transform=`translateY(${dy}px)`;
-      }
+    const threshold=inner.offsetHeight*0.25;
+    if(!pastThreshold&&dy>threshold){pastThreshold=true;}
+    if(pastThreshold&&dy>0){
+      inner.style.transition='none';
+      inner.style.transform=`translateY(${dy}px)`;
     }
   },{passive:true});
   inner.addEventListener('touchend',()=>{
-    dragging=false;
+    active=false;
     inner.style.transition='';
-    if(cy-sy>inner.offsetHeight*.25){inner.style.transform='';closeSP(id);}
+    if(pastThreshold){inner.style.transform='';closeSP(id);}
     else inner.style.transform='';
+    pastThreshold=false;
   });
 }
-// Game and Detail panels: normal swipe. Add mechanic: swipe allowed.
-initSP('spGame',false); // no swipe for add/edit game
-initSP('spDetail',true);
-initSP('spAddMech',true);
+['spGame','spDetail','spAddMech'].forEach(initSP);
+
+// ── PREVENT KEYBOARD SCROLL ON ADD GAME PANEL ──
+// Lock the spGame panel position when keyboard appears
+const spGameInner=document.getElementById('spGameInner');
+let spGameBottom=0;
+document.getElementById('spGame').addEventListener('focusin',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){
+    // Store current bottom and lock position
+    spGameBottom=spGameInner.getBoundingClientRect().bottom;
+    spGameInner.style.position='absolute';
+    spGameInner.style.bottom='0';
+    spGameInner.style.left='50%';
+    spGameInner.style.transform='translateX(-50%)';
+  }
+});
+document.getElementById('spGame').addEventListener('focusout',()=>{
+  spGameInner.style.position='';
+  spGameInner.style.bottom='';
+  spGameInner.style.left='';
+  spGameInner.style.transform='';
+});
 
 // ── EXP ──
 function updateExp(){
@@ -620,8 +609,6 @@ function getCurrentFilter(){
   const lines=val.split('\n');
   return lines.length>1?'':(val.trim().toLowerCase());
 }
-
-// ── PASTE/SEARCH ──
 function onPasteInput(){
   const val=document.getElementById('mechPaste').value;
   const lines=val.split('\n');
@@ -640,7 +627,7 @@ function onPasteInput(){
     list.scrollTop=st;
   } else {
     document.getElementById('pasteHl').innerHTML='';
-    if(!val.trim()){pastedMechs=new Set();}
+    if(!val.trim())pastedMechs=new Set();
     const list=document.getElementById('mechSelList');
     const st=list.scrollTop;
     renderMechSelList(val.trim().toLowerCase());
@@ -658,7 +645,6 @@ function updatePasteHighlight(){
 }
 function renderMechSelList(filter){
   const list=document.getElementById('mechSelList');list.innerHTML='';
-  // Pasted at top, then rest in original order (no re-sort for manual ticks)
   const pasted=[...pastedMechs].filter(m=>!filter||m.toLowerCase().includes(filter));
   const rest=mechanics.filter(m=>!pastedMechs.has(m)&&(!filter||m.toLowerCase().includes(filter)));
   [...pasted,...rest].forEach(m=>{
@@ -746,10 +732,11 @@ function renderMechs(){
         updateExp();
       });
       row.append(chk);
-
       if(isRen){
-        const wrap=document.createElement('div');wrap.style.cssText='flex:1;min-width:0;display:flex;flex-direction:column;';
-        const inp=document.createElement('input');inp.className='mech-edit-inp';inp.value=m;inp.id='renInp_'+idx;
+        const wrap=document.createElement('div');
+        wrap.style.cssText='flex:1;min-width:0;display:flex;flex-direction:column;';
+        const inp=document.createElement('input');
+        inp.className='mech-edit-inp';inp.value=m;inp.id='renInp_'+idx;
         const errMsg=document.createElement('div');errMsg.className='rename-err';errMsg.textContent='Mechanic Already Exists';
         wrap.append(inp,errMsg);
         const doneBtn=mkBtn('Done','btn sm',()=>{
@@ -770,11 +757,12 @@ function renderMechs(){
           doneBtn.disabled=exists||!nv;
         });
         row.append(wrap,doneBtn,cancelBtn);
+        // Focus immediately without setTimeout so keyboard appears
+        requestAnimationFrame(()=>{inp.focus();inp.select();});
       } else {
         const nm=document.createElement('span');nm.className='mech-edit-name';nm.textContent=m;
-        row.append(nm);
-        row.append(
-          mkBtn('Rename','btn sm blue',()=>{renamingIdx=idx;renderMechs();setTimeout(()=>{const i=document.getElementById('renInp_'+idx);if(i){i.focus();i.select();}},60);}),
+        row.append(nm,
+          mkBtn('Rename','btn sm blue',()=>{renamingIdx=idx;renderMechs();}),
           mkBtn('Delete','btn sm danger',()=>{
             if(!confirm('Delete "'+m+'"?'))return;
             mechanics.splice(idx,1);delete meta[m];
@@ -822,6 +810,37 @@ document.getElementById('newMechInp').addEventListener('input',()=>{
   document.getElementById('btnAddMechSave').disabled=exists||!val;
 });
 
+// ── APP ICON ──
+function generateIcon(){
+  const size=180;
+  const c=document.createElement('canvas');c.width=size;c.height=size;
+  const ctx=c.getContext('2d');
+  // Dark background matching EXP container
+  ctx.fillStyle='#1a1a0e';
+  const r=24;
+  ctx.beginPath();
+  ctx.moveTo(r,0);ctx.lineTo(size-r,0);ctx.arcTo(size,0,size,r,r);
+  ctx.lineTo(size,size-r);ctx.arcTo(size,size,size-r,size,r);
+  ctx.lineTo(r,size);ctx.arcTo(0,size,0,size-r,r);
+  ctx.lineTo(0,r);ctx.arcTo(0,0,r,0,r);
+  ctx.closePath();ctx.fill();
+  // Subtle grain
+  ctx.strokeStyle='rgba(200,212,32,0.08)';ctx.lineWidth=1.5;
+  for(let i=0;i<size;i+=12){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(size,i+6);ctx.stroke();}
+  // D letter — cream
+  ctx.font='bold '+(size*.65)+'px Cinzel,Georgia,serif';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle='rgba(0,0,0,0.3)';
+  ctx.fillText('D',size/2+2,size/2+3);
+  ctx.fillStyle='#f0e8d0';
+  ctx.shadowColor='rgba(200,212,32,0.5)';ctx.shadowBlur=12;
+  ctx.fillText('D',size/2,size/2);
+  ctx.shadowBlur=0;
+  const link=document.createElement('link');
+  link.rel='apple-touch-icon';link.href=c.toDataURL('image/png');
+  document.head.appendChild(link);
+}
+
 // ── MAKE BUTTON ──
 function mkBtn(label,cls,fn){const b=document.createElement('button');b.className=cls;b.textContent=label;b.addEventListener('click',fn);return b;}
 
@@ -834,43 +853,6 @@ document.getElementById('detailHeart').addEventListener('click',()=>{if(detailGa
 document.getElementById('btnDetailBack').addEventListener('click',()=>closeSP('spDetail'));
 document.getElementById('btnAddMechCancel').addEventListener('click',()=>closeSP('spAddMech'));
 document.getElementById('btnAddMechSave').addEventListener('click',saveNewMech);
-
-// ── APP ICON ──
-function generateIcon(){
-  const size=180;
-  const c=document.createElement('canvas');c.width=size;c.height=size;
-  const ctx=c.getContext('2d');
-  // Wood gradient background
-  const grad=ctx.createLinearGradient(0,0,0,size);
-  grad.addColorStop(0,'#d49050');
-  grad.addColorStop(0.4,'#8b4513');
-  grad.addColorStop(0.8,'#5a2e0e');
-  grad.addColorStop(1,'#2a1005');
-  ctx.fillStyle=grad;
-  ctx.beginPath();
-  const r=24;
-  ctx.moveTo(r,0);ctx.lineTo(size-r,0);ctx.arcTo(size,0,size,r,r);
-  ctx.lineTo(size,size-r);ctx.arcTo(size,size,size-r,size,r);
-  ctx.lineTo(r,size);ctx.arcTo(0,size,0,size-r,r);
-  ctx.lineTo(0,r);ctx.arcTo(0,0,r,0,r);
-  ctx.closePath();ctx.fill();
-  // Wood grain lines
-  ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=2;
-  for(let i=0;i<size;i+=14){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(size,i+8);ctx.stroke();}
-  // D letter
-  ctx.font='bold '+(size*.65)+'px Cinzel, Georgia, serif';
-  ctx.textAlign='center';ctx.textBaseline='middle';
-  ctx.fillStyle='rgba(0,0,0,0.25)';
-  ctx.fillText('D',size/2+2,size/2+3);
-  ctx.fillStyle='#f0e8d0';
-  ctx.shadowColor='rgba(200,212,32,0.4)';ctx.shadowBlur=10;
-  ctx.fillText('D',size/2,size/2);
-  ctx.shadowBlur=0;
-  // Set as apple touch icon
-  const link=document.createElement('link');
-  link.rel='apple-touch-icon';link.href=c.toDataURL('image/png');
-  document.head.appendChild(link);
-}
 
 // ── INIT ──
 async function init(){

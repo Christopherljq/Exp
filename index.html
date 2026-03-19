@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Designer's EXP"/>
@@ -11,7 +11,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:wght@400;600&display=swap');
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 :root{
   --safe-t:env(safe-area-inset-top,0px);
   --safe-b:env(safe-area-inset-bottom,0px);
@@ -22,21 +22,53 @@
   --w1:#d49050;--w2:#8b4513;--w3:#5a2e0e;--w4:#2a1005;
   --ws:#1a0803;--wt:#fff5e0;--pc:#c4b090;
 }
-html,body{width:100%;height:100%;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;background:#0a2010;}
+html{
+  height:100%;
+  min-height:-webkit-fill-available;
+  background:#6ab080;
+}
+body{
+  width:100%;
+  height:100%;
+  min-height:-webkit-fill-available;
+  overflow:hidden;
+  font-family:'Crimson Text',Georgia,serif;
+  font-size:16px;
+  background:#6ab080;
+  touch-action:manipulation;
+}
 
 /* LOADING */
-#loadScreen{position:fixed;inset:0;z-index:999;background:#1a1a0e;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
+#loadScreen{
+  position:fixed;inset:0;z-index:999;
+  background:#1a1a0e;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .5s;
+}
 #loadScreen.hide{opacity:0;pointer-events:none;}
-#loadScreen span{font-family:'Cinzel',serif;font-size:1.4rem;color:#f0e8d0;letter-spacing:2px;text-shadow:0 0 12px rgba(200,212,32,.4);}
+#loadScreen span{
+  font-family:'Cinzel',serif;font-size:1.4rem;
+  color:#f0e8d0;letter-spacing:2px;
+  text-shadow:0 0 12px rgba(200,212,32,.4);
+  position:relative;
+  left:0;top:0;
+  transform:none;
+}
 
-/* BG */
-.bg{position:fixed;top:0;left:0;width:100%;height:100%;min-height:-webkit-fill-available;z-index:0;
-  background:radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
+/* BG — extends below screen to avoid gap */
+.bg{
+  position:fixed;
+  top:0;left:0;right:0;
+  bottom:-100px;
+  z-index:0;
+  background:
+    radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
     radial-gradient(ellipse at 10% 80%,rgba(10,50,10,.9) 0%,transparent 35%),
     radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
     radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
     linear-gradient(160deg,#0a2010 0%,#1a3a20 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
-  background-size:cover;}
+  background-size:100% 100%;
+}
 
 /* RAYS */
 .rays{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
@@ -47,7 +79,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Crimson Text',Geor
 .ray:nth-child(4){left:73%;width:38px;height:100%;transform:rotate(18deg);background:linear-gradient(180deg,transparent,rgba(180,220,255,.11),transparent);}
 
 /* TRUNK */
-.trunk{position:fixed;left:-30px;top:0;bottom:0;width:210px;z-index:2;pointer-events:none;
+.trunk{position:fixed;left:-30px;top:0;bottom:-100px;width:210px;z-index:2;pointer-events:none;
   background:repeating-linear-gradient(175deg,rgba(200,170,80,.85) 0px,rgba(200,170,80,.85) 8px,rgba(220,190,110,.8) 8px,rgba(220,190,110,.8) 18px,rgba(190,160,70,.85) 18px,rgba(190,160,70,.85) 28px,rgba(210,180,95,.82) 28px,rgba(210,180,95,.82) 40px);
   clip-path:polygon(0 0,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 100%);
   filter:drop-shadow(6px 0 14px rgba(0,0,0,.3));}
@@ -57,9 +89,13 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Crimson Text',Geor
 .mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
 /* APP */
-.app{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10;display:flex;flex-direction:column;align-items:center;
+.app{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  z-index:10;
+  display:flex;flex-direction:column;align-items:center;
   padding:calc(var(--safe-t) + 14px) calc(var(--safe-r) + 14px) calc(var(--safe-b) + 14px) calc(var(--safe-l) + 14px);
-  overflow:hidden;}
+  overflow:hidden;
+}
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 
 /* EXP BOX */
@@ -95,52 +131,55 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Crimson Text',Geor
   border:2px solid var(--ws);border-radius:5px;color:var(--wt);font-family:'Cinzel',serif;
   font-size:.8rem;font-weight:700;letter-spacing:.3px;white-space:nowrap;cursor:pointer;
   text-shadow:1px 1px 1px var(--ws);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 5px rgba(0,0,0,.35);
-  -webkit-appearance:none;touch-action:manipulation;user-select:none;-webkit-user-select:none;}
+  -webkit-appearance:none;user-select:none;-webkit-user-select:none;}
 .btn.sm{font-size:.74rem;padding:0 10px;}
 .btn.danger{background:linear-gradient(180deg,#b03828 0%,#6b1f10 100%);border-color:#2a0800;}
 .btn.blue{background:linear-gradient(180deg,#4a80d4 0%,#1a4a8b 55%,#0a2850 100%);border-color:#0a1a3a;}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+.btn.active-filter{background:linear-gradient(180deg,#e0a050 0%,var(--w2) 100%);box-shadow:0 0 8px rgba(220,140,40,.4);}
 
 /* HEART */
-.heart{display:inline-flex;align-items:center;justify-content:center;width:var(--btn-h);height:var(--btn-h);background:none;border:none;cursor:pointer;font-size:1.25rem;color:#aaa;touch-action:manipulation;-webkit-appearance:none;user-select:none;-webkit-user-select:none;flex-shrink:0;}
+.heart{display:inline-flex;align-items:center;justify-content:center;width:var(--btn-h);height:var(--btn-h);background:none;border:none;cursor:pointer;font-size:1.25rem;color:#aaa;-webkit-appearance:none;user-select:none;-webkit-user-select:none;flex-shrink:0;}
 .heart.on{color:#e83030;}
 
 /* FILTER */
 .filter-row{display:flex;gap:5px;margin-bottom:9px;flex-wrap:wrap;flex-shrink:0;}
-.btn.active-filter{background:linear-gradient(180deg,#e0a050 0%,var(--w2) 100%);box-shadow:0 0 8px rgba(220,140,40,.4);}
 
 /* SEARCH */
-.search-inp{width:100%;font-size:16px;font-family:'Crimson Text',serif;background:rgba(0,0,0,.35);border:2px solid var(--ws);border-radius:4px;color:var(--wt);padding:9px 12px;outline:none;margin-bottom:9px;flex-shrink:0;-webkit-appearance:none;touch-action:manipulation;}
+.search-inp{width:100%;font-size:16px;font-family:'Crimson Text',serif;background:rgba(0,0,0,.35);border:2px solid var(--ws);border-radius:4px;color:var(--wt);padding:9px 12px;outline:none;margin-bottom:9px;flex-shrink:0;-webkit-appearance:none;}
 .search-inp:focus{border-color:var(--w1);}
 .search-inp::placeholder{color:var(--pc);opacity:.6;}
 
 /* GAME ROW */
 .game-row{display:flex;align-items:center;padding:9px 10px;margin-bottom:5px;border-radius:5px;border:1px solid rgba(255,200,80,.12);background:rgba(0,0,0,.22);}
-.game-info{flex:1;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation;}
+.game-info{flex:1;cursor:pointer;user-select:none;-webkit-user-select:none;}
 .game-name{font-family:'Cinzel',serif;font-size:1rem;color:var(--wt);text-shadow:1px 1px 1px var(--ws);}
 .game-date{font-size:.85rem;color:var(--pc);margin-top:2px;}
 .game-actions{display:flex;align-items:center;gap:5px;flex-shrink:0;}
 
-/* MECH ROW */
+/* MECH ROWS */
 .mech-row{display:flex;align-items:center;padding:9px 10px;margin-bottom:4px;border-radius:5px;border:1px solid rgba(255,200,80,.07);min-height:44px;background:rgba(0,0,0,.18);}
 .mech-row.ticked{background:rgba(200,212,32,.18);border-color:rgba(180,200,0,.2);}
 .mech-row-name{font-size:1rem;flex:1;color:var(--wt);}
 .mech-row.ticked .mech-row-name{color:#2a1a00;font-weight:700;}
 .tick-sym{color:#8ec870;font-size:.95rem;margin-right:6px;flex-shrink:0;}
 .mech-edit-row{display:flex;align-items:center;gap:6px;padding:7px 8px;margin-bottom:4px;border-radius:5px;border:1px solid rgba(255,200,80,.07);min-height:44px;background:rgba(0,0,0,.18);}
-.mech-chk{width:22px;height:22px;border-radius:3px;flex-shrink:0;border:2px solid var(--w2);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;}
+.mech-chk{width:22px;height:22px;border-radius:3px;flex-shrink:0;border:2px solid var(--w2);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-user-select:none;}
 .mech-chk.on{background:linear-gradient(135deg,#1a6a10,#2a9a20);border-color:#4ac830;}
 .mech-chk.on::after{content:'✓';color:#a0ff80;font-size:13px;}
-.mech-edit-name{font-size:1rem;color:var(--wt);flex:1;}
-.mech-edit-inp{flex:1;background:rgba(0,0,0,.35);border:2px solid var(--w1);border-radius:3px;color:var(--wt);font-family:'Crimson Text',serif;font-size:16px;padding:5px 8px;outline:none;-webkit-appearance:none;}
+.mech-edit-name{font-size:1rem;color:var(--wt);flex:1;min-width:0;}
+.mech-edit-inp{flex:1;min-width:0;background:rgba(0,0,0,.35);border:2px solid var(--w1);border-radius:3px;color:var(--wt);font-family:'Crimson Text',serif;font-size:16px;padding:5px 8px;outline:none;-webkit-appearance:none;}
+.rename-err{font-size:.78rem;color:#ff5555;margin-top:3px;display:none;}
+.rename-err.show{display:block;}
 
 /* WOOD INPUT */
-.wood-inp{width:100%;font-size:16px;font-family:'Crimson Text',serif;background:rgba(0,0,0,.38);border:2px solid var(--ws);border-radius:4px;color:var(--wt);padding:9px 12px;outline:none;box-shadow:inset 0 2px 5px rgba(0,0,0,.4);margin-bottom:10px;-webkit-appearance:none;text-align:left;touch-action:manipulation;}
+.wood-inp{width:100%;font-size:16px;font-family:'Crimson Text',serif;background:rgba(0,0,0,.38);border:2px solid var(--ws);border-radius:4px;color:var(--wt);padding:9px 12px;outline:none;box-shadow:inset 0 2px 5px rgba(0,0,0,.4);margin-bottom:10px;-webkit-appearance:none;text-align:left;}
 .wood-inp:focus{border-color:var(--w1);}
 .wood-inp::placeholder{color:var(--pc);opacity:.6;}
 input[type="date"].wood-inp{color:var(--wt);}
 input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 textarea.wood-inp{resize:none;}
-.inp-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--pc);margin-bottom:5px;display:block;letter-spacing:.3px;}
+.inp-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);margin-bottom:5px;display:block;letter-spacing:.3px;}
 
 /* SLIDE PANEL */
 .sp{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
@@ -152,27 +191,20 @@ textarea.wood-inp{resize:none;}
 .btn-row{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-shrink:0;}
 .btn-row-l{display:flex;gap:8px;justify-content:flex-start;margin-top:14px;flex-shrink:0;}
 
-/* ADD GAME PANEL LAYOUT */
-.sp-game-fixed{flex-shrink:0;}
-.sp-game-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;}
-
-/* CHIPS ROW — horizontal scroll beside label */
+/* ADD GAME PANEL */
+.sp-fixed{flex-shrink:0;}
 .chips-row-wrap{display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-shrink:0;}
-.chips-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--pc);letter-spacing:.3px;white-space:nowrap;flex-shrink:0;}
+.chips-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);letter-spacing:.3px;white-space:nowrap;flex-shrink:0;}
 .chips-scroll{display:flex;gap:5px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex:1;padding-bottom:2px;scrollbar-width:none;}
 .chips-scroll::-webkit-scrollbar{display:none;}
 .chip{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(135deg,#c8d420,#a0b000);border:1.5px solid #6a8000;border-radius:4px;padding:3px 6px 3px 8px;font-family:'Crimson Text',serif;font-size:.85rem;color:#1a1a00;font-weight:600;white-space:nowrap;flex-shrink:0;}
-.chip-x{color:#cc0000;font-size:.9rem;font-weight:900;cursor:pointer;padding:1px 2px;touch-action:manipulation;user-select:none;-webkit-user-select:none;flex-shrink:0;}
-
-/* PASTE */
-.paste-wrap{position:relative;margin-bottom:9px;}
+.chip-x{color:#cc0000;font-size:.9rem;font-weight:900;cursor:pointer;padding:1px 2px;user-select:none;-webkit-user-select:none;flex-shrink:0;}
+.paste-wrap{position:relative;margin-bottom:9px;flex-shrink:0;}
 .paste-wrap textarea{margin-bottom:0;}
 .paste-hl{position:absolute;inset:0;padding:9px 12px;font-family:'Crimson Text',serif;font-size:16px;line-height:1.5;pointer-events:none;z-index:2;overflow:hidden;white-space:pre-wrap;word-break:break-word;border-radius:4px;border:2px solid transparent;color:transparent;}
 .paste-hl .bad{background:rgba(255,50,50,.25);color:#ff6666;border-radius:2px;}
-
-/* MECH SELECT LIST */
 .mech-sel-list{border:2px solid var(--ws);border-radius:4px;background:rgba(0,0,0,.28);overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;min-height:100px;}
-.mech-sel-row{display:flex;align-items:center;gap:9px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.05);min-height:44px;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation;}
+.mech-sel-row{display:flex;align-items:center;gap:9px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.05);min-height:44px;cursor:pointer;user-select:none;-webkit-user-select:none;}
 .mech-sel-row:last-child{border-bottom:none;}
 .mech-sel-chk{width:22px;height:22px;border-radius:3px;flex-shrink:0;border:2px solid var(--w2);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;pointer-events:none;}
 .mech-sel-chk.on{background:linear-gradient(135deg,#1a6a10,#2a9a20);border-color:#4ac830;}
@@ -182,11 +214,13 @@ textarea.wood-inp{resize:none;}
 /* DETAIL */
 .detail-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-shrink:0;}
 .detail-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--wt);flex:1;}
+.detail-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .detail-sec{font-family:'Cinzel',serif;font-size:.82rem;color:#d4a060;letter-spacing:.5px;margin:12px 0 5px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:3px;}
 .detail-val{font-size:1rem;color:var(--wt);line-height:1.5;}
 .detail-chip{display:inline-block;background:rgba(0,0,0,.28);border:1px solid rgba(255,200,80,.18);border-radius:3px;padding:4px 9px;font-size:.88rem;color:var(--wt);margin:3px 3px 3px 0;}
-.detail-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .empty{text-align:center;color:var(--pc);font-style:italic;font-size:.95rem;padding:12px 0;}
+.err-msg{font-size:.82rem;color:#ff5555;margin-top:4px;display:none;}
+.err-msg.show{display:block;}
 </style>
 </head>
 <body>
@@ -255,8 +289,7 @@ textarea.wood-inp{resize:none;}
   <div class="sp-inner" id="spGameInner">
     <div class="sp-handle"></div>
     <div class="sp-title" id="spGameTitle">Add Game</div>
-    <!-- Fixed top section -->
-    <div class="sp-game-fixed">
+    <div class="sp-fixed">
       <div style="margin-bottom:10px;">
         <label class="inp-label">Game Name</label>
         <input class="wood-inp" id="gameNameInp" type="text" placeholder="Enter game name" autocomplete="off" style="margin-bottom:0;"/>
@@ -265,18 +298,15 @@ textarea.wood-inp{resize:none;}
         <label class="inp-label">Date Played</label>
         <input class="wood-inp" id="gameDateInp" type="date" style="margin-bottom:0;"/>
       </div>
-      <!-- Chips row -->
       <div class="chips-row-wrap">
         <span class="chips-label">Mechanics</span>
         <div class="chips-scroll" id="chipsScroll"></div>
       </div>
-      <!-- Paste/search -->
       <div class="paste-wrap">
         <textarea class="wood-inp" id="mechPaste" placeholder="Search or paste list (one per line)..." rows="2" style="margin-bottom:0;"></textarea>
         <div class="paste-hl" id="pasteHl" aria-hidden="true"></div>
       </div>
     </div>
-    <!-- Scrollable mechanic list -->
     <div class="mech-sel-list" id="mechSelList"></div>
     <div class="btn-row">
       <button class="btn" id="btnGameCancel">Cancel</button>
@@ -299,9 +329,7 @@ textarea.wood-inp{resize:none;}
       <div class="detail-sec">Mechanics</div>
       <div id="detailMechs"></div>
     </div>
-    <div class="btn-row-l">
-      <button class="btn" id="btnDetailBack">Back</button>
-    </div>
+    <div class="btn-row-l"><button class="btn" id="btnDetailBack">Back</button></div>
   </div>
 </div>
 
@@ -312,7 +340,8 @@ textarea.wood-inp{resize:none;}
     <div class="sp-title">Add Mechanic</div>
     <div style="flex-shrink:0;">
       <label class="inp-label">Mechanic Name</label>
-      <input class="wood-inp" id="newMechInp" type="text" placeholder="Enter mechanic name" autocomplete="off"/>
+      <input class="wood-inp" id="newMechInp" type="text" placeholder="Enter mechanic name" autocomplete="off" style="margin-bottom:4px;"/>
+      <div class="err-msg" id="addMechErr">Mechanic Already Exists</div>
     </div>
     <div class="btn-row">
       <button class="btn" id="btnAddMechCancel">Cancel</button>
@@ -325,7 +354,7 @@ textarea.wood-inp{resize:none;}
 'use strict';
 
 // ── IndexedDB ──
-const DB_NAME='dexp_db', DB_VER=1;
+const DB_NAME='dexp_db',DB_VER=1;
 let db;
 function openDB(){
   return new Promise((res,rej)=>{
@@ -338,7 +367,7 @@ function openDB(){
 function dbGet(k){return new Promise((res,rej)=>{const tx=db.transaction('store','readonly');const req=tx.objectStore('store').get(k);req.onsuccess=e=>res(e.target.result);req.onerror=e=>rej(e);});}
 function dbSet(k,v){return new Promise((res,rej)=>{const tx=db.transaction('store','readwrite');const req=tx.objectStore('store').put(v,k);req.onsuccess=()=>res();req.onerror=e=>rej(e);});}
 
-// ── DEFAULT MECHANICS (from BGG via BGDL) ──
+// ── DEFAULT MECHANICS ──
 const DEFAULT_MECHANICS=[
   "Acting","Action Drafting","Action Points","Action Queue","Action Retrieval","Action Timer","Action/Event",
   "Advantage Token","Alliances","Area Majority / Influence","Area Movement","Area-Impulse",
@@ -367,7 +396,7 @@ const DEFAULT_MECHANICS=[
   "Multiple-Lot Auction",
   "Narrative Choice / Paragraph","Negotiation","Network and Route Building",
   "Once-Per-Game Abilities","Order Counters","Ownership",
-  "Paper-and-Pencil","passed Action Token","Pattern Building","Pattern Movement","Pattern Recognition",
+  "Paper-and-Pencil","Passed Action Token","Pattern Building","Pattern Movement","Pattern Recognition",
   "Pick-up and Deliver","Physical Removal","Pieces as Map","Player Elimination","Player Judge",
   "Point to Point Movement","Predictive Bid","Prisoner's Dilemma","Programmed Movement","Push Your Luck",
   "Race","Random Production","Real-Time","Re-rolling and Locking","Relative Movement",
@@ -387,29 +416,23 @@ const DEFAULT_MECHANICS=[
   "Worker Placement","Worker Placement with Dice Workers","Worker Placement, Different Worker Types"
 ];
 
-// Fix capitalisation
-DEFAULT_MECHANICS[DEFAULT_MECHANICS.indexOf("passed Action Token")]="Passed Action Token";
-
 // ── STATE ──
-let mechanics=[], meta={}, games=[];
-let mechFilter='all', gamesFilter='all';
-let editingGames=false, editingMechanics=false;
-let editGameId=null, detailGameId=null, renamingIdx=null;
-let selMechs=new Set();
-let pastedMechs=new Set(); // track which mechs came from paste
-let mechSnap=null, metaSnap=null, gamesSnap=null;
-let editModeTicks={}; // temp tick state during edit mode
+let mechanics=[],meta={},games=[];
+let mechFilter='all',gamesFilter='all';
+let editingGames=false,editingMechanics=false;
+let editGameId=null,detailGameId=null,renamingIdx=null;
+let selMechs=new Set(),pastedMechs=new Set();
+let mechSnap=null,metaSnap=null,gamesSnap=null;
 
-// ── SAVE ──
 async function saveAll(){await dbSet('mechanics',mechanics);await dbSet('meta',meta);await dbSet('games',games);}
 
-// ── HELPERS ──
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function today(){return new Date().toISOString().split('T')[0];}
 function fmtDate(s){if(!s)return'';return new Date(s+'T00:00:00').toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}
 function getMeta(m){if(!meta[m])meta[m]={liked:false,manualTick:false,manualUntick:false};return meta[m];}
 function gameTickedSet(){const s=new Set();games.forEach(g=>g.mechanics.forEach(m=>s.add(m)));return s;}
 function isTicked(m){const mt=getMeta(m);if(mt.manualUntick)return false;if(mt.manualTick)return true;return gameTickedSet().has(m);}
+function mechExists(name,excludeIdx=-1){return mechanics.some((m,i)=>i!==excludeIdx&&m.toLowerCase()===name.toLowerCase());}
 
 // ── PANEL HEIGHTS ──
 function setPanelH(){
@@ -423,16 +446,37 @@ function setPanelH(){
 // ── SLIDE PANELS ──
 function openSP(id){document.getElementById(id).classList.add('open');}
 function closeSP(id){document.getElementById(id).classList.remove('open');if(id==='spDetail')detailGameId=null;}
-function initSP(id){
+
+function initSP(id,allowSwipe=true){
   const panel=document.getElementById(id);
   const inner=panel.querySelector('.sp-inner');
   panel.addEventListener('click',e=>{if(e.target===panel)closeSP(id);});
-  let sy=0,cy=0;
-  inner.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;cy=sy;},{passive:true});
-  inner.addEventListener('touchmove',e=>{cy=e.touches[0].clientY;const dy=Math.max(0,cy-sy);inner.style.transition='none';inner.style.transform=`translateY(${dy}px)`;},{passive:true});
-  inner.addEventListener('touchend',()=>{inner.style.transition='';if(cy-sy>inner.offsetHeight*.25){inner.style.transform='';closeSP(id);}else inner.style.transform='';});
+  if(!allowSwipe)return;
+  let sy=0,cy=0,dragging=false;
+  inner.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;cy=sy;dragging=true;},{passive:true});
+  inner.addEventListener('touchmove',e=>{
+    if(!dragging)return;
+    cy=e.touches[0].clientY;
+    const dy=cy-sy;
+    if(dy>0){
+      // Only move if past threshold to avoid accidental movement
+      if(dy>inner.offsetHeight*0.1){
+        inner.style.transition='none';
+        inner.style.transform=`translateY(${dy}px)`;
+      }
+    }
+  },{passive:true});
+  inner.addEventListener('touchend',()=>{
+    dragging=false;
+    inner.style.transition='';
+    if(cy-sy>inner.offsetHeight*.25){inner.style.transform='';closeSP(id);}
+    else inner.style.transform='';
+  });
 }
-['spGame','spDetail','spAddMech'].forEach(initSP);
+// Game and Detail panels: normal swipe. Add mechanic: swipe allowed.
+initSP('spGame',false); // no swipe for add/edit game
+initSP('spDetail',true);
+initSP('spAddMech',true);
 
 // ── EXP ──
 function updateExp(){
@@ -481,8 +525,7 @@ function renderGamesFilter(){
   if(!games.length)return;
   const row=document.createElement('div');row.className='filter-row';
   ['all','liked'].forEach(v=>{
-    const b=mkBtn(v==='all'?'All':'Liked','btn sm'+(gamesFilter===v?' active-filter':''),()=>{gamesFilter=v;renderGames();renderGamesFilter();});
-    row.append(b);
+    row.append(mkBtn(v==='all'?'All':'Liked','btn sm'+(gamesFilter===v?' active-filter':''),()=>{gamesFilter=v;renderGames();renderGamesFilter();}));
   });
   el.append(row);
 }
@@ -561,14 +604,12 @@ function removeChip(m){
   selMechs.delete(m);
   if(pastedMechs.has(m)){
     pastedMechs.delete(m);
-    // Remove line from paste box
     const ta=document.getElementById('mechPaste');
     const lines=ta.value.split('\n').filter(l=>l.trim().toLowerCase()!==m.toLowerCase());
     ta.value=lines.join('\n');
     updatePasteHighlight();
   }
   renderChips();
-  // Preserve scroll and re-render list
   const list=document.getElementById('mechSelList');
   const st=list.scrollTop;
   renderMechSelList(getCurrentFilter());
@@ -581,10 +622,6 @@ function getCurrentFilter(){
 }
 
 // ── PASTE/SEARCH ──
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('mechPaste').addEventListener('input',onPasteInput);
-  document.getElementById('mechSearch').addEventListener('input',renderMechs);
-});
 function onPasteInput(){
   const val=document.getElementById('mechPaste').value;
   const lines=val.split('\n');
@@ -603,7 +640,7 @@ function onPasteInput(){
     list.scrollTop=st;
   } else {
     document.getElementById('pasteHl').innerHTML='';
-    pastedMechs=new Set(); // clear paste tracking when single line
+    if(!val.trim()){pastedMechs=new Set();}
     const list=document.getElementById('mechSelList');
     const st=list.scrollTop;
     renderMechSelList(val.trim().toLowerCase());
@@ -621,22 +658,16 @@ function updatePasteHighlight(){
 }
 function renderMechSelList(filter){
   const list=document.getElementById('mechSelList');list.innerHTML='';
-  const ml=mechanics.map(m=>m.toLowerCase());
-  // Pasted mechs at top, then other selected, then unselected — all filtered
+  // Pasted at top, then rest in original order (no re-sort for manual ticks)
   const pasted=[...pastedMechs].filter(m=>!filter||m.toLowerCase().includes(filter));
-  const otherSel=mechanics.filter(m=>selMechs.has(m)&&!pastedMechs.has(m)&&(!filter||m.toLowerCase().includes(filter)));
-  const unsel=mechanics.filter(m=>!selMechs.has(m)&&(!filter||m.toLowerCase().includes(filter)));
-  [...pasted,...otherSel,...unsel].forEach(m=>{
+  const rest=mechanics.filter(m=>!pastedMechs.has(m)&&(!filter||m.toLowerCase().includes(filter)));
+  [...pasted,...rest].forEach(m=>{
     const row=document.createElement('div');row.className='mech-sel-row';
     row.innerHTML=`<div class="mech-sel-chk ${selMechs.has(m)?'on':''}"></div><span class="mech-sel-name">${esc(m)}</span>`;
     row.addEventListener('click',()=>{
-      if(selMechs.has(m)){
-        // If pasted, remove via chip logic
-        if(pastedMechs.has(m)){removeChip(m);return;}
-        selMechs.delete(m);
-      } else {
-        selMechs.add(m);
-      }
+      if(pastedMechs.has(m)){removeChip(m);return;}
+      if(selMechs.has(m))selMechs.delete(m);
+      else selMechs.add(m);
       renderChips();
       const st=list.scrollTop;
       renderMechSelList(getCurrentFilter());
@@ -670,9 +701,6 @@ function renderMechHdr(){
 function startEditMechs(){
   mechSnap=JSON.parse(JSON.stringify(mechanics));
   metaSnap=JSON.parse(JSON.stringify(meta));
-  // Copy current tick states for edit mode
-  editModeTicks={};
-  mechanics.forEach(m=>{editModeTicks[m]=isTicked(m);});
   editingMechanics=true;renamingIdx=null;
   renderMechHdr();renderMechs();
 }
@@ -705,7 +733,6 @@ function renderMechs(){
   else if(mechFilter==='liked')list=list.filter(m=>getMeta(m).liked);
 
   if(editingMechanics){
-    // In edit mode: do NOT re-sort until Done is pressed
     list.forEach(m=>{
       const idx=mechanics.indexOf(m);
       const isRen=renamingIdx===idx;
@@ -715,26 +742,34 @@ function renderMechs(){
         const mt=getMeta(m);
         if(isTicked(m)){mt.manualUntick=true;mt.manualTick=false;}
         else{mt.manualTick=true;mt.manualUntick=false;}
-        // Update checkbox only, don't re-sort
         chk.className='mech-chk'+(isTicked(m)?' on':'');
         updateExp();
       });
       row.append(chk);
+
       if(isRen){
+        const wrap=document.createElement('div');wrap.style.cssText='flex:1;min-width:0;display:flex;flex-direction:column;';
         const inp=document.createElement('input');inp.className='mech-edit-inp';inp.value=m;inp.id='renInp_'+idx;
-        row.append(inp);
-        row.append(
-          mkBtn('Done','btn sm',()=>{
-            const nv=inp.value.trim();
-            if(nv&&nv!==m){
-              const old=mechanics[idx];mechanics[idx]=nv;
-              if(meta[old]){meta[nv]=meta[old];delete meta[old];}
-              games.forEach(g=>{const i=g.mechanics.indexOf(old);if(i!==-1)g.mechanics[i]=nv;});
-            }
-            renamingIdx=null;renderMechs();
-          }),
-          mkBtn('Cancel','btn sm',()=>{renamingIdx=null;renderMechs();})
-        );
+        const errMsg=document.createElement('div');errMsg.className='rename-err';errMsg.textContent='Mechanic Already Exists';
+        wrap.append(inp,errMsg);
+        const doneBtn=mkBtn('Done','btn sm',()=>{
+          const nv=inp.value.trim();
+          if(!nv||mechExists(nv,idx))return;
+          if(nv!==m){
+            const old=mechanics[idx];mechanics[idx]=nv;
+            if(meta[old]){meta[nv]=meta[old];delete meta[old];}
+            games.forEach(g=>{const i=g.mechanics.indexOf(old);if(i!==-1)g.mechanics[i]=nv;});
+          }
+          renamingIdx=null;renderMechs();
+        });
+        const cancelBtn=mkBtn('Cancel','btn sm',()=>{renamingIdx=null;renderMechs();});
+        inp.addEventListener('input',()=>{
+          const nv=inp.value.trim();
+          const exists=nv.length>0&&mechExists(nv,idx);
+          errMsg.className='rename-err'+(exists?' show':'');
+          doneBtn.disabled=exists||!nv;
+        });
+        row.append(wrap,doneBtn,cancelBtn);
       } else {
         const nm=document.createElement('span');nm.className='mech-edit-name';nm.textContent=m;
         row.append(nm);
@@ -751,7 +786,6 @@ function renderMechs(){
       el.append(row);
     });
   } else {
-    // Normal mode: ticked sorted to top alphabetically
     const ticked=list.filter(m=>isTicked(m)).sort((a,b)=>a.localeCompare(b));
     const unticked=list.filter(m=>!isTicked(m)).sort((a,b)=>a.localeCompare(b));
     [...ticked,...unticked].forEach(m=>{
@@ -768,13 +802,25 @@ function renderMechs(){
 }
 
 // ── ADD MECHANIC ──
-function openAddMech(){document.getElementById('newMechInp').value='';openSP('spAddMech');}
+function openAddMech(){
+  document.getElementById('newMechInp').value='';
+  document.getElementById('addMechErr').className='err-msg';
+  document.getElementById('btnAddMechSave').disabled=false;
+  openSP('spAddMech');
+}
 function saveNewMech(){
-  const val=document.getElementById('newMechInp').value.trim();if(!val)return;
+  const val=document.getElementById('newMechInp').value.trim();
+  if(!val||mechExists(val))return;
   const idx=mechanics.findIndex(m=>m.toLowerCase()>val.toLowerCase());
   if(idx===-1)mechanics.push(val);else mechanics.splice(idx,0,val);
   saveAll();renderMechs();updateExp();closeSP('spAddMech');
 }
+document.getElementById('newMechInp').addEventListener('input',()=>{
+  const val=document.getElementById('newMechInp').value.trim();
+  const exists=val.length>0&&mechExists(val);
+  document.getElementById('addMechErr').className='err-msg'+(exists?' show':'');
+  document.getElementById('btnAddMechSave').disabled=exists||!val;
+});
 
 // ── MAKE BUTTON ──
 function mkBtn(label,cls,fn){const b=document.createElement('button');b.className=cls;b.textContent=label;b.addEventListener('click',fn);return b;}
@@ -782,10 +828,49 @@ function mkBtn(label,cls,fn){const b=document.createElement('button');b.classNam
 // ── WIRE BUTTONS ──
 document.getElementById('btnGameCancel').addEventListener('click',()=>closeSP('spGame'));
 document.getElementById('btnGameSave').addEventListener('click',saveGame);
+document.getElementById('mechPaste').addEventListener('input',onPasteInput);
+document.getElementById('mechSearch').addEventListener('input',renderMechs);
 document.getElementById('detailHeart').addEventListener('click',()=>{if(detailGameId!==null)toggleGameLike(detailGameId);});
 document.getElementById('btnDetailBack').addEventListener('click',()=>closeSP('spDetail'));
 document.getElementById('btnAddMechCancel').addEventListener('click',()=>closeSP('spAddMech'));
 document.getElementById('btnAddMechSave').addEventListener('click',saveNewMech);
+
+// ── APP ICON ──
+function generateIcon(){
+  const size=180;
+  const c=document.createElement('canvas');c.width=size;c.height=size;
+  const ctx=c.getContext('2d');
+  // Wood gradient background
+  const grad=ctx.createLinearGradient(0,0,0,size);
+  grad.addColorStop(0,'#d49050');
+  grad.addColorStop(0.4,'#8b4513');
+  grad.addColorStop(0.8,'#5a2e0e');
+  grad.addColorStop(1,'#2a1005');
+  ctx.fillStyle=grad;
+  ctx.beginPath();
+  const r=24;
+  ctx.moveTo(r,0);ctx.lineTo(size-r,0);ctx.arcTo(size,0,size,r,r);
+  ctx.lineTo(size,size-r);ctx.arcTo(size,size,size-r,size,r);
+  ctx.lineTo(r,size);ctx.arcTo(0,size,0,size-r,r);
+  ctx.lineTo(0,r);ctx.arcTo(0,0,r,0,r);
+  ctx.closePath();ctx.fill();
+  // Wood grain lines
+  ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=2;
+  for(let i=0;i<size;i+=14){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(size,i+8);ctx.stroke();}
+  // D letter
+  ctx.font='bold '+(size*.65)+'px Cinzel, Georgia, serif';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle='rgba(0,0,0,0.25)';
+  ctx.fillText('D',size/2+2,size/2+3);
+  ctx.fillStyle='#f0e8d0';
+  ctx.shadowColor='rgba(200,212,32,0.4)';ctx.shadowBlur=10;
+  ctx.fillText('D',size/2,size/2);
+  ctx.shadowBlur=0;
+  // Set as apple touch icon
+  const link=document.createElement('link');
+  link.rel='apple-touch-icon';link.href=c.toDataURL('image/png');
+  document.head.appendChild(link);
+}
 
 // ── INIT ──
 async function init(){
@@ -797,6 +882,7 @@ async function init(){
   renderGamesHdr();renderGames();renderGamesFilter();
   renderMechHdr();renderMechFilter();renderMechs();
   updateExp();setPanelH();
+  generateIcon();
   window.addEventListener('resize',()=>{drawTicks();setPanelH();});
   setTimeout(drawTicks,100);
   document.getElementById('app').style.display='flex';

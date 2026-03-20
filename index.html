@@ -35,7 +35,6 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 #loadScreen span{font-family:'Cinzel',serif;font-size:1.4rem;color:#f0e8d0;letter-spacing:2px;text-shadow:0 0 12px rgba(200,212,32,.4);}
 
 .bg{position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;background:var(--bg);background-size:cover;}
-
 .rays{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
 .ray{position:absolute;top:-5%;transform-origin:top center;filter:blur(7px);}
 .ray:nth-child(1){left:34%;width:75px;height:120%;transform:rotate(-8deg);background:linear-gradient(180deg,transparent,rgba(255,255,200,.17),transparent);}
@@ -52,10 +51,10 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
 .app{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10;display:flex;flex-direction:column;align-items:center;
-  padding:calc(var(--safe-t) + 14px) calc(var(--safe-r) + 14px) calc(var(--safe-b) + 14px) calc(var(--safe-l) + 14px);overflow:hidden;}
+  padding:calc(var(--safe-t) + 14px) calc(var(--safe-r) + 14px) calc(var(--safe-b) + 5px) calc(var(--safe-l) + 14px);
+  overflow:hidden;}
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 
-/* EXP */
 .exp-box{flex-shrink:0;margin-bottom:11px;background:#1a1a0e;border:2px solid #050500;border-radius:8px;padding:10px 13px 12px;box-shadow:inset 0 2px 8px rgba(0,0,0,.8),0 3px 10px rgba(0,0,0,.5);}
 .app-title{text-align:center;font-family:'Cinzel',serif;font-size:1.45rem;font-weight:900;letter-spacing:2px;color:#f0e8d0;text-shadow:1px 1px 3px rgba(0,0,0,.8),0 0 14px rgba(200,212,32,.2);margin-bottom:8px;}
 .exp-label{display:block;font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:.5px;color:#e8e8d0;text-shadow:0 0 6px rgba(200,220,100,.5),1px 1px 0 #000;margin-bottom:7px;}
@@ -68,7 +67,6 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .exp-empty::after{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,.45),transparent);}
 .exp-ticks{position:absolute;inset:0;z-index:2;pointer-events:none;width:100%;height:100%;}
 
-/* PANEL */
 .panel{position:relative;border-radius:7px;border:3px solid var(--ws);overflow:hidden;flex-shrink:0;margin-bottom:11px;
   background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),
     linear-gradient(175deg,var(--w1) 0%,var(--w2) 25%,var(--w3) 60%,var(--w4) 100%);
@@ -79,17 +77,14 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .panel-body{padding:10px 12px;position:relative;z-index:1;}
 .hdr-btns{display:flex;align-items:center;gap:5px;flex-shrink:0;}
 
-/* GAMES PANEL — max 40% of remaining space */
 .games-panel{display:flex;flex-direction:column;overflow:hidden;}
 .games-panel .panel-body{display:flex;flex-direction:column;overflow:hidden;min-height:0;}
-.games-list-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;min-height:0;}
+.games-list-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;min-height:0;touch-action:pan-y;}
 
-/* MECH PANEL — fills remaining space */
 .panel.mech-panel{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;margin-bottom:0;}
 .mech-panel .panel-body{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;}
 .mech-scroll{flex:1;min-height:calc(5*44px);overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;}
 
-/* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;height:var(--btn-h);padding:0 13px;
   background:linear-gradient(180deg,var(--w1) 0%,var(--w2) 55%,var(--w4) 100%);
   border:2px solid var(--ws);border-radius:5px;color:var(--wt);font-family:'Cinzel',serif;
@@ -102,39 +97,30 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .btn:disabled{opacity:.4;cursor:not-allowed;}
 .btn.active-filter{background:linear-gradient(180deg,#e0a050 0%,var(--w2) 100%);box-shadow:0 0 8px rgba(220,140,40,.4);}
 
-/* HEART */
 .heart{display:inline-flex;align-items:center;justify-content:center;width:var(--btn-h);height:var(--btn-h);background:none;border:none;cursor:pointer;font-size:1.25rem;color:#aaa;-webkit-appearance:none;user-select:none;-webkit-user-select:none;flex-shrink:0;}
 .heart.on{color:#e83030;}
 
-/* FILTER */
 .filter-row{display:flex;gap:5px;margin-bottom:9px;flex-wrap:wrap;flex-shrink:0;}
-
-/* SEARCH */
 .search-inp{width:100%;font-size:16px;font-family:'Crimson Text',serif;background:rgba(0,0,0,.35);border:2px solid var(--ws);border-radius:4px;color:var(--wt);padding:9px 12px;outline:none;margin-bottom:9px;flex-shrink:0;-webkit-appearance:none;}
 .search-inp:focus{border-color:var(--w1);}
 .search-inp::placeholder{color:var(--pc);opacity:.6;}
 
-/* GAME ROW */
-.game-row{
-  display:flex;align-items:center;padding:7px 10px;margin-bottom:5px;border-radius:5px;
-  border:1px solid rgba(100,160,220,.3);
-  background:linear-gradient(135deg,rgba(80,140,200,0.55),rgba(50,100,170,0.55));
-}
+/* GAME ROW — cyan */
+.game-row{display:flex;align-items:center;padding:7px 10px;margin-bottom:5px;border-radius:5px;
+  border:1px solid rgba(0,200,200,.3);
+  background:linear-gradient(135deg,rgba(0,200,200,0.55),rgba(0,150,160,0.55));}
 .game-info{flex:1;cursor:pointer;user-select:none;-webkit-user-select:none;}
-.game-name{font-family:'Cinzel',serif;font-size:1rem;color:#1a1a00;font-weight:700;text-shadow:none;}
+.game-name{font-family:'Cinzel',serif;font-size:1rem;color:#1a1a00;font-weight:700;}
 .game-date{font-size:.85rem;color:#1a2a10;margin-top:2px;}
 .game-actions{display:flex;align-items:center;gap:5px;flex-shrink:0;}
-/* Hearts on game rows — dark so visible on blue */
 .game-row .heart{color:#1a1a00;}
 .game-row .heart.on{color:#e83030;}
 
-/* MECH ROWS */
 .mech-row{display:flex;align-items:center;padding:9px 10px;margin-bottom:4px;border-radius:5px;border:1px solid rgba(255,200,80,.07);min-height:44px;background:rgba(0,0,0,.18);}
 .mech-row.ticked{background:linear-gradient(135deg,rgba(200,212,32,0.85),rgba(160,176,0,0.85));border-color:rgba(180,200,0,.5);min-height:0;padding:5px 10px;}
 .mech-row-name{font-size:1rem;flex:1;color:var(--wt);}
 .mech-row.ticked .mech-row-name{color:#1a1a00;font-weight:700;}
 .tick-sym{color:#3a6010;font-size:.95rem;margin-right:6px;flex-shrink:0;font-weight:900;}
-/* Heart on ticked mech rows — dark so visible on yellow-green */
 .mech-row.ticked .heart{color:#1a1a00;}
 .mech-row.ticked .heart.on{color:#e83030;}
 
@@ -147,7 +133,6 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .rename-err{font-size:.78rem;color:#ff5555;margin-top:3px;display:none;}
 .rename-err.show{display:block;}
 
-/* WOOD INPUT */
 .wood-inp{width:100%;font-size:16px;font-family:'Crimson Text',serif;background:rgba(0,0,0,.38);border:2px solid var(--ws);border-radius:4px;color:var(--wt);padding:9px 12px;outline:none;box-shadow:inset 0 2px 5px rgba(0,0,0,.4);margin-bottom:10px;-webkit-appearance:none;text-align:left;}
 .wood-inp:focus{border-color:var(--w1);}
 .wood-inp::placeholder{color:var(--pc);opacity:.6;}
@@ -156,7 +141,6 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 textarea.wood-inp{resize:none;}
 .inp-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);margin-bottom:5px;display:block;letter-spacing:.3px;}
 
-/* SLIDE PANEL */
 .sp{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .sp.open{background:rgba(0,0,0,.55);pointer-events:all;}
 .sp-inner{width:100%;max-width:var(--max-w);background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border-top:4px solid var(--ws);border-radius:18px 18px 0 0;padding:16px 16px calc(var(--safe-b) + 20px);overflow:hidden;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);box-shadow:0 -10px 40px rgba(0,0,0,.6);will-change:transform;display:flex;flex-direction:column;}
@@ -166,7 +150,6 @@ textarea.wood-inp{resize:none;}
 .btn-row{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-shrink:0;}
 .btn-row-l{display:flex;gap:8px;justify-content:flex-start;margin-top:14px;flex-shrink:0;}
 
-/* ADD GAME PANEL */
 .sp-fixed{flex-shrink:0;}
 .chips-row-wrap{display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-shrink:0;}
 .chips-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);letter-spacing:.3px;white-space:nowrap;flex-shrink:0;}
@@ -174,8 +157,15 @@ textarea.wood-inp{resize:none;}
 .chips-scroll::-webkit-scrollbar{display:none;}
 .chip{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(135deg,#c8d420,#a0b000);border:1.5px solid #6a8000;border-radius:4px;padding:3px 6px 3px 8px;font-family:'Crimson Text',serif;font-size:.85rem;color:#1a1a00;font-weight:600;white-space:nowrap;flex-shrink:0;}
 .chip-x{color:#cc0000;font-size:.9rem;font-weight:900;cursor:pointer;padding:1px 2px;user-select:none;-webkit-user-select:none;flex-shrink:0;}
+
+/* Paste area with line-colour overlay */
 .paste-wrap{position:relative;margin-bottom:9px;flex-shrink:0;}
-.paste-wrap textarea{margin-bottom:0;}
+.paste-wrap textarea{margin-bottom:0;background:transparent;position:relative;z-index:2;caret-color:var(--wt);}
+.paste-bg{position:absolute;inset:0;padding:9px 12px;font-family:'Crimson Text',serif;font-size:16px;line-height:1.63;pointer-events:none;z-index:1;white-space:pre-wrap;word-break:break-word;border-radius:4px;overflow:hidden;background:rgba(0,0,0,.38);}
+.paste-bg .line-ok{color:var(--wt);}
+.paste-bg .line-bad{color:#ff5555;}
+.paste-bg .line-active{color:var(--wt);}
+
 .mech-sel-list{border:2px solid var(--ws);border-radius:4px;background:rgba(0,0,0,.28);overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;min-height:100px;touch-action:pan-y;}
 .mech-sel-row{display:flex;align-items:center;gap:9px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.05);min-height:44px;cursor:pointer;user-select:none;-webkit-user-select:none;}
 .mech-sel-row:last-child{border-bottom:none;}
@@ -184,10 +174,9 @@ textarea.wood-inp{resize:none;}
 .mech-sel-chk.on::after{content:'✓';color:#a0ff80;font-size:13px;}
 .mech-sel-name{font-size:1rem;color:var(--wt);pointer-events:none;flex:1;}
 
-/* DETAIL */
 .detail-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-shrink:0;}
 .detail-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--wt);flex:1;}
-.detail-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.detail-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;}
 .detail-sec{font-family:'Cinzel',serif;font-size:.82rem;color:#d4a060;letter-spacing:.5px;margin:12px 0 5px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:3px;}
 .detail-val{font-size:1rem;color:var(--wt);line-height:1.5;}
 .detail-chip{display:inline-block;background:rgba(0,0,0,.28);border:1px solid rgba(255,200,80,.18);border-radius:3px;padding:4px 9px;font-size:.88rem;color:var(--wt);margin:3px 3px 3px 0;}
@@ -232,7 +221,6 @@ textarea.wood-inp{resize:none;}
       </div>
     </div>
 
-    <!-- GAMES PLAYED -->
     <div class="panel games-panel" id="gamesPanel">
       <div class="panel-hdr">
         <span class="panel-title">Games Played</span>
@@ -244,7 +232,6 @@ textarea.wood-inp{resize:none;}
       </div>
     </div>
 
-    <!-- MECHANICS -->
     <div class="panel mech-panel" id="mechPanel">
       <div class="panel-hdr">
         <span class="panel-title">Mechanics</span>
@@ -278,6 +265,7 @@ textarea.wood-inp{resize:none;}
         <div class="chips-scroll" id="chipsScroll"></div>
       </div>
       <div class="paste-wrap">
+        <div class="paste-bg" id="pasteBg" aria-hidden="true"></div>
         <textarea class="wood-inp" id="mechPaste" placeholder="Search or paste list (one per line)..." rows="2" style="margin-bottom:0;"></textarea>
       </div>
     </div>
@@ -327,7 +315,6 @@ textarea.wood-inp{resize:none;}
 <script>
 'use strict';
 
-// ── IndexedDB ──
 const DB_NAME='dexp_db',DB_VER=1;
 let db;
 function openDB(){
@@ -385,7 +372,7 @@ let mechanics=[],meta={},games=[];
 let mechFilter='all',gamesFilter='all';
 let editingGames=false,editingMechanics=false;
 let editGameId=null,detailGameId=null,renamingIdx=null;
-let selMechs=new Set(),pastedLines=new Set(); // pastedLines tracks which lines came from paste/typing
+let selMechs=new Set(),pastedLines=new Set();
 let mechSnap=null,metaSnap=null,gamesSnap=null;
 
 async function saveAll(){await dbSet('mechanics',mechanics);await dbSet('meta',meta);await dbSet('games',games);}
@@ -397,17 +384,15 @@ function gameTickedSet(){const s=new Set();games.forEach(g=>g.mechanics.forEach(
 function isTicked(m){const mt=getMeta(m);if(mt.manualUntick)return false;if(mt.manualTick)return true;return gameTickedSet().has(m);}
 function mechExists(name,excludeIdx=-1){return mechanics.some((m,i)=>i!==excludeIdx&&m.toLowerCase()===name.toLowerCase());}
 
-// ── LAYOUT: enforce games panel max height = 40% of mech panel available space ──
+// ── LAYOUT ──
 function applyPanelLayout(){
   const inner=document.getElementById('mainInner');
-  const expH=document.getElementById('expBox').offsetHeight+11; // +margin
+  const expH=document.getElementById('expBox').offsetHeight+11;
   const totalH=inner.offsetHeight;
   const remaining=totalH-expH;
   const gamesMax=Math.floor(remaining*0.4);
   document.getElementById('gamesPanel').style.maxHeight=gamesMax+'px';
 }
-
-// ── PANEL HEIGHTS ──
 function setPanelH(){
   applyPanelLayout();
   const bottom=document.getElementById('expBox').getBoundingClientRect().bottom;
@@ -424,17 +409,19 @@ function closeSP(id){document.getElementById(id).classList.remove('open');if(id=
 function initSP(id){
   const panel=document.getElementById(id);
   const inner=panel.querySelector('.sp-inner');
-  // Backdrop
-  panel.addEventListener('click',e=>{if(e.target===panel)closeSP(id);});
-  // Swipe — but not when touch starts inside scrollable areas
+  // Backdrop — only dismiss if tap is strictly ABOVE the panel
+  panel.addEventListener('click',e=>{
+    if(e.target===panel){
+      const innerRect=inner.getBoundingClientRect();
+      if(e.clientY<innerRect.top){closeSP(id);}
+    }
+  });
+  // Swipe
   let sy=0,cy=0,active=false,blocked=false;
   inner.addEventListener('touchstart',e=>{
-    // Check if touch started inside a scrollable child
     const scrollables=inner.querySelectorAll('.mech-sel-list,.chips-scroll,.mech-scroll,.games-list-scroll,.detail-scroll');
     blocked=false;
-    for(const el of scrollables){
-      if(el.contains(e.target)){blocked=true;break;}
-    }
+    for(const el of scrollables){if(el.contains(e.target)){blocked=true;break;}}
     sy=e.touches[0].clientY;cy=sy;active=true;
   },{passive:true});
   inner.addEventListener('touchmove',e=>{
@@ -536,6 +523,7 @@ function openAddGame(){
   document.getElementById('gameNameInp').value='';
   document.getElementById('gameDateInp').value=today();
   document.getElementById('mechPaste').value='';
+  document.getElementById('pasteBg').innerHTML='';
   selMechs=new Set();pastedLines=new Set();
   renderChips();renderMechSelList('');
   setPanelH();openSP('spGame');
@@ -545,12 +533,12 @@ function openEditGame(i){
   document.getElementById('spGameTitle').textContent='Edit Game';
   document.getElementById('gameNameInp').value=g.name;
   document.getElementById('gameDateInp').value=g.date;
-  document.getElementById('mechPaste').value='';
-  selMechs=new Set(g.mechanics);pastedLines=new Set();
-  // Populate paste field with existing mechanics
-  document.getElementById('mechPaste').value=g.mechanics.join('\n');
+  selMechs=new Set(g.mechanics);
   pastedLines=new Set(g.mechanics.map(m=>m.toLowerCase()));
+  document.getElementById('mechPaste').value=g.mechanics.join('\n');
+  document.getElementById('pasteBg').innerHTML='';
   renderChips();renderMechSelList('');
+  updatePasteBg(true);
   setPanelH();openSP('spGame');
 }
 function saveGame(){
@@ -578,30 +566,61 @@ function renderChips(){
 function removeChip(m){
   selMechs.delete(m);
   pastedLines.delete(m.toLowerCase());
-  // Remove from paste field
   const ta=document.getElementById('mechPaste');
   const lines=ta.value.split('\n').filter(l=>l.trim().toLowerCase()!==m.toLowerCase());
   ta.value=lines.join('\n');
   renderChips();
+  updatePasteBg(false);
   const list=document.getElementById('mechSelList');
   const st=list.scrollTop;
   renderMechSelList(getCurrentLineFilter());
   list.scrollTop=st;
 }
 
-// ── PASTE/SEARCH ──
-let lastCursorLine='';
 function getCurrentLineFilter(){
   const ta=document.getElementById('mechPaste');
   const val=ta.value;
+  if(!val)return'';
   const pos=ta.selectionStart||0;
   const lines=val.split('\n');
-  let charCount=0;
+  let count=0;
   for(const line of lines){
-    charCount+=line.length+1;
-    if(charCount>pos)return line.trim().toLowerCase();
+    count+=line.length+1;
+    if(count>pos)return line.trim().toLowerCase();
   }
   return lines[lines.length-1].trim().toLowerCase();
+}
+
+function getActiveLine(){
+  const ta=document.getElementById('mechPaste');
+  const val=ta.value;
+  const pos=ta.selectionStart||val.length;
+  const lines=val.split('\n');
+  let count=0,activeIdx=0;
+  for(let i=0;i<lines.length;i++){
+    count+=lines[i].length+1;
+    if(count>pos){activeIdx=i;break;}
+    if(i===lines.length-1)activeIdx=i;
+  }
+  return activeIdx;
+}
+
+// ── PASTE BG (line colour overlay) ──
+function updatePasteBg(allDone){
+  const ta=document.getElementById('mechPaste');
+  const bg=document.getElementById('pasteBg');
+  const val=ta.value;
+  if(!val){bg.innerHTML='';return;}
+  const lines=val.split('\n');
+  const ml=mechanics.map(m=>m.toLowerCase());
+  const activeIdx=allDone?-1:getActiveLine();
+  bg.innerHTML=lines.map((line,i)=>{
+    const t=line.trim();
+    if(!t)return'\n';
+    if(i===activeIdx)return`<span class="line-active">${esc(line)}</span>\n`;
+    const matched=ml.indexOf(t.toLowerCase())!==-1;
+    return matched?`<span class="line-ok">${esc(line)}</span>\n`:`<span class="line-bad">${esc(line)}</span>\n`;
+  }).join('');
 }
 
 function onPasteInput(){
@@ -610,7 +629,7 @@ function onPasteInput(){
   const lines=val.split('\n');
   const ml=mechanics.map(m=>m.toLowerCase());
 
-  // Match all lines to mechanics and update selMechs
+  // Update selMechs and pastedLines from all lines
   const newSel=new Set();
   const newPasted=new Set();
   lines.forEach(line=>{
@@ -618,78 +637,32 @@ function onPasteInput(){
     const idx=ml.indexOf(t.toLowerCase());
     if(idx!==-1){newSel.add(mechanics[idx]);newPasted.add(mechanics[idx].toLowerCase());}
   });
-  // Keep manually selected mechs that aren't in paste field
+  // Keep manually ticked mechs not in paste
   selMechs.forEach(m=>{if(!pastedLines.has(m.toLowerCase())&&!newPasted.has(m.toLowerCase()))newSel.add(m);});
-  selMechs=newSel;
-  pastedLines=newPasted;
+  selMechs=newSel;pastedLines=newPasted;
   renderChips();
 
-  // Filter list based on current cursor line
+  // Update bg — current line stays white
+  updatePasteBg(false);
+
+  // Filter list on current line
   const curFilter=getCurrentLineFilter();
   const list=document.getElementById('mechSelList');
   const st=list.scrollTop;
   renderMechSelList(curFilter);
   list.scrollTop=st;
-
-  // Apply red text to completed lines (not current line)
-  applyLineColours();
 }
 
-function applyLineColours(){
-  // We use a div overlay approach — but since we removed the overlay, we instead style the textarea text
-  // Instead: show line colours only on blur/Enter
-  // We handle this in the keydown event
-}
-
+function onPasteBlur(){updatePasteBg(true);}
+function onPasteFocus(){updatePasteBg(false);}
 function onPasteKeydown(e){
   if(e.key==='Enter'){
-    // After pressing Enter, colour the previous line if no match
-    setTimeout(()=>{
-      applyRedLines();
-    },10);
-  }
-}
-
-function applyRedLines(){
-  // We cannot colour individual lines in a textarea natively
-  // So we show a read-only styled display div below the textarea
-  const ta=document.getElementById('mechPaste');
-  const val=ta.value;
-  const lines=val.split('\n');
-  const ml=mechanics.map(m=>m.toLowerCase());
-  // Get current line index
-  const pos=ta.selectionStart||val.length;
-  let charCount=0,curLineIdx=0;
-  for(let i=0;i<lines.length;i++){
-    charCount+=lines[i].length+1;
-    if(charCount>pos){curLineIdx=i;break;}
-    if(i===lines.length-1)curLineIdx=i;
-  }
-  // Build display
-  let display=document.getElementById('pasteLineDisplay');
-  if(!display){
-    display=document.createElement('div');display.id='pasteLineDisplay';
-    display.style.cssText='font-size:13px;margin-top:4px;flex-shrink:0;';
-    ta.parentNode.insertBefore(display,ta.nextSibling);
-  }
-  const badLines=[];
-  lines.forEach((line,i)=>{
-    const t=line.trim();
-    if(!t)return;
-    if(i!==curLineIdx&&ml.indexOf(t.toLowerCase())===-1){
-      badLines.push(esc(t));
-    }
-  });
-  if(badLines.length){
-    display.innerHTML='<span style="color:#ff5555;font-family:Crimson Text,serif;">Not found: '+badLines.join(', ')+'</span>';
-  } else {
-    display.innerHTML='';
+    setTimeout(()=>updatePasteBg(false),10);
   }
 }
 
 function renderMechSelList(filter){
   const list=document.getElementById('mechSelList');list.innerHTML='';
-  const ml=mechanics.map(m=>m.toLowerCase());
   const pasted=mechanics.filter(m=>pastedLines.has(m.toLowerCase())&&(!filter||m.toLowerCase().includes(filter)));
   const rest=mechanics.filter(m=>!pastedLines.has(m.toLowerCase())&&(!filter||m.toLowerCase().includes(filter)));
   [...pasted,...rest].forEach(m=>{
@@ -697,25 +670,23 @@ function renderMechSelList(filter){
     row.innerHTML=`<div class="mech-sel-chk ${selMechs.has(m)?'on':''}"></div><span class="mech-sel-name">${esc(m)}</span>`;
     row.addEventListener('click',()=>{
       if(pastedLines.has(m.toLowerCase())){removeChip(m);return;}
+      const ta=document.getElementById('mechPaste');
       if(selMechs.has(m)){
         selMechs.delete(m);
-        // Remove from paste field if present
-        const ta=document.getElementById('mechPaste');
         const lines=ta.value.split('\n').filter(l=>l.trim().toLowerCase()!==m.toLowerCase());
         ta.value=lines.join('\n');
+        pastedLines.delete(m.toLowerCase());
       } else {
         selMechs.add(m);
-        // Add to paste field
-        const ta=document.getElementById('mechPaste');
         const cur=ta.value;
-        ta.value=cur?(cur+'\n'+m):m;
+        ta.value=(cur?cur+'\n':'')+m+'\n';
         pastedLines.add(m.toLowerCase());
       }
       renderChips();
+      updatePasteBg(false);
       const st=list.scrollTop;
       renderMechSelList(getCurrentLineFilter());
       list.scrollTop=st;
-      applyRedLines();
     });
     list.append(row);
   });
@@ -759,7 +730,6 @@ function doneEditMechs(){
   renderMechHdr();renderMechs();updateExp();saveAll();
 }
 
-// ── MECH FILTER ──
 function renderMechFilter(){
   const el=document.getElementById('mechFilterRow');el.innerHTML='';
   [['all','All'],['played','Played'],['notplayed','Not Played'],['liked','Liked']].forEach(([v,l])=>{
@@ -767,7 +737,6 @@ function renderMechFilter(){
   });
 }
 
-// ── MECH LIST ──
 function renderMechs(){
   const el=document.getElementById('mechList');el.innerHTML='';
   const search=document.getElementById('mechSearch').value.trim().toLowerCase();
@@ -812,7 +781,6 @@ function renderMechs(){
           errMsg.className='rename-err'+(exists?' show':'');
           doneBtn.disabled=exists||!nv;
         });
-        // Focus directly — triggers keyboard on iOS within same gesture
         inp.addEventListener('click',()=>inp.focus());
         row.append(wrap,doneBtn,cancelBtn);
         inp.focus();
@@ -872,10 +840,11 @@ function generateIcon(){
   const size=180;
   const c=document.createElement('canvas');c.width=size;c.height=size;
   const ctx=c.getContext('2d');
-  const grad=ctx.createLinearGradient(0,0,0,size);
-  grad.addColorStop(0,'#1a1a0e');
-  grad.addColorStop(0.65,'#1a1a0e');
-  grad.addColorStop(1,'#4a4a4a');
+  // Dark bg with cream gradient at bottom-left
+  const grad=ctx.createRadialGradient(0,size,0,0,size,size*0.9);
+  grad.addColorStop(0,'#f0e8d0');
+  grad.addColorStop(0.4,'#2a2a1a');
+  grad.addColorStop(1,'#1a1a0e');
   const r=24;
   ctx.beginPath();
   ctx.moveTo(r,0);ctx.lineTo(size-r,0);ctx.arcTo(size,0,size,r,r);
@@ -899,19 +868,18 @@ function generateIcon(){
 
 function mkBtn(label,cls,fn){const b=document.createElement('button');b.className=cls;b.textContent=label;b.addEventListener('click',fn);return b;}
 
-// ── WIRE BUTTONS ──
 document.getElementById('btnGameCancel').addEventListener('click',()=>closeSP('spGame'));
 document.getElementById('btnGameSave').addEventListener('click',saveGame);
 document.getElementById('mechPaste').addEventListener('input',onPasteInput);
 document.getElementById('mechPaste').addEventListener('keydown',onPasteKeydown);
-document.getElementById('mechPaste').addEventListener('blur',applyRedLines);
+document.getElementById('mechPaste').addEventListener('blur',onPasteBlur);
+document.getElementById('mechPaste').addEventListener('focus',onPasteFocus);
 document.getElementById('mechSearch').addEventListener('input',renderMechs);
 document.getElementById('detailHeart').addEventListener('click',()=>{if(detailGameId!==null)toggleGameLike(detailGameId);});
 document.getElementById('btnDetailBack').addEventListener('click',()=>closeSP('spDetail'));
 document.getElementById('btnAddMechCancel').addEventListener('click',()=>closeSP('spAddMech'));
 document.getElementById('btnAddMechSave').addEventListener('click',saveNewMech);
 
-// ── INIT ──
 async function init(){
   await openDB();
   const [sm,smeta,sg]=await Promise.all([dbGet('mechanics'),dbGet('meta'),dbGet('games')]);

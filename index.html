@@ -12,8 +12,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:wght@400;600&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 :root{
-  --safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px);
-  --safe-l:env(safe-area-inset-left,0px);--safe-r:env(safe-area-inset-right,0px);
+  --safe-t:env(safe-area-inset-top,0px);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px);
+  --safe-r:env(safe-area-inset-right,0px);
   --max-w:700px;--btn-h:36px;
   --w1:#d49050;--w2:#8b4513;--w3:#5a2e0e;--w4:#2a1005;
   --ws:#1a0803;--wt:#fff5e0;--pc:#c4b090;
@@ -46,17 +48,17 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 
 .mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
-/* GRASS STRIP — above panels, below slide panels */
-.grass-strip{
-  position:fixed;bottom:0;left:0;right:0;
-  z-index:50;
-  pointer-events:none;
-  height:calc(var(--safe-b) + 60px);
-  background:url('https://christopherljq.github.io/Exp/grass.png') left -10px / auto 100% repeat-x;
+/* APP — bottom padding split: fallback 0px, then calc with safe area */
+.app{
+  position:fixed;inset:0;z-index:10;
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:calc(var(--safe-t) + 14px);
+  padding-right:calc(var(--safe-r) + 14px);
+  padding-left:calc(var(--safe-l) + 14px);
+  padding-bottom:0px;
+  padding-bottom:calc(env(safe-area-inset-bottom) - 150px);
+  overflow:hidden;
 }
-
-.app{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;
-  padding:calc(var(--safe-t) + 14px) calc(var(--safe-r) + 14px) calc(var(--safe-b) + 5px) calc(var(--safe-l) + 14px);overflow:hidden;}
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 
 .exp-box{flex-shrink:0;margin-bottom:11px;background:#1a1a0e;border:2px solid #050500;border-radius:8px;padding:10px 13px 12px;box-shadow:inset 0 2px 8px rgba(0,0,0,.8),0 3px 10px rgba(0,0,0,.5);}
@@ -139,7 +141,6 @@ input[type="date"].wood-inp{color:var(--wt);}
 input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .inp-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);margin-bottom:5px;display:block;letter-spacing:.3px;}
 
-/* SLIDE PANELS */
 .sp{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .sp.open{background:rgba(0,0,0,.55);pointer-events:all;}
 .sp-inner{width:100%;max-width:var(--max-w);background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border-top:4px solid var(--ws);border-radius:18px 18px 0 0;padding:16px 16px calc(var(--safe-b) + 20px);overflow:hidden;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);box-shadow:0 -10px 40px rgba(0,0,0,.6);will-change:transform;display:flex;flex-direction:column;}
@@ -181,9 +182,6 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
   </svg>
 </div>
 
-<!-- GRASS STRIP — z-index 50, above panels, below slide panels -->
-<div class="grass-strip"></div>
-
 <div class="app" id="app" style="visibility:hidden">
   <div class="inner" id="mainInner">
     <div class="exp-box" id="expBox">
@@ -198,7 +196,6 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
       </div>
     </div>
 
-    <!-- GAMES PLAYED — no add/edit buttons -->
     <div class="panel games-panel" id="gamesPanel">
       <div class="panel-hdr">
         <span class="panel-title">Games Played</span>
@@ -209,7 +206,6 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
       </div>
     </div>
 
-    <!-- MECHANICS -->
     <div class="panel mech-panel">
       <div class="panel-hdr">
         <span class="panel-title">Mechanics</span>
@@ -284,7 +280,6 @@ function isTicked(m){const mt=getMeta(m);if(mt.manualUntick)return false;if(mt.m
 function mechExists(name,excludeIdx=-1){return mechanics.some((m,i)=>i!==excludeIdx&&m.toLowerCase()===name.toLowerCase());}
 function mkBtn(label,cls,fn){const b=document.createElement('button');b.className=cls;b.textContent=label;b.addEventListener('click',fn);return b;}
 
-// ── LAYOUT ──
 function applyPanelLayout(){
   const inner=document.getElementById('mainInner');
   const expH=document.getElementById('expBox').offsetHeight+11;
@@ -299,7 +294,6 @@ function setPanelH(){
   document.getElementById('spAddMechInner').style.maxHeight='300px';
 }
 
-// ── SLIDE PANELS ──
 function openSP(id){document.getElementById(id).classList.add('open');}
 function closeSP(id){document.getElementById(id).classList.remove('open');if(id==='spDetail')detailGameId=null;}
 function initSP(id){
@@ -326,7 +320,6 @@ function initSP(id){
 }
 ['spDetail','spAddMech'].forEach(initSP);
 
-// ── EXP ──
 function updateExp(){
   const total=mechanics.length,ticked=mechanics.filter(m=>isTicked(m)).length;
   const pct=total>0?(ticked/total*100):0;
@@ -347,7 +340,6 @@ function drawTicks(){
   }
 }
 
-// ── GAMES ──
 function renderGamesFilter(){
   const el=document.getElementById('gamesFilterRow');el.innerHTML='';
   if(!games.length)return;
@@ -369,8 +361,7 @@ function renderGames(){
     const acts=document.createElement('div');acts.className='game-actions';
     const h=document.createElement('button');h.className='heart'+(g.liked?' on':'');h.textContent=g.liked?'♥':'♡';
     h.addEventListener('click',e=>{e.stopPropagation();toggleGameLike(i);});
-    acts.append(h);
-    row.append(info,acts);el.append(row);
+    acts.append(h);row.append(info,acts);el.append(row);
   });
   applyPanelLayout();
 }
@@ -379,7 +370,6 @@ function toggleGameLike(i){
   if(detailGameId===i){const h=document.getElementById('detailHeart');h.textContent=games[i].liked?'♥':'♡';h.className='heart'+(games[i].liked?' on':'');}
 }
 
-// ── GAME DETAIL ──
 function openDetail(i){
   detailGameId=i;const g=games[i];
   document.getElementById('detailName').textContent=g.name;
@@ -391,7 +381,6 @@ function openDetail(i){
   setPanelH();openSP('spDetail');
 }
 
-// ── MECH HDR ──
 function renderMechHdr(){
   const el=document.getElementById('mechHdrBtns');el.innerHTML='';
   if(editingMechanics){el.append(mkBtn('Cancel','btn sm',cancelEditMechs),mkBtn('Done','btn sm',doneEditMechs),mkBtn('Add','btn sm',openAddMech));}
@@ -470,7 +459,6 @@ function renderMechs(){
   }
 }
 
-// ── ADD MECHANIC ──
 function openAddMech(){
   document.getElementById('newMechInp').value='';
   document.getElementById('addMechErr').className='err-msg';
@@ -491,7 +479,6 @@ document.getElementById('newMechInp').addEventListener('input',()=>{
   document.getElementById('btnAddMechSave').disabled=exists||!val;
 });
 
-// ── APP ICON ──
 function generateIcon(){
   const size=180,c=document.createElement('canvas');c.width=size;c.height=size;
   const ctx=c.getContext('2d');
@@ -508,14 +495,12 @@ function generateIcon(){
   document.head.appendChild(link);
 }
 
-// ── WIRE ──
 document.getElementById('detailHeart').addEventListener('click',()=>{if(detailGameId!==null)toggleGameLike(detailGameId);});
 document.getElementById('btnDetailBack').addEventListener('click',()=>closeSP('spDetail'));
 document.getElementById('btnAddMechCancel').addEventListener('click',()=>closeSP('spAddMech'));
 document.getElementById('btnAddMechSave').addEventListener('click',saveNewMech);
 document.getElementById('mechSearch').addEventListener('input',renderMechs);
 
-// ── INIT ──
 async function init(){
   await openDB();
   const [sm,smeta,sg]=await Promise.all([dbGet('mechanics'),dbGet('meta'),dbGet('games')]);

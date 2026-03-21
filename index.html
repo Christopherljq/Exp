@@ -21,7 +21,6 @@
   --w1:#d49050;--w2:#8b4513;--w3:#5a2e0e;--w4:#452008;
   --ws:#1a0803;--wt:#fff5e0;--pc:#c4b090;
   --bg:radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
-      radial-gradient(ellipse at 10% 80%,rgba(10,50,10,.9) 0%,transparent 35%),
       radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
       radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
       linear-gradient(160deg,#6ab080 0%,#4a9060 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
@@ -57,7 +56,7 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
   width:100%;
   height:calc(var(--safe-b) + 60px);
   z-index:50;
-  background:var(--bottom-img) center bottom / cover no-repeat;
+  background:var(--bottom-img) center bottom / 100% 100% no-repeat;
   pointer-events:auto;
 }
 
@@ -72,7 +71,12 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 }
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 
-.exp-box{flex-shrink:0;margin-bottom:11px;background:#1a1a0e;border:2px solid #050500;border-radius:8px;padding:10px 13px 12px;box-shadow:inset 0 2px 8px rgba(0,0,0,.8),0 3px 10px rgba(0,0,0,.5);}
+.exp-box{
+  flex-shrink:0;margin-bottom:11px;
+  background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(255,255,255,.04) 20px,rgba(255,255,255,.04) 22px),#1a1a0e;
+  border:2px solid #050500;border-radius:8px;padding:10px 13px 12px;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.8),0 3px 10px rgba(0,0,0,.5);
+}
 .app-title{text-align:center;font-family:'Cinzel',serif;font-size:1.45rem;font-weight:900;letter-spacing:2px;color:#f0e8d0;text-shadow:1px 1px 3px rgba(0,0,0,.8),0 0 14px rgba(200,212,32,.2);margin-bottom:8px;}
 .exp-label{display:block;font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:.5px;color:#e8e8d0;text-shadow:0 0 6px rgba(200,220,100,.5),1px 1px 0 #000;margin-bottom:7px;}
 .exp-label .ew{color:#fff;text-shadow:0 0 8px rgba(255,255,200,.8),1px 1px 0 #000;}
@@ -118,7 +122,6 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .heart.on{color:#e83030;}
 .filter-row{display:flex;gap:5px;margin-bottom:9px;flex-wrap:wrap;flex-shrink:0;}
 
-/* Unified input height */
 .search-inp,
 .wood-inp{
   width:100%;font-family:'Crimson Text',serif;font-size:16px;
@@ -135,7 +138,6 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .wood-inp{text-align:left;margin-bottom:10px;}
 .inp-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);margin-bottom:5px;display:block;letter-spacing:.3px;}
 
-/* Mechanic picker inside Add Game sheet */
 .mech-pick-scroll{max-height:180px;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin-bottom:8px;}
 .mech-pick-row{display:flex;align-items:center;gap:8px;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.07);cursor:pointer;user-select:none;-webkit-user-select:none;}
 .mech-pick-chk{width:20px;height:20px;border-radius:3px;flex-shrink:0;border:2px solid var(--w2);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;}
@@ -188,7 +190,6 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .mech-chk.on::after{content:'✓';color:#a0ff80;font-size:13px;}
 .mech-edit-name{font-size:1rem;color:var(--wt);flex:1;min-width:0;}
 
-/* Centre screen modal overlay */
 .modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;pointer-events:none;transition:background .25s;}
 .modal-overlay.open{background:rgba(0,0,0,.65);pointer-events:all;}
 .modal-box{
@@ -496,7 +497,6 @@ function openDetail(i){
   setPanelH();openSP('spDetail');
 }
 
-// Add Game
 function renderMechPicker(searchVal){
   const el=document.getElementById('mechPickList');el.innerHTML='';
   const s=(searchVal||'').trim().toLowerCase();
@@ -539,8 +539,11 @@ document.getElementById('gamesMechSearch').addEventListener('input',e=>renderMec
 
 function renderMechHdr(){
   const el=document.getElementById('mechHdrBtns');el.innerHTML='';
-  if(editingMechanics){el.append(mkBtn('Cancel','btn sm',cancelEditMechs),mkBtn('Done','btn sm',doneEditMechs),mkBtn('Add','btn sm',openAddMech));}
-  else{el.append(mkBtn('Edit','btn sm',startEditMechs),mkBtn('Add','btn sm',openAddMech));}
+  if(editingMechanics){
+    el.append(mkBtn('Cancel','btn sm',cancelEditMechs),mkBtn('Done','btn sm',doneEditMechs));
+  } else {
+    el.append(mkBtn('Edit','btn sm',startEditMechs),mkBtn('Add','btn sm',openAddMech));
+  }
 }
 function startEditMechs(){mechSnap=JSON.parse(JSON.stringify(mechanics));metaSnap=JSON.parse(JSON.stringify(meta));editingMechanics=true;renamingIdx=null;renderMechHdr();renderMechs();}
 function cancelEditMechs(){mechanics=JSON.parse(JSON.stringify(mechSnap));meta=JSON.parse(JSON.stringify(metaSnap));editingMechanics=false;renamingIdx=null;renderMechHdr();renderMechs();updateExp();saveAll();}

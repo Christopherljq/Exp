@@ -1,0 +1,9 @@
+{
+  "name": "Designer's EXP",
+  "short_name": "Designer's EXP",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1a1a0e",
+  "theme_color": "#1a1a0a",
+  "orientation": "portrait"
+}

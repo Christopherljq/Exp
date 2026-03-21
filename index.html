@@ -659,5 +659,10 @@ async function init(){
 }
 init().catch(e=>{console.error(e);document.querySelector('#loadScreen span').textContent='Error loading. Please refresh.';});
 </script>
+
+<script>
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js');
+</script>
+
 </body>
 </html>

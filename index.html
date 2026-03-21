@@ -14,13 +14,14 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 :root{
   --safe-t:env(safe-area-inset-top,0px);
-  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-b:calc(env(safe-area-inset-bottom,0px) - 50px);
   --safe-l:env(safe-area-inset-left,0px);
   --safe-r:env(safe-area-inset-right,0px);
   --max-w:700px;--btn-h:36px;
   --w1:#d49050;--w2:#8b4513;--w3:#5a2e0e;--w4:#452008;
   --ws:#1a0803;--wt:#fff5e0;--pc:#c4b090;
   --bg:radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
+      radial-gradient(ellipse at 10% 80%,rgba(10,50,10,.9) 0%,transparent 35%),
       radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
       radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
       linear-gradient(160deg,#6ab080 0%,#4a9060 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
@@ -47,7 +48,7 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
   filter:drop-shadow(6px 0 14px rgba(0,0,0,.3));}
 .trunk::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(255,230,140,.3) 0%,transparent 50%),radial-gradient(ellipse at 20% 70%,rgba(180,220,80,.2) 0%,transparent 40%);}
 
-.mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
+.mushrooms{position:fixed;bottom:calc(var(--safe-b) + 98px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
 .bottom-img{
   position:fixed;
@@ -56,7 +57,7 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
   width:100%;
   height:calc(var(--safe-b) + 60px);
   z-index:50;
-  background:var(--bottom-img) center bottom / 100% 100% no-repeat;
+  background:var(--bottom-img) center bottom / cover no-repeat;
   pointer-events:auto;
 }
 
@@ -66,7 +67,7 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
   padding-top:calc(var(--safe-t) + 14px);
   padding-right:calc(var(--safe-r) + 14px);
   padding-left:calc(var(--safe-l) + 14px);
-  padding-bottom:calc(var(--safe-b) + 14px);
+  padding-bottom:calc(var(--safe-b) + 64px);
   overflow:hidden;
 }
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
@@ -147,7 +148,7 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 
 .sp{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .sp.open{background:rgba(0,0,0,.55);pointer-events:all;}
-.sp-inner{width:100%;max-width:var(--max-w);background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border-top:4px solid var(--ws);border-radius:18px 18px 0 0;padding:16px 16px calc(var(--safe-b) + 20px);overflow:hidden;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);box-shadow:0 -10px 40px rgba(0,0,0,.6);will-change:transform;display:flex;flex-direction:column;}
+.sp-inner{width:100%;max-width:var(--max-w);background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border-top:4px solid var(--ws);border-radius:18px 18px 0 0;padding:16px 16px calc(var(--safe-b) + 70px);overflow:hidden;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);box-shadow:0 -10px 40px rgba(0,0,0,.6);will-change:transform;display:flex;flex-direction:column;}
 .sp.open .sp-inner{transform:translateY(0);}
 .sp-handle{width:44px;height:5px;background:rgba(255,255,255,.3);border-radius:3px;margin:0 auto 14px;flex-shrink:0;}
 .sp-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--wt);text-shadow:1px 1px 2px var(--ws);margin-bottom:14px;text-align:center;letter-spacing:.8px;flex-shrink:0;}
@@ -410,7 +411,6 @@ function initSP(id){
 }
 ['spDetail','spAddGame','spAddMech'].forEach(initSP);
 
-// Delete modal
 function openDeleteModal(mechName){
   pendingDeleteMech=mechName;
   document.getElementById('modalDeleteMsg').textContent=`Are you sure you want to delete "${mechName}"?`;

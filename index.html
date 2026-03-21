@@ -7,6 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Designer's EXP"/>
 <meta name="theme-color" content="#1a1a0a"/>
+<link rel="manifest" href="manifest.json"/>
 <title>Designer's EXP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:wght@400;600&display=swap');
@@ -24,9 +25,10 @@
       radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
       radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
       linear-gradient(160deg,#6ab080 0%,#4a9060 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
+  --bottom-img:url('https://christopherljq.github.io/Exp/maplegrass.png');
 }
-html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;}
-body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;background:var(--bg);background-size:cover;background-attachment:fixed;touch-action:manipulation;}
+html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#6ab080;}
+body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#6ab080;touch-action:manipulation;}
 
 #loadScreen{position:fixed;inset:0;z-index:999;background:#1a1a0e;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
 #loadScreen.hide{opacity:0;pointer-events:none;}
@@ -48,15 +50,24 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 
 .mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
-/* APP — bottom padding split: fallback 0px, then calc with safe area */
+.bottom-img{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:calc(var(--safe-b) + 60px);
+  z-index:50;
+  background:var(--bottom-img) center bottom / cover no-repeat;
+  pointer-events:auto;
+}
+
 .app{
   position:fixed;inset:0;z-index:10;
   display:flex;flex-direction:column;align-items:center;
   padding-top:calc(var(--safe-t) + 14px);
   padding-right:calc(var(--safe-r) + 14px);
   padding-left:calc(var(--safe-l) + 14px);
-  padding-bottom:0px;
-  padding-bottom:calc(env(safe-area-inset-bottom) - 150px);
+  padding-bottom:calc(var(--safe-b) + 14px);
   overflow:hidden;
 }
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
@@ -84,6 +95,7 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .hdr-btns{display:flex;align-items:center;gap:5px;flex-shrink:0;}
 
 .games-panel{display:flex;flex-direction:column;overflow:hidden;}
+.games-panel .panel-hdr{justify-content:space-between;}
 .games-panel .panel-body{display:flex;flex-direction:column;overflow:hidden;min-height:0;}
 .games-list-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;min-height:0;touch-action:pan-y;}
 
@@ -141,6 +153,14 @@ input[type="date"].wood-inp{color:var(--wt);}
 input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .inp-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);margin-bottom:5px;display:block;letter-spacing:.3px;}
 
+/* Mechanic picker inside Add Game sheet */
+.mech-pick-scroll{max-height:180px;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin-bottom:8px;}
+.mech-pick-row{display:flex;align-items:center;gap:8px;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.07);cursor:pointer;user-select:none;-webkit-user-select:none;}
+.mech-pick-chk{width:20px;height:20px;border-radius:3px;flex-shrink:0;border:2px solid var(--w2);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;}
+.mech-pick-chk.on{background:linear-gradient(135deg,#1a6a10,#2a9a20);border-color:#4ac830;}
+.mech-pick-chk.on::after{content:'✓';color:#a0ff80;font-size:11px;}
+.mech-pick-name{font-size:.95rem;color:var(--wt);flex:1;}
+
 .sp{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .sp.open{background:rgba(0,0,0,.55);pointer-events:all;}
 .sp-inner{width:100%;max-width:var(--max-w);background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border-top:4px solid var(--ws);border-radius:18px 18px 0 0;padding:16px 16px calc(var(--safe-b) + 20px);overflow:hidden;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);box-shadow:0 -10px 40px rgba(0,0,0,.6);will-change:transform;display:flex;flex-direction:column;}
@@ -159,6 +179,15 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .empty{text-align:center;color:var(--pc);font-style:italic;font-size:.95rem;padding:12px 0;}
 .err-msg{font-size:.82rem;color:#ff5555;margin-top:4px;display:none;}
 .err-msg.show{display:block;}
+
+/* Centre screen modal overlay */
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;pointer-events:none;transition:background .25s;}
+.modal-overlay.open{background:rgba(0,0,0,.65);pointer-events:all;}
+.modal-box{background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border:3px solid var(--ws);border-radius:10px;padding:22px 20px 18px;width:88%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.7);transform:scale(.92);opacity:0;transition:transform .25s cubic-bezier(.32,1,.56,1),opacity .25s;}
+.modal-overlay.open .modal-box{transform:scale(1);opacity:1;}
+.modal-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--wt);text-shadow:1px 1px 2px var(--ws);margin-bottom:8px;text-align:center;}
+.modal-msg{font-size:.95rem;color:var(--wt);text-align:center;margin-bottom:18px;line-height:1.5;word-break:break-word;}
+.modal-btns{display:flex;gap:8px;justify-content:center;}
 </style>
 </head>
 <body>
@@ -182,6 +211,9 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
   </svg>
 </div>
 
+<!-- Bottom PNG -->
+<div class="bottom-img"></div>
+
 <div class="app" id="app" style="visibility:hidden">
   <div class="inner" id="mainInner">
     <div class="exp-box" id="expBox">
@@ -199,6 +231,7 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
     <div class="panel games-panel" id="gamesPanel">
       <div class="panel-hdr">
         <span class="panel-title">Games Played</span>
+        <div class="hdr-btns"><button class="btn sm" id="btnAddGame">Add</button></div>
       </div>
       <div class="panel-body">
         <div id="gamesFilterRow"></div>
@@ -238,6 +271,28 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
   </div>
 </div>
 
+<!-- ADD GAME — z-index 201 -->
+<div class="sp" id="spAddGame" style="z-index:201;">
+  <div class="sp-inner" id="spAddGameInner">
+    <div class="sp-handle"></div>
+    <div class="sp-title">Add Game</div>
+    <div style="flex-shrink:0;">
+      <label class="inp-label">Game Name</label>
+      <input class="wood-inp" id="newGameName" type="text" placeholder="Enter game name" autocomplete="off" style="margin-bottom:4px;"/>
+      <div class="err-msg" id="addGameNameErr">Please enter a game name</div>
+      <label class="inp-label" style="margin-top:8px;">Date Played</label>
+      <input class="wood-inp" id="newGameDate" type="date"/>
+      <label class="inp-label" style="margin-top:4px;">Mechanics</label>
+      <input class="search-inp" id="gamesMechSearch" placeholder="Search mechanics..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="margin-bottom:6px;"/>
+      <div class="mech-pick-scroll" id="mechPickList"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="btnAddGameCancel">Cancel</button>
+      <button class="btn" id="btnAddGameSave">Save</button>
+    </div>
+  </div>
+</div>
+
 <!-- ADD MECHANIC — z-index 199 -->
 <div class="sp" id="spAddMech" style="z-index:199;">
   <div class="sp-inner" id="spAddMechInner">
@@ -251,6 +306,18 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
     <div class="btn-row">
       <button class="btn" id="btnAddMechCancel">Cancel</button>
       <button class="btn" id="btnAddMechSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-overlay" id="modalDelete">
+  <div class="modal-box">
+    <div class="modal-title">Delete Mechanic</div>
+    <div class="modal-msg" id="modalDeleteMsg"></div>
+    <div class="modal-btns">
+      <button class="btn" id="btnModalCancel">Cancel</button>
+      <button class="btn danger" id="btnModalConfirm">Delete</button>
     </div>
   </div>
 </div>
@@ -270,6 +337,8 @@ let mechFilter='all',gamesFilter='all';
 let editingMechanics=false;
 let detailGameId=null,renamingIdx=null;
 let mechSnap=null,metaSnap=null;
+let pendingDeleteMech=null;
+let selectedGameMechs=new Set();
 
 async function saveAll(){await dbSet('mechanics',mechanics);await dbSet('meta',meta);await dbSet('games',games);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
@@ -284,7 +353,12 @@ function applyPanelLayout(){
   const inner=document.getElementById('mainInner');
   const expH=document.getElementById('expBox').offsetHeight+11;
   const remaining=inner.offsetHeight-expH;
-  document.getElementById('gamesPanel').style.maxHeight=Math.floor(remaining*.45)+'px';
+  const gameCount=games.length;
+  const rowH=57;
+  const minH=80;
+  const maxH=Math.floor(remaining*.45);
+  const contentH=gameCount*rowH+60;
+  document.getElementById('gamesPanel').style.maxHeight=Math.min(maxH,Math.max(minH,contentH))+'px';
 }
 function setPanelH(){
   applyPanelLayout();
@@ -292,6 +366,7 @@ function setPanelH(){
   const h=Math.max(370,window.innerHeight-bottom+40);
   document.getElementById('spDetailInner').style.maxHeight=h+'px';
   document.getElementById('spAddMechInner').style.maxHeight='300px';
+  document.getElementById('spAddGameInner').style.maxHeight=Math.min(600,window.innerHeight*.85)+'px';
 }
 
 function openSP(id){document.getElementById(id).classList.add('open');}
@@ -302,7 +377,7 @@ function initSP(id){
   panel.addEventListener('click',e=>{if(e.target===panel){const r=inner.getBoundingClientRect();if(e.clientY<r.top)closeSP(id);}});
   let sy=0,cy=0,active=false,blocked=false;
   inner.addEventListener('touchstart',e=>{
-    const scrollables=inner.querySelectorAll('.mech-scroll,.games-list-scroll,.detail-scroll');
+    const scrollables=inner.querySelectorAll('.mech-scroll,.games-list-scroll,.detail-scroll,.mech-pick-scroll');
     blocked=false;for(const el of scrollables){if(el.contains(e.target)){blocked=true;break;}}
     sy=e.touches[0].clientY;cy=sy;active=true;
   },{passive:true});
@@ -318,7 +393,33 @@ function initSP(id){
     else inner.style.transform='';
   });
 }
-['spDetail','spAddMech'].forEach(initSP);
+['spDetail','spAddGame','spAddMech'].forEach(initSP);
+
+// Delete modal
+function openDeleteModal(mechName){
+  pendingDeleteMech=mechName;
+  document.getElementById('modalDeleteMsg').textContent=`Are you sure you want to delete "${mechName}"?`;
+  document.getElementById('modalDelete').classList.add('open');
+}
+function closeDeleteModal(){
+  pendingDeleteMech=null;
+  document.getElementById('modalDelete').classList.remove('open');
+}
+document.getElementById('btnModalCancel').addEventListener('click',closeDeleteModal);
+document.getElementById('btnModalConfirm').addEventListener('click',()=>{
+  if(!pendingDeleteMech)return;
+  const idx=mechanics.indexOf(pendingDeleteMech);
+  if(idx!==-1){
+    mechanics.splice(idx,1);
+    delete meta[pendingDeleteMech];
+    games.forEach(g=>{g.mechanics=g.mechanics.filter(x=>x!==pendingDeleteMech);});
+    renderMechs();updateExp();saveAll();
+  }
+  closeDeleteModal();
+});
+document.getElementById('modalDelete').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modalDelete'))closeDeleteModal();
+});
 
 function updateExp(){
   const total=mechanics.length,ticked=mechanics.filter(m=>isTicked(m)).length;
@@ -381,6 +482,47 @@ function openDetail(i){
   setPanelH();openSP('spDetail');
 }
 
+// Add Game
+function renderMechPicker(searchVal){
+  const el=document.getElementById('mechPickList');el.innerHTML='';
+  const s=(searchVal||'').trim().toLowerCase();
+  const list=mechanics.filter(m=>!s||m.toLowerCase().includes(s));
+  if(!list.length){el.innerHTML='<div class="empty">No mechanics found.</div>';return;}
+  list.forEach(m=>{
+    const row=document.createElement('div');row.className='mech-pick-row';
+    const chk=document.createElement('div');chk.className='mech-pick-chk'+(selectedGameMechs.has(m)?' on':'');
+    const name=document.createElement('span');name.className='mech-pick-name';name.textContent=m;
+    row.append(chk,name);
+    row.addEventListener('click',()=>{
+      if(selectedGameMechs.has(m))selectedGameMechs.delete(m);else selectedGameMechs.add(m);
+      chk.className='mech-pick-chk'+(selectedGameMechs.has(m)?' on':'');
+    });
+    el.append(row);
+  });
+}
+function openAddGame(){
+  selectedGameMechs=new Set();
+  document.getElementById('newGameName').value='';
+  document.getElementById('newGameDate').value='';
+  document.getElementById('gamesMechSearch').value='';
+  document.getElementById('addGameNameErr').className='err-msg';
+  document.getElementById('btnAddGameSave').disabled=false;
+  renderMechPicker('');
+  setPanelH();openSP('spAddGame');
+}
+function saveNewGame(){
+  const name=document.getElementById('newGameName').value.trim();
+  if(!name){document.getElementById('addGameNameErr').className='err-msg show';return;}
+  const date=document.getElementById('newGameDate').value;
+  games.push({name,date,mechanics:[...selectedGameMechs],liked:false});
+  saveAll();renderGames();updateExp();closeSP('spAddGame');
+}
+document.getElementById('btnAddGame').addEventListener('click',openAddGame);
+document.getElementById('btnAddGameCancel').addEventListener('click',()=>closeSP('spAddGame'));
+document.getElementById('btnAddGameSave').addEventListener('click',saveNewGame);
+document.getElementById('newGameName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveNewGame();}});
+document.getElementById('gamesMechSearch').addEventListener('input',e=>renderMechPicker(e.target.value));
+
 function renderMechHdr(){
   const el=document.getElementById('mechHdrBtns');el.innerHTML='';
   if(editingMechanics){el.append(mkBtn('Cancel','btn sm',cancelEditMechs),mkBtn('Done','btn sm',doneEditMechs),mkBtn('Add','btn sm',openAddMech));}
@@ -427,18 +569,14 @@ function renderMechs(){
         });
         const cancelBtn=mkBtn('Cancel','btn sm',()=>{renamingIdx=null;renderMechs();});
         inp.addEventListener('input',()=>{const nv=inp.value.trim();const exists=nv.length>0&&mechExists(nv,idx);errMsg.className='rename-err'+(exists?' show':'');doneBtn.disabled=exists||!nv;});
+        inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();doneBtn.click();}});
         inp.addEventListener('click',()=>inp.focus());
         row.append(wrap,doneBtn,cancelBtn);inp.focus();
       } else {
         const nm=document.createElement('span');nm.className='mech-edit-name';nm.textContent=m;
         row.append(nm,
           mkBtn('Rename','btn sm blue',()=>{renamingIdx=idx;renderMechs();}),
-          mkBtn('Delete','btn sm danger',()=>{
-            if(!confirm('Delete "'+m+'"?'))return;
-            mechanics.splice(idx,1);delete meta[m];
-            games.forEach(g=>{g.mechanics=g.mechanics.filter(x=>x!==m);});
-            renderMechs();updateExp();
-          })
+          mkBtn('Delete','btn sm danger',()=>openDeleteModal(m))
         );
       }
       el.append(row);
@@ -478,6 +616,7 @@ document.getElementById('newMechInp').addEventListener('input',()=>{
   document.getElementById('addMechErr').className='err-msg'+(exists?' show':'');
   document.getElementById('btnAddMechSave').disabled=exists||!val;
 });
+document.getElementById('newMechInp').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveNewMech();}});
 
 function generateIcon(){
   const size=180,c=document.createElement('canvas');c.width=size;c.height=size;
@@ -491,8 +630,10 @@ function generateIcon(){
   ctx.fillStyle='rgba(0,0,0,0.3)';ctx.fillText('D',size/2+2,size/2+3);
   ctx.fillStyle='#f0e8d0';ctx.shadowColor='rgba(200,212,32,0.5)';ctx.shadowBlur=12;
   ctx.fillText('D',size/2,size/2);ctx.shadowBlur=0;
-  const link=document.createElement('link');link.rel='apple-touch-icon';link.href=c.toDataURL('image/png');
-  document.head.appendChild(link);
+  // Fix: reuse existing link tag if present
+  let link=document.querySelector('link[rel="apple-touch-icon"]');
+  if(!link){link=document.createElement('link');link.rel='apple-touch-icon';document.head.appendChild(link);}
+  link.href=c.toDataURL('image/png');
 }
 
 document.getElementById('detailHeart').addEventListener('click',()=>{if(detailGameId!==null)toggleGameLike(detailGameId);});

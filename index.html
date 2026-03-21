@@ -52,10 +52,10 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 
 .bottom-img{
   position:fixed;
-  bottom:0;
+  bottom:-50px;
   left:0;
   width:100%;
-  height:calc(var(--safe-b) + 110px);
+  height:calc(var(--safe-b) + 60px);
   z-index:50;
   background:var(--bottom-img) center bottom / cover no-repeat;
   pointer-events:auto;
@@ -359,6 +359,12 @@ let detailGameId=null,renamingIdx=null;
 let mechSnap=null,metaSnap=null;
 let pendingDeleteMech=null;
 let selectedGameMechs=new Set();
+
+function fixViewport(){
+  const h=window.innerHeight;
+  document.documentElement.style.height=h+'px';
+  document.body.style.height=h+'px';
+}
 
 function todayStr(){const d=new Date();const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return`${y}-${m}-${day}`;}
 async function saveAll(){await dbSet('mechanics',mechanics);await dbSet('meta',meta);await dbSet('games',games);}
@@ -665,7 +671,9 @@ async function init(){
   renderGames();renderGamesFilter();
   renderMechHdr();renderMechFilter();renderMechs();
   updateExp();setPanelH();generateIcon();
-  window.addEventListener('resize',()=>{drawTicks();setPanelH();});
+  fixViewport();
+  window.addEventListener('resize',()=>{drawTicks();setPanelH();fixViewport();});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(()=>{fixViewport();setPanelH();drawTicks();},100);});
   setTimeout(()=>{drawTicks();applyPanelLayout();},100);
   setTimeout(()=>{
     document.getElementById('app').style.visibility='visible';

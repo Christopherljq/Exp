@@ -14,7 +14,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 :root{
   --safe-t:env(safe-area-inset-top,0px);
-  --safe-b:calc(0px);
+  --safe-b:env(safe-area-inset-bottom,0px);
   --safe-l:env(safe-area-inset-left,0px);
   --safe-r:env(safe-area-inset-right,0px);
   --max-w:700px;--btn-h:36px;
@@ -50,16 +50,6 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 
 .mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
-.bottom-img{
-  position:fixed;
-  bottom:-50px;
-  left:0;
-  width:100%;
-  height:calc(var(--safe-b) + 60px);
-  z-index:50;
-  background:var(--bottom-img) center bottom / cover no-repeat;
-  pointer-events:auto;
-}
 
 .app{
   position:fixed;inset:0;z-index:10;
@@ -231,8 +221,7 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
   </svg>
 </div>
 
-<!-- Bottom PNG -->
-<div class="bottom-img"></div>
+
 
 <div class="app" id="app" style="visibility:hidden">
   <div class="inner" id="mainInner">

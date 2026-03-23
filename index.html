@@ -26,7 +26,8 @@
       radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
       linear-gradient(160deg,#6ab080 0%,#4a9060 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
 }
-html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;}
+/* Change 22: reinstated background-color fallback as exp box black */
+html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#1a1a0e;}
 body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;touch-action:manipulation;}
 
 #loadScreen{position:fixed;inset:0;z-index:999;background:#1a1a0e;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
@@ -49,11 +50,10 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 
 .mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
-/* Change 6: bottom triangle */
+/* Change 23: triangle colour updated to #1a1a0e */
 .bottom-triangle{position:fixed;bottom:0;left:0;width:100%;height:55px;z-index:4;pointer-events:none;overflow:hidden;}
 .bottom-triangle svg{position:absolute;bottom:0;left:0;width:100%;height:100%;}
 
-/* Change 13: reduced bottom padding */
 .app{
   position:fixed;inset:0;z-index:10;
   display:flex;flex-direction:column;align-items:center;
@@ -65,14 +65,12 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 }
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 
-/* Change 18: EXP box relative for i-button */
 .exp-box{flex-shrink:0;margin-bottom:11px;background:#1a1a0e;border:2px solid #050500;border-radius:8px;padding:10px 13px 12px;box-shadow:inset 0 2px 8px rgba(0,0,0,.8),0 3px 10px rgba(0,0,0,.5);position:relative;}
 .app-title{text-align:center;font-family:'Cinzel',serif;font-size:1.45rem;font-weight:900;letter-spacing:2px;color:#f0e8d0;text-shadow:1px 1px 3px rgba(0,0,0,.8),0 0 14px rgba(200,212,32,.2);margin-bottom:8px;}
 
-/* Change 18: i button */
-.exp-info-btn{position:absolute;top:8px;right:10px;width:22px;height:22px;border-radius:50%;border:2px solid rgba(240,232,208,.4);background:rgba(255,255,255,.08);color:#f0e8d0;font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-appearance:none;}
+/* Change 25: restyled i button */
+.exp-info-btn{position:absolute;top:8px;right:10px;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(240,232,208,.5);background:rgba(255,255,255,.06);color:#f0e8d0;font-family:'Georgia',serif;font-size:.72rem;font-style:italic;font-weight:400;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-appearance:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 1px 3px rgba(0,0,0,.4);letter-spacing:0;padding:0;}
 
-/* Change 16: exp label row with level */
 .exp-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
 .exp-label{display:block;font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:.5px;color:#e8e8d0;text-shadow:0 0 6px rgba(200,220,100,.5),1px 1px 0 #000;}
 .exp-label .ew{color:#fff;text-shadow:0 0 8px rgba(255,255,200,.8),1px 1px 0 #000;}
@@ -120,10 +118,10 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .heart.on{color:#e83030;}
 .filter-row{display:flex;gap:5px;margin-bottom:9px;flex-wrap:wrap;flex-shrink:0;}
 
-/* Change 15: search wrap for clear button */
+/* Change 15 & 26: search wrap with larger, shifted clear button */
 .search-wrap{position:relative;flex-shrink:0;margin-bottom:9px;}
-.search-wrap .search-inp{margin-bottom:0;padding-right:34px;}
-.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--pc);font-size:1rem;cursor:pointer;padding:0;display:none;-webkit-appearance:none;line-height:1;}
+.search-wrap .search-inp{margin-bottom:0;padding-right:38px;}
+.search-clear{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--pc);font-size:1.1rem;cursor:pointer;padding:4px;display:none;-webkit-appearance:none;line-height:1;touch-action:manipulation;}
 .search-clear.visible{display:block;}
 
 .search-inp{width:100%;font-size:16px;font-family:'Crimson Text',serif;background:rgba(0,0,0,.35);border:2px solid var(--ws);border-radius:4px;color:var(--wt);padding:9px 12px;outline:none;flex-shrink:0;-webkit-appearance:none;}
@@ -139,7 +137,6 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .game-row .heart{color:#1a1a00;}
 .game-row .heart.on{color:#e83030;}
 
-/* Change 20: game thumbnail */
 .game-thumb{width:44px;height:44px;border-radius:4px;object-fit:cover;flex-shrink:0;margin-right:8px;border:1px solid rgba(0,0,0,.2);}
 .game-thumb-placeholder{width:44px;height:44px;border-radius:4px;flex-shrink:0;margin-right:8px;background:rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.3);font-family:'Cinzel',serif;}
 
@@ -192,29 +189,34 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .err-msg{font-size:.82rem;color:#ff5555;margin-top:4px;display:none;}
 .err-msg.show{display:block;}
 
-/* Change 20: detail thumbnail */
 .detail-thumb{width:200px;height:200px;object-fit:cover;border-radius:6px;border:2px solid rgba(255,200,80,.2);margin-bottom:4px;}
 
-.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;pointer-events:none;transition:background .25s;}
-.modal-overlay.open{background:rgba(0,0,0,.65);pointer-events:all;}
-.modal-box{background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border:3px solid var(--ws);border-radius:10px;padding:22px 20px 18px;width:88%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.7);opacity:0;transition:opacity .25s;}
-.modal-overlay.open .modal-box{opacity:1;}
-.modal-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--wt);text-shadow:1px 1px 2px var(--ws);margin-bottom:8px;text-align:center;}
-.modal-msg{font-size:.95rem;color:var(--wt);text-align:center;margin-bottom:18px;line-height:1.5;word-break:break-word;}
-.modal-btns{display:flex;gap:8px;justify-content:center;}
+/* Change 27: modal removed — no modal CSS needed */
 
-/* Change 18: level table slide-in panel from right */
-.level-panel{position:fixed;top:0;right:0;bottom:0;width:min(320px,90%);z-index:600;background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border-left:4px solid var(--ws);transform:translateX(100%);transition:transform .35s cubic-bezier(.32,1,.56,1);display:flex;flex-direction:column;padding:calc(var(--safe-t) + 16px) 16px calc(var(--safe-b) + 16px);}
-.level-panel.open{transform:translateX(0);}
+/* Change 24: level panel restyled */
 .level-panel-overlay{position:fixed;inset:0;z-index:599;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .level-panel-overlay.open{background:rgba(0,0,0,.45);pointer-events:all;}
-.level-panel-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--wt);text-align:center;margin-bottom:14px;letter-spacing:.5px;flex-shrink:0;}
-.level-table{width:100%;border-collapse:collapse;flex-shrink:0;}
-.level-table th{font-family:'Cinzel',serif;font-size:.78rem;color:var(--wt);text-align:center;padding:6px 4px;border-bottom:2px solid var(--ws);letter-spacing:.3px;}
-.level-table td{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);text-align:center;padding:5px 4px;border-bottom:1px solid rgba(255,255,255,.07);}
+.level-panel{
+  position:fixed;
+  z-index:600;
+  right:14px;
+  width:min(280px,88%);
+  background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);
+  border:3px solid var(--ws);
+  border-radius:10px;
+  padding:14px 14px 12px;
+  transform:translateX(calc(100% + 20px));
+  transition:transform .35s cubic-bezier(.32,1,.56,1);
+  display:flex;flex-direction:column;
+  box-shadow:0 4px 24px rgba(0,0,0,.6);
+}
+.level-panel.open{transform:translateX(0);}
+.level-panel-title{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;color:var(--wt);text-align:center;margin-bottom:10px;letter-spacing:.5px;flex-shrink:0;}
+.level-table{width:100%;border-collapse:collapse;}
+.level-table th{font-family:'Cinzel',serif;font-size:.75rem;color:var(--wt);text-align:center;padding:5px 4px;border-bottom:2px solid var(--ws);letter-spacing:.3px;}
+.level-table td{font-family:'Cinzel',serif;font-size:.78rem;color:var(--wt);text-align:center;padding:4px 4px;border-bottom:1px solid rgba(255,255,255,.07);}
 .level-table tr.current-level td{background:rgba(200,212,32,.2);color:#f0ff80;}
-.level-table-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
-.level-close-btn{margin-top:14px;flex-shrink:0;}
+.level-close-btn{margin-top:10px;flex-shrink:0;display:flex;justify-content:center;}
 </style>
 </head>
 <body>
@@ -238,33 +240,29 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
   </svg>
 </div>
 
-<!-- Change 6: bottom triangle -->
+<!-- Change 23: triangle colour #1a1a0e -->
 <div class="bottom-triangle">
   <svg viewBox="0 0 100 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="0,55 100,0 100,55" fill="#6ab080"/>
+    <polygon points="0,55 100,0 100,55" fill="#1a1a0e"/>
   </svg>
 </div>
 
-<!-- Change 18: level panel overlay and panel -->
+<!-- Change 24: level panel -->
 <div class="level-panel-overlay" id="levelPanelOverlay"></div>
 <div class="level-panel" id="levelPanel">
   <div class="level-panel-title">Level Table</div>
-  <div class="level-table-scroll">
-    <table class="level-table" id="levelTable">
-      <thead><tr><th>Level</th><th>EXP Needed</th><th>Total</th></tr></thead>
-      <tbody id="levelTableBody"></tbody>
-    </table>
-  </div>
-  <div class="level-close-btn"><button class="btn" id="btnLevelClose">Close</button></div>
+  <table class="level-table" id="levelTable">
+    <thead><tr><th>LV</th><th>EXP Needed</th><th>Total</th></tr></thead>
+    <tbody id="levelTableBody"></tbody>
+  </table>
+  <div class="level-close-btn"><button class="btn sm" id="btnLevelClose">Close</button></div>
 </div>
 
 <div class="app" id="app" style="visibility:hidden">
   <div class="inner" id="mainInner">
     <div class="exp-box" id="expBox">
-      <!-- Change 18: i button -->
       <button class="exp-info-btn" id="btnExpInfo">i</button>
       <div class="app-title">Designer's EXP</div>
-      <!-- Change 16: label row with level -->
       <div class="exp-label-row">
         <span class="exp-label" id="expLabel"><span class="ew">EXP.</span> 0/0 [0.00%]</span>
         <span class="exp-level" id="expLevelLabel">LV. 1</span>
@@ -295,7 +293,6 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
         <div class="hdr-btns" id="mechHdrBtns"></div>
       </div>
       <div class="panel-body">
-        <!-- Change 15: search wrap with clear button -->
         <div class="search-wrap">
           <input class="search-inp" id="mechSearch" placeholder="Search mechanics..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
           <button class="search-clear" id="mechSearchClear">✕</button>
@@ -316,7 +313,6 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
       <button class="heart" id="detailHeart">&#9825;</button>
     </div>
     <div class="detail-scroll">
-      <!-- Change 20: thumbnail in detail -->
       <div id="detailThumbWrap"></div>
       <div class="detail-sec">Date Played</div>
       <div class="detail-val" id="detailDate"></div>
@@ -339,9 +335,8 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
       <label class="inp-label" style="margin-top:8px;">Date Played</label>
       <input class="wood-inp" id="newGameDate" type="date"/>
       <label class="inp-label" style="margin-top:4px;">Mechanics</label>
-      <!-- Change 15: search wrap in add game -->
       <div class="search-wrap" style="margin-bottom:6px;">
-        <input class="wood-inp" id="gamesMechSearch" type="text" placeholder="Search mechanics..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="margin-bottom:0;padding-right:34px;"/>
+        <input class="wood-inp" id="gamesMechSearch" type="text" placeholder="Search mechanics..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="margin-bottom:0;padding-right:38px;"/>
         <button class="search-clear" id="gamesMechSearchClear">✕</button>
       </div>
       <div class="mech-pick-scroll" id="mechPickList"></div>
@@ -370,53 +365,47 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
   </div>
 </div>
 
-<!-- DELETE CONFIRM MODAL -->
-<div class="modal-overlay" id="modalDelete">
-  <div class="modal-box">
-    <div class="modal-title">Delete Mechanic</div>
-    <div class="modal-msg" id="modalDeleteMsg"></div>
-    <div class="modal-btns">
-      <button class="btn" id="btnModalCancel">Cancel</button>
-      <button class="btn danger" id="btnModalConfirm">Delete</button>
-    </div>
-  </div>
-</div>
-
 <script>
 'use strict';
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(e=>console.error('SW reg failed:',e)));
 }
 
-// Change 16: level thresholds
 const LEVEL_THRESHOLDS=[5,11,18,26,35,45,56,68,81,95,110,126,143,161,180];
+const LEVEL_EXP_NEEDED=[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
 const MAX_LEVEL=16;
+
 function getLevel(ticked){
   for(let i=0;i<LEVEL_THRESHOLDS.length;i++){if(ticked<LEVEL_THRESHOLDS[i])return i+1;}
   return MAX_LEVEL;
 }
+
+// Change 28: at exact threshold show 100% of completed level
 function getLevelProgress(ticked){
+  if(ticked>=LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length-1])return{level:MAX_LEVEL,cur:LEVEL_EXP_NEEDED[LEVEL_EXP_NEEDED.length-1],needed:LEVEL_EXP_NEEDED[LEVEL_EXP_NEEDED.length-1],pct:100};
+  // Check if ticked is exactly on a threshold (level just completed)
+  const threshIdx=LEVEL_THRESHOLDS.indexOf(ticked);
+  if(threshIdx!==-1){
+    // Show as 100% of the level just completed
+    const needed=LEVEL_EXP_NEEDED[threshIdx];
+    return{level:threshIdx+1,cur:needed,needed,pct:100};
+  }
   const lv=getLevel(ticked);
-  if(lv===MAX_LEVEL)return{level:MAX_LEVEL,cur:LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length-1],needed:LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length-1],pct:100};
   const prevTotal=lv>1?LEVEL_THRESHOLDS[lv-2]:0;
-  const nextTotal=LEVEL_THRESHOLDS[lv-1];
-  const needed=nextTotal-prevTotal;
+  const needed=LEVEL_EXP_NEEDED[lv-1];
   const cur=ticked-prevTotal;
   const pct=needed>0?(cur/needed*100):0;
   return{level:lv,cur,needed,pct};
 }
 
-// Change 20: Google image fetch
-const GAPI_KEY='AIzaSyD8bS8tahua2Htchs8xBkDWeIrcFUIpdPk';
+const GAPI_KEY='AIzaSyBmAdVIQg7Gm-dhYyJ1mx9unOLmytt3aC0';
 const GAPI_CX='d23a20ee0efa24503';
 async function fetchGameThumb(gameName){
   try{
     const url=`https://www.googleapis.com/customsearch/v1?key=${GAPI_KEY}&cx=${GAPI_CX}&q=${encodeURIComponent(gameName+' board game')}&searchType=image&num=1&imgSize=medium`;
     const resp=await fetch(url);
     const data=await resp.json();
-    if(data.items&&data.items.length>0){
-      return data.items[0].image.thumbnailLink||data.items[0].link||null;
-    }
+    if(data.items&&data.items.length>0)return data.items[0].image.thumbnailLink||data.items[0].link||null;
   }catch(e){console.warn('Image fetch failed:',e);}
   return null;
 }
@@ -432,7 +421,6 @@ let mechFilter='all',gamesFilter='all';
 let editingMechanics=false;
 let detailGameId=null,renamingIdx=null;
 let mechSnap=null,metaSnap=null;
-let pendingDeleteMech=null;
 let selectedGameMechs=new Set();
 
 async function saveAll(){await dbSet('mechanics',mechanics);await dbSet('meta',meta);await dbSet('games',games);}
@@ -444,22 +432,18 @@ function isTicked(m){const mt=getMeta(m);if(mt.manualUntick)return false;if(mt.m
 function mechExists(name,excludeIdx=-1){return mechanics.some((m,i)=>i!==excludeIdx&&m.toLowerCase()===name.toLowerCase());}
 function mkBtn(label,cls,fn){const b=document.createElement('button');b.className=cls;b.textContent=label;b.addEventListener('click',fn);return b;}
 
-// Change 5 & 12: corrected panel layout
+// Change 21: fixed 45% height for games panel
 function applyPanelLayout(){
-  const inner=document.getElementById('mainInner');
   const expBox=document.getElementById('expBox');
+  const inner=document.getElementById('mainInner');
   const expRect=expBox.getBoundingClientRect();
   const innerRect=inner.getBoundingClientRect();
   const remaining=innerRect.bottom-expRect.bottom-11;
-  const minH=130;
-  const maxH=Math.floor(remaining*.45);
-  const gameCount=games.length;
-  const rowH=57;
-  const contentH=gameCount>0?(gameCount*rowH+60):minH;
-  const finalH=Math.max(minH,Math.min(maxH,contentH));
+  const h=Math.max(130,Math.floor(remaining*.45));
   const gamesPanel=document.getElementById('gamesPanel');
-  gamesPanel.style.maxHeight=finalH+'px';
-  gamesPanel.style.minHeight=minH+'px';
+  gamesPanel.style.height=h+'px';
+  gamesPanel.style.maxHeight=h+'px';
+  gamesPanel.style.minHeight=h+'px';
 }
 function setPanelH(){
   applyPanelLayout();
@@ -468,6 +452,9 @@ function setPanelH(){
   document.getElementById('spDetailInner').style.maxHeight=h+'px';
   document.getElementById('spAddMechInner').style.maxHeight='300px';
   document.getElementById('spAddGameInner').style.maxHeight=Math.min(600,window.innerHeight*.85)+'px';
+  // Change 24: position level panel 5px above exp box top
+  const expTop=document.getElementById('expBox').getBoundingClientRect().top;
+  document.getElementById('levelPanel').style.top=(expTop-5)+'px';
 }
 
 // Change 17: edit mode panel swap
@@ -510,33 +497,6 @@ function initSP(id){
 }
 ['spDetail','spAddGame','spAddMech'].forEach(initSP);
 
-// Delete modal
-function openDeleteModal(mechName){
-  pendingDeleteMech=mechName;
-  document.getElementById('modalDeleteMsg').textContent=`Are you sure you want to delete "${mechName}"?`;
-  document.getElementById('modalDelete').classList.add('open');
-}
-function closeDeleteModal(){
-  pendingDeleteMech=null;
-  document.getElementById('modalDelete').classList.remove('open');
-}
-document.getElementById('btnModalCancel').addEventListener('click',closeDeleteModal);
-document.getElementById('btnModalConfirm').addEventListener('click',()=>{
-  if(!pendingDeleteMech)return;
-  const idx=mechanics.indexOf(pendingDeleteMech);
-  if(idx!==-1){
-    mechanics.splice(idx,1);
-    delete meta[pendingDeleteMech];
-    games.forEach(g=>{g.mechanics=g.mechanics.filter(x=>x!==pendingDeleteMech);});
-    renderMechs();updateExp();saveAll();
-  }
-  closeDeleteModal();
-});
-document.getElementById('modalDelete').addEventListener('click',e=>{
-  if(e.target===document.getElementById('modalDelete'))closeDeleteModal();
-});
-
-// Change 16: updateExp with level system
 function updateExp(){
   const ticked=mechanics.filter(m=>isTicked(m)).length;
   const{level,cur,needed,pct}=getLevelProgress(ticked);
@@ -559,8 +519,6 @@ function drawTicks(){
   }
 }
 
-// Change 18: level table render
-const LEVEL_EXP_NEEDED=[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
 function renderLevelTable(currentLevel){
   const tbody=document.getElementById('levelTableBody');
   tbody.innerHTML='';
@@ -572,12 +530,12 @@ function renderLevelTable(currentLevel){
     tr.innerHTML=`<td>${lv}</td><td>${needed}</td><td>${total}</td>`;
     tbody.append(tr);
   });
-  // Max level row
   const trMax=document.createElement('tr');
   if(currentLevel===MAX_LEVEL)trMax.className='current-level';
   trMax.innerHTML=`<td>${MAX_LEVEL}</td><td>—</td><td>180</td>`;
   tbody.append(trMax);
 }
+
 document.getElementById('btnExpInfo').addEventListener('click',()=>{
   document.getElementById('levelPanel').classList.add('open');
   document.getElementById('levelPanelOverlay').classList.add('open');
@@ -606,7 +564,6 @@ function renderGames(){
   list.forEach(g=>{
     const i=games.indexOf(g);
     const row=document.createElement('div');row.className='game-row';
-    // Change 20: thumbnail in game row
     if(g.thumb){
       const img=document.createElement('img');img.className='game-thumb';img.src=g.thumb;img.alt='';img.width=44;img.height=44;
       row.append(img);
@@ -635,7 +592,6 @@ function openDetail(i){
   document.getElementById('detailDate').textContent=fmtDate(g.date)||'—';
   const h=document.getElementById('detailHeart');
   h.textContent=g.liked?'♥':'♡';h.className='heart'+(g.liked?' on':'');
-  // Change 20: thumbnail in detail
   const tw=document.getElementById('detailThumbWrap');
   tw.innerHTML='';
   if(g.thumb){const img=document.createElement('img');img.className='detail-thumb';img.src=g.thumb;img.alt=g.name;img.width=200;img.height=200;tw.append(img);}
@@ -644,7 +600,6 @@ function openDetail(i){
   setPanelH();openSP('spDetail');
 }
 
-// Add Game
 function renderMechPicker(searchVal){
   const el=document.getElementById('mechPickList');el.innerHTML='';
   const s=(searchVal||'').trim().toLowerCase();
@@ -665,7 +620,6 @@ function renderMechPicker(searchVal){
 function openAddGame(){
   selectedGameMechs=new Set();
   document.getElementById('newGameName').value='';
-  // Change 11: pre-select today's date
   const today=new Date();
   const yyyy=today.getFullYear();
   const mm=String(today.getMonth()+1).padStart(2,'0');
@@ -683,7 +637,6 @@ async function saveNewGame(){
   if(!name){document.getElementById('addGameNameErr').className='err-msg show';return;}
   const date=document.getElementById('newGameDate').value;
   document.getElementById('btnAddGameSave').disabled=true;
-  // Change 20: fetch thumbnail
   const thumb=await fetchGameThumb(name);
   games.push({name,date,mechanics:[...selectedGameMechs],liked:false,thumb});
   saveAll();renderGames();updateExp();closeSP('spAddGame');
@@ -697,28 +650,33 @@ document.getElementById('gamesMechSearch').addEventListener('input',e=>{
   renderMechPicker(e.target.value);
   document.getElementById('gamesMechSearchClear').classList.toggle('visible',e.target.value.length>0);
 });
-// Change 15: clear buttons
+
+// Change 26: prevent keyboard dismissal on clear tap
+document.getElementById('gamesMechSearchClear').addEventListener('mousedown',e=>e.preventDefault());
 document.getElementById('gamesMechSearchClear').addEventListener('click',()=>{
-  document.getElementById('gamesMechSearch').value='';
+  const inp=document.getElementById('gamesMechSearch');
+  inp.value='';
   document.getElementById('gamesMechSearchClear').classList.remove('visible');
   renderMechPicker('');
+  inp.focus();
 });
+document.getElementById('mechSearchClear').addEventListener('mousedown',e=>e.preventDefault());
 document.getElementById('mechSearchClear').addEventListener('click',()=>{
-  document.getElementById('mechSearch').value='';
+  const inp=document.getElementById('mechSearch');
+  inp.value='';
   document.getElementById('mechSearchClear').classList.remove('visible');
   renderMechs();
+  inp.focus();
 });
 
 function renderMechHdr(){
   const el=document.getElementById('mechHdrBtns');el.innerHTML='';
-  // Change 7: hide Add in edit mode
   if(editingMechanics){
     el.append(mkBtn('Cancel','btn sm',cancelEditMechs),mkBtn('Done','btn sm',doneEditMechs));
   } else {
     el.append(mkBtn('Edit','btn sm',startEditMechs),mkBtn('Add','btn sm',openAddMech));
   }
 }
-// Change 17: edit mode hides games panel
 function startEditMechs(){mechSnap=JSON.parse(JSON.stringify(mechanics));metaSnap=JSON.parse(JSON.stringify(meta));editingMechanics=true;renamingIdx=null;applyEditLayout(true);renderMechHdr();renderMechs();}
 function cancelEditMechs(){mechanics=JSON.parse(JSON.stringify(mechSnap));meta=JSON.parse(JSON.stringify(metaSnap));editingMechanics=false;renamingIdx=null;applyEditLayout(false);renderMechHdr();renderMechs();updateExp();saveAll();}
 function doneEditMechs(){editingMechanics=false;renamingIdx=null;applyEditLayout(false);renderMechHdr();renderMechs();updateExp();saveAll();}
@@ -765,9 +723,18 @@ function renderMechs(){
         row.append(wrap,doneBtn,cancelBtn);inp.focus();
       } else {
         const nm=document.createElement('span');nm.className='mech-edit-name';nm.textContent=m;
+        // Change 27: delete immediately, no modal
         row.append(nm,
           mkBtn('Rename','btn sm blue',()=>{renamingIdx=idx;renderMechs();}),
-          mkBtn('Delete','btn sm danger',()=>openDeleteModal(m))
+          mkBtn('Delete','btn sm danger',()=>{
+            const didx=mechanics.indexOf(m);
+            if(didx!==-1){
+              mechanics.splice(didx,1);
+              delete meta[m];
+              games.forEach(g=>{g.mechanics=g.mechanics.filter(x=>x!==m);});
+              renderMechs();updateExp();saveAll();
+            }
+          })
         );
       }
       el.append(row);

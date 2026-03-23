@@ -28,7 +28,7 @@
   --bottom-img:url('https://christopherljq.github.io/Exp/maplegrass.png');
 }
 html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#6ab080;}
-body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#6ab080;touch-action:manipulation;}
+body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;touch-action:manipulation;}
 
 #loadScreen{position:fixed;inset:0;z-index:999;background:#1a1a0e;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
 #loadScreen.hide{opacity:0;pointer-events:none;}
@@ -60,6 +60,19 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
   background:var(--bottom-img) center bottom / cover no-repeat;
   pointer-events:auto;
 }
+
+/* Change 6: triangle at bottom */
+.bottom-triangle{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:55px;
+  z-index:4;
+  pointer-events:none;
+  overflow:hidden;
+}
+.bottom-triangle svg{position:absolute;bottom:0;left:0;width:100%;height:100%;}
 
 .app{
   position:fixed;inset:0;z-index:10;
@@ -153,7 +166,9 @@ input[type="date"].wood-inp{color:var(--wt);}
 input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .inp-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);margin-bottom:5px;display:block;letter-spacing:.3px;}
 
-/* Mechanic picker inside Add Game sheet */
+/* Change 8: standardise heights in Add Game sheet */
+.wood-inp, .search-inp-match{height:42px;padding-top:0;padding-bottom:0;}
+
 .mech-pick-scroll{max-height:180px;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin-bottom:8px;}
 .mech-pick-row{display:flex;align-items:center;gap:8px;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.07);cursor:pointer;user-select:none;-webkit-user-select:none;}
 .mech-pick-chk{width:20px;height:20px;border-radius:3px;flex-shrink:0;border:2px solid var(--w2);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;}
@@ -163,7 +178,8 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 
 .sp{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .sp.open{background:rgba(0,0,0,.55);pointer-events:all;}
-.sp-inner{width:100%;max-width:var(--max-w);background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border-top:4px solid var(--ws);border-radius:18px 18px 0 0;padding:16px 16px calc(var(--safe-b) + 20px);overflow:hidden;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);box-shadow:0 -10px 40px rgba(0,0,0,.6);will-change:transform;display:flex;flex-direction:column;}
+/* Change 3: removed box-shadow from sp-inner */
+.sp-inner{width:100%;max-width:var(--max-w);background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border-top:4px solid var(--ws);border-radius:18px 18px 0 0;padding:16px 16px calc(var(--safe-b) + 20px);overflow:hidden;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);will-change:transform;display:flex;flex-direction:column;}
 .sp.open .sp-inner{transform:translateY(0);}
 .sp-handle{width:44px;height:5px;background:rgba(255,255,255,.3);border-radius:3px;margin:0 auto 14px;flex-shrink:0;}
 .sp-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--wt);text-shadow:1px 1px 2px var(--ws);margin-bottom:14px;text-align:center;letter-spacing:.8px;flex-shrink:0;}
@@ -180,18 +196,23 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .err-msg{font-size:.82rem;color:#ff5555;margin-top:4px;display:none;}
 .err-msg.show{display:block;}
 
-/* Centre screen modal overlay */
+/* Change 4: fade only modal animation */
 .modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;pointer-events:none;transition:background .25s;}
 .modal-overlay.open{background:rgba(0,0,0,.65);pointer-events:all;}
-.modal-box{background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border:3px solid var(--ws);border-radius:10px;padding:22px 20px 18px;width:88%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.7);transform:scale(.92);opacity:0;transition:transform .25s cubic-bezier(.32,1,.56,1),opacity .25s;}
-.modal-overlay.open .modal-box{transform:scale(1);opacity:1;}
+.modal-box{background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border:3px solid var(--ws);border-radius:10px;padding:22px 20px 18px;width:88%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.7);opacity:0;transition:opacity .25s;}
+.modal-overlay.open .modal-box{opacity:1;}
 .modal-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--wt);text-shadow:1px 1px 2px var(--ws);margin-bottom:8px;text-align:center;}
 .modal-msg{font-size:.95rem;color:var(--wt);text-align:center;margin-bottom:18px;line-height:1.5;word-break:break-word;}
 .modal-btns{display:flex;gap:8px;justify-content:center;}
+
+/* Change 10: edit mode backdrop */
+.edit-backdrop{position:fixed;inset:0;z-index:9;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
+.edit-backdrop.active{background:rgba(0,0,0,.55);pointer-events:all;}
 </style>
 </head>
 <body>
-<div id="loadScreen"><span>Loading...</span></div>
+<!-- Change 2: LOADING... with Cinzel font inline -->
+<div id="loadScreen"><span style="font-family:'Cinzel',serif;">LOADING...</span></div>
 <div class="bg"></div>
 <div class="rays"><div class="ray"></div><div class="ray"></div><div class="ray"></div><div class="ray"></div></div>
 <div class="trunk"></div>
@@ -213,6 +234,16 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 
 <!-- Bottom PNG -->
 <div class="bottom-img"></div>
+
+<!-- Change 6: bottom triangle -->
+<div class="bottom-triangle">
+  <svg viewBox="0 0 100 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="0,55 100,0 100,55" fill="#6ab080"/>
+  </svg>
+</div>
+
+<!-- Change 10: edit mode backdrop -->
+<div class="edit-backdrop" id="editBackdrop"></div>
 
 <div class="app" id="app" style="visibility:hidden">
   <div class="inner" id="mainInner">
@@ -281,9 +312,11 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
       <input class="wood-inp" id="newGameName" type="text" placeholder="Enter game name" autocomplete="off" style="margin-bottom:4px;"/>
       <div class="err-msg" id="addGameNameErr">Please enter a game name</div>
       <label class="inp-label" style="margin-top:8px;">Date Played</label>
+      <!-- Change 8: match height to game name input via wood-inp -->
       <input class="wood-inp" id="newGameDate" type="date"/>
       <label class="inp-label" style="margin-top:4px;">Mechanics</label>
-      <input class="search-inp" id="gamesMechSearch" placeholder="Search mechanics..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="margin-bottom:6px;"/>
+      <!-- Change 8: match height to game name input -->
+      <input class="wood-inp" id="gamesMechSearch" type="text" placeholder="Search mechanics..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="margin-bottom:6px;"/>
       <div class="mech-pick-scroll" id="mechPickList"></div>
     </div>
     <div class="btn-row">
@@ -324,13 +357,16 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 
 <script>
 'use strict';
+// Service Worker registration (Change 1 support)
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(e=>console.error('SW reg failed:',e)));
+}
+
 const DB_NAME='dexp_db',DB_VER=1;
 let db;
 function openDB(){return new Promise((res,rej)=>{const req=indexedDB.open(DB_NAME,DB_VER);req.onupgradeneeded=e=>{const d=e.target.result;if(!d.objectStoreNames.contains('store'))d.createObjectStore('store');};req.onsuccess=e=>{db=e.target.result;res(db);};req.onerror=e=>rej(e);});}
 function dbGet(k){return new Promise((res,rej)=>{const tx=db.transaction('store','readonly');const req=tx.objectStore('store').get(k);req.onsuccess=e=>res(e.target.result);req.onerror=e=>rej(e);});}
 function dbSet(k,v){return new Promise((res,rej)=>{const tx=db.transaction('store','readwrite');const req=tx.objectStore('store').put(v,k);req.onsuccess=()=>res();req.onerror=e=>rej(e);});}
-
-const DEFAULT_MECHANICS=["Acting","Action Drafting","Action Points","Action Queue","Action Retrieval","Action Timer","Action/Event","Advantage Token","Alliances","Area Majority / Influence","Area Movement","Area-Impulse","Auction: Dutch","Auction: Dutch Priority","Auction: Dexterity","Auction: English","Auction: Fixed Placement","Auction: Once Around","Auction: Sealed Bid","Auction: Turn Order Until Pass","Auction/Bidding","Automatic Resource Growth","Betting and Bluffing","Bias","Bingo","Bribery","Campaign / Battle Card Driven","Card Drafting","Card Play Conflict Resolution","Catch the Leader","Chaining","Chit-Pull System","Closed Economy Auction","Command Cards","Communication Limits","Commodity Speculation","Constrained Bidding","Contracts","Cooperative Game","Crayon Rail System","Critical Hits and Failures","Cube Tower","Deck Construction","Deck, Bag, and Pool Building","Deduction","Delayed Purchase","Die Icon Resolution","Different Dice Movement","Dice Rolling","Drafting","Elapsed Real Time Ending","Enclosure","End Game Bonuses","Events","Finale Ending","Flicking","Follow","Force Commitment","Grid Coverage","Grid Movement","Hand Management","Hexagon Grid","Hidden Movement","Hidden Roles","Hidden Victory Points","Highest-Lowest Scoring","Hot Potato","I Cut, You Choose","Impulse Movement","Income","Increase Value of Unchosen Resources","Induction","Interrupts","Investment","Kill Steal","King of the Hill","Ladder Climbing","Layering","Legacy Game","Line Drawing","Line of Sight","Loans","Lose a Turn","Mancala","Map Addition","Map Deformation","Map Reduction","Market","Matching","Measurement Movement","Melding and Splaying","Memory","Minimap Resolution","Modular Board","Move Through Deck","Movement Points","Movement Template","Moving Multiple Units","Multiple Maps","Multiple-Lot Auction","Narrative Choice / Paragraph","Negotiation","Network and Route Building","Once-Per-Game Abilities","Order Counters","Ownership","Paper-and-Pencil","Passed Action Token","Pattern Building","Pattern Movement","Pattern Recognition","Pick-up and Deliver","Physical Removal","Pieces as Map","Player Elimination","Player Judge","Point to Point Movement","Predictive Bid","Prisoner's Dilemma","Programmed Movement","Push Your Luck","Race","Random Production","Real-Time","Re-rolling and Locking","Relative Movement","Resource to Move","Rock-Paper-Scissors","Role Playing","Roles with Asymmetric Information","Roll / Spin and Move","Rondel","Ratio / Combat Results Table","Scenario / Mission / Campaign Game","Score-and-Reset Game","Secret Unit Deployment","Selection Order Bid","Semi-Cooperative Game","Set Collection","Simulation","Singing","Simultaneous Action Selection","Single Loser Game","Slide/Push","Solo / Solitaire Game","Speed Matching","Square Grid","Stacking and Balancing","Static Capture","Stat Check Resolution","Stock Holding","Storytelling","Sudden Death Ending","Take That","Targeted Clues","Team-Based Game","Tech Trees / Tech Tracks","Three Dimensional Movement","Tile Placement","Time Track","Track Movement","Trading","Traitor Game","Trick-taking","Tug of War","Turn Order: Auction","Turn Order: Claim Action","Turn Order: Pass Order","Turn Order: Progressive","Turn Order: Random","Turn Order: Role Order","Turn Order: Stat-Based","Variable Phase Order","Variable Player Powers","Variable Setup","Victory Points as a Resource","Voting","Worker Placement","Worker Placement with Dice Workers","Worker Placement, Different Worker Types"];
 
 let mechanics=[],meta={},games=[];
 let mechFilter='all',gamesFilter='all';
@@ -349,16 +385,19 @@ function isTicked(m){const mt=getMeta(m);if(mt.manualUntick)return false;if(mt.m
 function mechExists(name,excludeIdx=-1){return mechanics.some((m,i)=>i!==excludeIdx&&m.toLowerCase()===name.toLowerCase());}
 function mkBtn(label,cls,fn){const b=document.createElement('button');b.className=cls;b.textContent=label;b.addEventListener('click',fn);return b;}
 
+// Change 5: minH increased to 130px, maxH set to 45% of space below exp box
 function applyPanelLayout(){
   const inner=document.getElementById('mainInner');
-  const expH=document.getElementById('expBox').offsetHeight+11;
-  const remaining=inner.offsetHeight-expH;
+  const expBox=document.getElementById('expBox');
+  const expBottom=expBox.getBoundingClientRect().bottom;
+  const innerBottom=inner.getBoundingClientRect().bottom;
+  const remaining=innerBottom-expBottom-11;
+  const minH=130;
+  const maxH=Math.floor(remaining*.45);
   const gameCount=games.length;
   const rowH=57;
-  const minH=80;
-  const maxH=Math.floor(remaining*.45);
-  const contentH=gameCount*rowH+60;
-  document.getElementById('gamesPanel').style.maxHeight=Math.min(maxH,Math.max(minH,contentH))+'px';
+  const contentH=gameCount>0?gameCount*rowH+60:minH;
+  document.getElementById('gamesPanel').style.maxHeight=Math.max(minH,Math.min(maxH,contentH))+'px';
 }
 function setPanelH(){
   applyPanelLayout();
@@ -523,14 +562,21 @@ document.getElementById('btnAddGameSave').addEventListener('click',saveNewGame);
 document.getElementById('newGameName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveNewGame();}});
 document.getElementById('gamesMechSearch').addEventListener('input',e=>renderMechPicker(e.target.value));
 
+// Change 7 & 10: hide Add button in edit mode, show backdrop
 function renderMechHdr(){
   const el=document.getElementById('mechHdrBtns');el.innerHTML='';
-  if(editingMechanics){el.append(mkBtn('Cancel','btn sm',cancelEditMechs),mkBtn('Done','btn sm',doneEditMechs),mkBtn('Add','btn sm',openAddMech));}
-  else{el.append(mkBtn('Edit','btn sm',startEditMechs),mkBtn('Add','btn sm',openAddMech));}
+  if(editingMechanics){
+    el.append(mkBtn('Cancel','btn sm',cancelEditMechs),mkBtn('Done','btn sm',doneEditMechs));
+  } else {
+    el.append(mkBtn('Edit','btn sm',startEditMechs),mkBtn('Add','btn sm',openAddMech));
+  }
 }
-function startEditMechs(){mechSnap=JSON.parse(JSON.stringify(mechanics));metaSnap=JSON.parse(JSON.stringify(meta));editingMechanics=true;renamingIdx=null;renderMechHdr();renderMechs();}
-function cancelEditMechs(){mechanics=JSON.parse(JSON.stringify(mechSnap));meta=JSON.parse(JSON.stringify(metaSnap));editingMechanics=false;renamingIdx=null;renderMechHdr();renderMechs();updateExp();saveAll();}
-function doneEditMechs(){editingMechanics=false;renamingIdx=null;renderMechHdr();renderMechs();updateExp();saveAll();}
+function setEditBackdrop(on){
+  document.getElementById('editBackdrop').classList.toggle('active',on);
+}
+function startEditMechs(){mechSnap=JSON.parse(JSON.stringify(mechanics));metaSnap=JSON.parse(JSON.stringify(meta));editingMechanics=true;renamingIdx=null;setEditBackdrop(true);renderMechHdr();renderMechs();}
+function cancelEditMechs(){mechanics=JSON.parse(JSON.stringify(mechSnap));meta=JSON.parse(JSON.stringify(metaSnap));editingMechanics=false;renamingIdx=null;setEditBackdrop(false);renderMechHdr();renderMechs();updateExp();saveAll();}
+function doneEditMechs(){editingMechanics=false;renamingIdx=null;setEditBackdrop(false);renderMechHdr();renderMechs();updateExp();saveAll();}
 
 function renderMechFilter(){
   const el=document.getElementById('mechFilterRow');el.innerHTML='';
@@ -630,7 +676,6 @@ function generateIcon(){
   ctx.fillStyle='rgba(0,0,0,0.3)';ctx.fillText('D',size/2+2,size/2+3);
   ctx.fillStyle='#f0e8d0';ctx.shadowColor='rgba(200,212,32,0.5)';ctx.shadowBlur=12;
   ctx.fillText('D',size/2,size/2);ctx.shadowBlur=0;
-  // Fix: reuse existing link tag if present
   let link=document.querySelector('link[rel="apple-touch-icon"]');
   if(!link){link=document.createElement('link');link.rel='apple-touch-icon';document.head.appendChild(link);}
   link.href=c.toDataURL('image/png');
@@ -642,10 +687,21 @@ document.getElementById('btnAddMechCancel').addEventListener('click',()=>closeSP
 document.getElementById('btnAddMechSave').addEventListener('click',saveNewMech);
 document.getElementById('mechSearch').addEventListener('input',renderMechs);
 
+// Change 1: fetch mechanics.json only if no saved mechanics
 async function init(){
   await openDB();
   const [sm,smeta,sg]=await Promise.all([dbGet('mechanics'),dbGet('meta'),dbGet('games')]);
-  mechanics=sm||[...DEFAULT_MECHANICS];meta=smeta||{};games=sg||[];
+  meta=smeta||{};games=sg||[];
+  if(sm){
+    mechanics=sm;
+  } else {
+    try{
+      const resp=await fetch('./mechanics.json');
+      mechanics=await resp.json();
+    } catch(e){
+      mechanics=[];
+    }
+  }
   renderGames();renderGamesFilter();
   renderMechHdr();renderMechFilter();renderMechs();
   updateExp();setPanelH();generateIcon();

@@ -20,11 +20,16 @@
   --max-w:700px;--btn-h:36px;
   --w1:#d49050;--w2:#8b4513;--w3:#5a2e0e;--w4:#2a1005;
   --ws:#1a0803;--wt:#fff5e0;--pc:#c4b090;
-  --bg:rgba(80,160,200,.5);
+  --bg:radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
+      radial-gradient(ellipse at 10% 80%,rgba(10,50,10,.9) 0%,transparent 35%),
+      radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
+      radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
+      linear-gradient(160deg,#6ab080 0%,#4a9060 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
+  --bottom-img:url('https://christopherljq.github.io/Exp/maplegrass.png');
 }
 /* Change 22: reinstated background-color fallback as exp box black */
-html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#6ab080;}
-body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;touch-action:manipulation;}
+html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#3C78A0;}
+body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#3C78A0;touch-action:manipulation;}
 
 #loadScreen{position:fixed;inset:0;z-index:999;background:#1a1a0e;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
 #loadScreen.hide{opacity:0;pointer-events:none;}
@@ -428,18 +433,16 @@ function isTicked(m){const mt=getMeta(m);if(mt.manualUntick)return false;if(mt.m
 function mechExists(name,excludeIdx=-1){return mechanics.some((m,i)=>i!==excludeIdx&&m.toLowerCase()===name.toLowerCase());}
 function mkBtn(label,cls,fn){const b=document.createElement('button');b.className=cls;b.textContent=label;b.addEventListener('click',fn);return b;}
 
-// Change 21: fixed 45% height for games panel
 function applyPanelLayout(){
-  const expBox=document.getElementById('expBox');
   const inner=document.getElementById('mainInner');
-  const expRect=expBox.getBoundingClientRect();
-  const innerRect=inner.getBoundingClientRect();
-  const remaining=innerRect.bottom-expRect.bottom-11;
-  const h=Math.max(130,Math.floor(remaining*.45));
-  const gamesPanel=document.getElementById('gamesPanel');
-  gamesPanel.style.height=h+'px';
-  gamesPanel.style.maxHeight=h+'px';
-  gamesPanel.style.minHeight=h+'px';
+  const expH=document.getElementById('expBox').offsetHeight+11;
+  const remaining=inner.offsetHeight-expH;
+  const gameCount=games.length;
+  const rowH=57;
+  const minH=80;
+  const maxH=Math.floor(remaining*.45);
+  const contentH=gameCount*rowH+60;
+  document.getElementById('gamesPanel').style.maxHeight=Math.min(maxH,Math.max(minH,contentH))+'px';
 }
 function setPanelH(){
   applyPanelLayout();

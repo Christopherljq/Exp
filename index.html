@@ -20,11 +20,7 @@
   --max-w:700px;--btn-h:36px;
   --w1:#d49050;--w2:#8b4513;--w3:#5a2e0e;--w4:#2a1005;
   --ws:#1a0803;--wt:#fff5e0;--pc:#c4b090;
-  --bg:radial-gradient(ellipse at 25% 60%,rgba(20,80,20,.95) 0%,transparent 45%),
-      radial-gradient(ellipse at 10% 80%,rgba(10,50,10,.9) 0%,transparent 35%),
-      radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
-      radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
-      linear-gradient(160deg,#6ab080 0%,#4a9060 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
+  --bg:rgba(80,160,200,.5);
 }
 /* Change 22: reinstated background-color fallback as exp box black */
 html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#6ab080;}
@@ -44,7 +40,7 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 
 .trunk{position:fixed;left:-30px;top:0;bottom:0;width:210px;z-index:2;pointer-events:none;
   background:repeating-linear-gradient(175deg,rgba(200,170,80,.85) 0px,rgba(200,170,80,.85) 8px,rgba(220,190,110,.8) 8px,rgba(220,190,110,.8) 18px,rgba(190,160,70,.85) 18px,rgba(190,160,70,.85) 28px,rgba(210,180,95,.82) 28px,rgba(210,180,95,.82) 40px);
-  clip-path:polygon(0 0,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 100%);
+  clip-path:polygon(0 -25%,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 125%);
   filter:drop-shadow(6px 0 14px rgba(0,0,0,.3));}
 .trunk::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(255,230,140,.3) 0%,transparent 50%),radial-gradient(ellipse at 20% 70%,rgba(180,220,80,.2) 0%,transparent 40%);}
 
@@ -243,7 +239,7 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 <!-- Change 23: triangle colour #1a1a0e -->
 <div class="bottom-triangle">
   <svg viewBox="0 0 100 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="0,55 100,0 100,55" fill="#6ab080"/>
+    <polygon points="0,55 100,0 100,55" fill="rgba(80,160,200,.5)"/>
   </svg>
 </div>
 

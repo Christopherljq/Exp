@@ -510,7 +510,7 @@ async function saveGameForm(){
   saveAll();renderGames();updateExp();renderMechs();
   closeSP('spAddGame');document.getElementById('btnAddGameSave').disabled=false;pendingBggData=null;
 }
-document.getElementById('btnAddGame').addEventListener('click',openAddGame);
+
 document.getElementById('btnAddGameCancel').addEventListener('click',()=>closeSP('spAddGame'));
 document.getElementById('btnAddGameSave').addEventListener('click',saveGameForm);
 document.getElementById('newGameName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveGameForm();}});

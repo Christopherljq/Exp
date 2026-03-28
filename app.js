@@ -1,4 +1,6 @@
 'use strict';
+document.addEventListener('DOMContentLoaded',()=>{
+
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(e=>console.error('SW reg failed:',e)));
 }
@@ -655,3 +657,6 @@ async function init(){
   },700);
 }
 init().catch(e=>{console.error(e);document.querySelector('#loadScreen span').textContent='Error loading. Please refresh.';});
+});
+
+                          

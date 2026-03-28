@@ -1,9 +1,4 @@
 'use strict';
-window.onerror=function(msg,src,line){
-  document.querySelector('#loadScreen span').textContent=msg+' L'+line;
-  return true;
-};
-
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(e=>console.error('SW reg failed:',e)));
 }

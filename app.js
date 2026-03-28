@@ -12,12 +12,13 @@ function getLevel(ticked){const t=getDynThresholds();for(let i=0;i<t.length;i++)
 function getLevelProgress(ticked){
   const t=getDynThresholds(),e=getDynExpNeeded();
   const last=t[t.length-1];
-  if(ticked>=last)return{level:MAX_LEVEL,cur:e[e.length-1],needed:e[e.length-1],pct:100};
+  if(ticked>=last)return{level:MAX_LEVEL,cur:e[e.length-1],needed:e[e.length-1],pct:100,levelUp:false};
   const threshIdx=t.indexOf(ticked);
-  if(threshIdx!==-1){const needed=e[threshIdx];return{level:threshIdx+1,cur:needed,needed,pct:100};}
+  if(threshIdx!==-1){const needed=e[threshIdx];return{level:threshIdx+1,cur:needed,needed,pct:100,levelUp:true};}
   const lv=getLevel(ticked);const prevTotal=lv>1?t[lv-2]:0;const needed=e[lv-1];const cur=ticked-prevTotal;
-  return{level:lv,cur,needed,pct:needed>0?(cur/needed*100):0};
+  return{level:lv,cur,needed,pct:needed>0?(cur/needed*100):0,levelUp:false};
 }
+
 async function bggSearch(query){
   try{
     const q=query.trim().toLowerCase();
@@ -260,13 +261,17 @@ initSearchClear('gamesMechSearch','gamesMechSearchClear',()=>renderMechPicker(''
 document.getElementById('gamesMechSearch').addEventListener('input',e=>renderMechPicker(e.target.value));
 function updateExp(){
   const ticked=mechanics.filter(m=>isTicked(m)).length;
-  const{level,cur,needed,pct}=getLevelProgress(ticked);
+  const{level,cur,needed,pct,levelUp}=getLevelProgress(ticked);
   document.getElementById('expFill').style.width=pct+'%';
   document.getElementById('expLabel').innerHTML=`<span class="ew">EXP.</span> ${cur}/${needed} [${pct.toFixed(2)}%]`;
-  document.getElementById('expLevelLabel').textContent=level===MAX_LEVEL?'MAX':'LV. '+level;
+  const lvEl=document.getElementById('expLevelLabel');
+lvEl.textContent=level===MAX_LEVEL?'MAX':(levelUp?'Level Up! LV. '+level:'LV. '+level);
+lvEl.className='exp-level'+(levelUp?' level-up':'');
+
   drawTicks();
   if(level!==_lastRenderedLevel){_lastRenderedLevel=level;renderLevelTable(level);}
 }
+
 function drawTicks(){
   const canvas=document.getElementById('expCanvas'),wrap=document.getElementById('expWrap');
   const w=wrap.offsetWidth,h=wrap.offsetHeight;if(!w||!h)return;

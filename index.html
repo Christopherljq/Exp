@@ -610,7 +610,7 @@ function setPanelH(){
   const expBottom=document.getElementById('expBox').getBoundingClientRect().bottom;
   const h=Math.max(370,window.innerHeight-expBottom+40);
   document.getElementById('spDetailInner').style.maxHeight=h+'px';
-  document.getElementById('spAddGameInner').style.maxHeight=Math.min(600,window.innerHeight*.85)+'px';
+  document.getElementById('spAddGameInner').style.maxHeight=Math.min(1200,window.innerHeight*.85)+'px';
 }
 
 function openSP(id){document.getElementById(id).classList.add('open');}

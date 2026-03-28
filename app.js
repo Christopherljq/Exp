@@ -61,16 +61,7 @@ async function bggThing(id){
       rank,kickstarted,mechanics:mechs};
   }catch(e){console.warn('BGG thing failed:',e);return null;}
 }
-async function bggMechDesc(bggId){
-  if(!bggId)return null;
-  try{
-    const resp=await fetch(`${WORKER}/thing?id=${bggId}&type=boardgamemechanic`);
-    if(!resp.ok)return null;
-    const xml=(new DOMParser()).parseFromString(await resp.text(),'text/xml');
-    const desc=xml.querySelector('description')?.textContent?.trim();
-    return desc&&desc.length>0?desc:null;
-  }catch(e){console.warn('Mech desc failed:',e);return null;}
-}
+
 const DB_NAME='dexp_db',DB_VER=1;
 let db;
 function openDB(){return new Promise((res,rej)=>{const req=indexedDB.open(DB_NAME,DB_VER);req.onupgradeneeded=e=>{const d=e.target.result;if(!d.objectStoreNames.contains('store'))d.createObjectStore('store');};req.onsuccess=e=>{db=e.target.result;res(db);};req.onerror=e=>rej(e);});}
@@ -155,36 +146,9 @@ async function openMechDetail(m){
   const h=document.getElementById('mechDetailHeart');
   h.className='heart'+(mt.liked?' on':'');h.textContent=mt.liked?'♥':'♡';
   document.getElementById('mechDetailComments').value=mt.comments||'';
-  const descEl=document.getElementById('mechDetailDesc');
-  descEl.textContent='Loading...';
   document.getElementById('mechDetailOverlay').classList.add('open');
-  if(mechDescCache[m]!==undefined){
-    descEl.textContent=mechDescCache[m]||'No description available.';
-  } else {
-    let bggId=mt.bggId||null;
-    if(!bggId){
-      try{
-        const resp=await fetch(`${WORKER}/search?query=${encodeURIComponent(m)}&type=boardgamemechanic`);
-        if(resp.ok){
-          const xml=(new DOMParser()).parseFromString(await resp.text(),'text/xml');
-          const items=[...xml.querySelectorAll('item')];
-          const exact=items.find(item=>{
-            const name=item.querySelector('name')?.getAttribute('value')||'';
-            return name.toLowerCase()===m.toLowerCase();
-          });
-          const match=exact||items[0];
-          if(match){
-            bggId=match.getAttribute('id');
-            mt.bggId=bggId;
-            saveAll();
-          }
-        }
-      }catch(e){console.warn('Mech ID lookup failed:',e);}
-    }
-    if(!bggId){mechDescCache[m]=null;descEl.textContent='No description available.';}
-    else{const desc=await bggMechDesc(bggId);mechDescCache[m]=desc;descEl.textContent=desc||'No description available.';}
-  }
 }
+
 function closeMechDetail(){currentMechName=null;document.getElementById('mechDetailOverlay').classList.remove('open');}
 document.getElementById('mechDetailHeart').addEventListener('click',()=>{
   if(!currentMechName)return;

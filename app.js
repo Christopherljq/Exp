@@ -260,11 +260,13 @@ function renderLevelTable(currentLevel){
 }
 function renderGamesHdr(){
   const el=document.getElementById('gamesHdrBtns');el.innerHTML='';
-  if(editingGames){el.append(mkBtn('Done','btn sm',doneEditGames));}
+  if(editingGames){el.append(mkBtn('Cancel','btn sm',cancelEditGames),mkBtn('Done','btn sm',doneEditGames));}
   else{el.append(mkBtn('Edit','btn sm',startEditGames),mkBtn('Add','btn sm',openAddGame));}
 }
 function startEditGames(){editingGames=true;applyPanelLayout('gameEdit');renderGamesHdr();renderGames();}
+function cancelEditGames(){editingGames=false;applyPanelLayout('normal');renderGamesHdr();renderGames();}
 function doneEditGames(){editingGames=false;applyPanelLayout('normal');renderGamesHdr();renderGames();}
+
 function renderGames(){
   renderGamesHdr();
   const filterEl=document.getElementById('gamesFilterRow');filterEl.innerHTML='';

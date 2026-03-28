@@ -524,12 +524,14 @@ async function saveGameForm(){
     thumbnail:d?.thumbnail||null,image:d?.image||null,year:d?.year||null,
     avgRating:d?.avgRating||null,avgWeight:d?.avgWeight||null,
     rank:d?.rank||null,kickstarted:d?.kickstarted||false};
-  if(gameFormMode==='edit'&&editingGameIdx!==null){
+    if(gameFormMode==='edit'&&editingGameIdx!==null){
     gameData.liked=games[editingGameIdx].liked;
     games[editingGameIdx]=gameData;
   } else {
     games.push(gameData);
   }
+  games.sort((a,b)=>a.name.localeCompare(b.name));
+
   saveAll();renderGames();updateExp();renderMechs();
   closeSP('spAddGame');document.getElementById('btnAddGameSave').disabled=false;pendingBggData=null;
 }

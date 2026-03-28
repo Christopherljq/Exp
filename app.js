@@ -161,7 +161,21 @@ async function openMechDetail(m){
   if(mechDescCache[m]!==undefined){
     descEl.textContent=mechDescCache[m]||'No description available.';
   } else {
-    const bggId=mt.bggId||null;
+    let bggId=mt.bggId||null;
+    if(!bggId){
+      try{
+        const resp=await fetch(`${WORKER}/search?query=${encodeURIComponent(m)}&type=boardgamemechanic`);
+        if(resp.ok){
+          const xml=(new DOMParser()).parseFromString(await resp.text(),'text/xml');
+          const first=xml.querySelector('item');
+          if(first){
+            bggId=first.getAttribute('id');
+            mt.bggId=bggId;
+            saveAll();
+          }
+        }
+      }catch(e){console.warn('Mech ID lookup failed:',e);}
+    }
     if(!bggId){mechDescCache[m]=null;descEl.textContent='No description available.';}
     else{const desc=await bggMechDesc(bggId);mechDescCache[m]=desc;descEl.textContent=desc||'No description available.';}
   }

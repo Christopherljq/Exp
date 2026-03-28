@@ -25,11 +25,9 @@
       radial-gradient(ellipse at 65% 15%,rgba(80,160,200,.5) 0%,transparent 55%),
       radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
       linear-gradient(160deg,#6ab080 0%,#4a9060 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
-  --bottom-img:url('https://christopherljq.github.io/Exp/maplegrass.png');
 }
-/* Change 22: reinstated background-color fallback as exp box black */
-html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#3C78A0;}
-body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#3C78A0;touch-action:manipulation;}
+html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#1a1a0e;}
+body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;touch-action:manipulation;}
 
 #loadScreen{position:fixed;inset:0;z-index:999;background:#1a1a0e;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
 #loadScreen.hide{opacity:0;pointer-events:none;}
@@ -45,13 +43,12 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 
 .trunk{position:fixed;left:-30px;top:0;bottom:0;width:210px;z-index:2;pointer-events:none;
   background:repeating-linear-gradient(175deg,rgba(200,170,80,.85) 0px,rgba(200,170,80,.85) 8px,rgba(220,190,110,.8) 8px,rgba(220,190,110,.8) 18px,rgba(190,160,70,.85) 18px,rgba(190,160,70,.85) 28px,rgba(210,180,95,.82) 28px,rgba(210,180,95,.82) 40px);
-  clip-path:polygon(0 -25%,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 125%);
+  clip-path:polygon(0 0,75% 0,100% 8%,90% 25%,100% 45%,85% 60%,100% 75%,88% 90%,100% 100%,0 100%);
   filter:drop-shadow(6px 0 14px rgba(0,0,0,.3));}
 .trunk::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(255,230,140,.3) 0%,transparent 50%),radial-gradient(ellipse at 20% 70%,rgba(180,220,80,.2) 0%,transparent 40%);}
 
 .mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
-/* Change 23: triangle colour updated to #1a1a0e */
 .bottom-triangle{position:fixed;bottom:0;left:0;width:100%;height:55px;z-index:4;pointer-events:none;overflow:hidden;}
 .bottom-triangle svg{position:absolute;bottom:0;left:0;width:100%;height:100%;}
 
@@ -69,7 +66,6 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .exp-box{flex-shrink:0;margin-bottom:11px;background:#1a1a0e;border:2px solid #050500;border-radius:8px;padding:10px 13px 12px;box-shadow:inset 0 2px 8px rgba(0,0,0,.8),0 3px 10px rgba(0,0,0,.5);position:relative;}
 .app-title{text-align:center;font-family:'Cinzel',serif;font-size:1.45rem;font-weight:900;letter-spacing:2px;color:#f0e8d0;text-shadow:1px 1px 3px rgba(0,0,0,.8),0 0 14px rgba(200,212,32,.2);margin-bottom:8px;}
 
-/* Change 25: restyled i button */
 .exp-info-btn{position:absolute;top:8px;right:10px;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(240,232,208,.5);background:rgba(255,255,255,.06);color:#f0e8d0;font-family:'Georgia',serif;font-size:.72rem;font-style:italic;font-weight:400;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-appearance:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 1px 3px rgba(0,0,0,.4);letter-spacing:0;padding:0;}
 
 .exp-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
@@ -119,7 +115,6 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .heart.on{color:#e83030;}
 .filter-row{display:flex;gap:5px;margin-bottom:9px;flex-wrap:wrap;flex-shrink:0;}
 
-/* Change 15 & 26: search wrap with larger, shifted clear button */
 .search-wrap{position:relative;flex-shrink:0;margin-bottom:9px;}
 .search-wrap .search-inp{margin-bottom:0;padding-right:38px;}
 .search-clear{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--pc);font-size:1.1rem;cursor:pointer;padding:4px;display:none;-webkit-appearance:none;line-height:1;touch-action:manipulation;}
@@ -173,8 +168,10 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 
 .sp{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .sp.open{background:rgba(0,0,0,.55);pointer-events:all;}
+/* fix 11: max-height moved to CSS */
 .sp-inner{width:100%;max-width:var(--max-w);background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border-top:4px solid var(--ws);border-radius:18px 18px 0 0;padding:16px 16px calc(var(--safe-b) + 20px);overflow:hidden;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);will-change:transform;display:flex;flex-direction:column;}
 .sp.open .sp-inner{transform:translateY(0);}
+#spAddMechInner{max-height:300px;}
 .sp-handle{width:44px;height:5px;background:rgba(255,255,255,.3);border-radius:3px;margin:0 auto 14px;flex-shrink:0;}
 .sp-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--wt);text-shadow:1px 1px 2px var(--ws);margin-bottom:14px;text-align:center;letter-spacing:.8px;flex-shrink:0;}
 .btn-row{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-shrink:0;}
@@ -192,20 +189,13 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 
 .detail-thumb{width:200px;height:200px;object-fit:cover;border-radius:6px;border:2px solid rgba(255,200,80,.2);margin-bottom:4px;}
 
-/* Change 27: modal removed — no modal CSS needed */
-
-/* Change 24: level panel restyled */
 .level-panel-overlay{position:fixed;inset:0;z-index:599;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .level-panel-overlay.open{background:rgba(0,0,0,.45);pointer-events:all;}
 .level-panel{
-  position:fixed;
-  z-index:600;
-  right:14px;
+  position:fixed;z-index:600;right:14px;
   width:min(280px,88%);
   background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);
-  border:3px solid var(--ws);
-  border-radius:10px;
-  padding:14px 14px 12px;
+  border:3px solid var(--ws);border-radius:10px;padding:14px 14px 12px;
   transform:translateX(calc(100% + 20px));
   transition:transform .35s cubic-bezier(.32,1,.56,1);
   display:flex;flex-direction:column;
@@ -241,14 +231,12 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
   </svg>
 </div>
 
-<!-- Change 23: triangle colour #1a1a0e -->
 <div class="bottom-triangle">
   <svg viewBox="0 0 100 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="0,55 100,0 100,55" fill="rgba(80,160,200,.5)"/>
+    <polygon points="0,55 100,0 100,55" fill="#1a1a0e"/>
   </svg>
 </div>
 
-<!-- Change 24: level panel -->
 <div class="level-panel-overlay" id="levelPanelOverlay"></div>
 <div class="level-panel" id="levelPanel">
   <div class="level-panel-title">Level Table</div>
@@ -381,22 +369,15 @@ function getLevel(ticked){
   return MAX_LEVEL;
 }
 
-// Change 28: at exact threshold show 100% of completed level
 function getLevelProgress(ticked){
   if(ticked>=LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length-1])return{level:MAX_LEVEL,cur:LEVEL_EXP_NEEDED[LEVEL_EXP_NEEDED.length-1],needed:LEVEL_EXP_NEEDED[LEVEL_EXP_NEEDED.length-1],pct:100};
-  // Check if ticked is exactly on a threshold (level just completed)
   const threshIdx=LEVEL_THRESHOLDS.indexOf(ticked);
-  if(threshIdx!==-1){
-    // Show as 100% of the level just completed
-    const needed=LEVEL_EXP_NEEDED[threshIdx];
-    return{level:threshIdx+1,cur:needed,needed,pct:100};
-  }
+  if(threshIdx!==-1){const needed=LEVEL_EXP_NEEDED[threshIdx];return{level:threshIdx+1,cur:needed,needed,pct:100};}
   const lv=getLevel(ticked);
   const prevTotal=lv>1?LEVEL_THRESHOLDS[lv-2]:0;
   const needed=LEVEL_EXP_NEEDED[lv-1];
   const cur=ticked-prevTotal;
-  const pct=needed>0?(cur/needed*100):0;
-  return{level:lv,cur,needed,pct};
+  return{level:lv,cur,needed,pct:needed>0?(cur/needed*100):0};
 }
 
 const GAPI_KEY='AIzaSyBmAdVIQg7Gm-dhYyJ1mx9unOLmytt3aC0';
@@ -417,12 +398,17 @@ function openDB(){return new Promise((res,rej)=>{const req=indexedDB.open(DB_NAM
 function dbGet(k){return new Promise((res,rej)=>{const tx=db.transaction('store','readonly');const req=tx.objectStore('store').get(k);req.onsuccess=e=>res(e.target.result);req.onerror=e=>rej(e);});}
 function dbSet(k,v){return new Promise((res,rej)=>{const tx=db.transaction('store','readwrite');const req=tx.objectStore('store').put(v,k);req.onsuccess=()=>res();req.onerror=e=>rej(e);});}
 
+// fix 3: single clone helper replaces all JSON.parse/stringify pairs
+function clone(x){return JSON.parse(JSON.stringify(x));}
+
 let mechanics=[],meta={},games=[];
 let mechFilter='all',gamesFilter='all';
 let editingMechanics=false;
 let detailGameId=null,renamingIdx=null;
 let mechSnap=null,metaSnap=null;
 let selectedGameMechs=new Set();
+// fix 9: track last rendered level so table only rebuilds on level change
+let _lastRenderedLevel=null;
 
 async function saveAll(){await dbSet('mechanics',mechanics);await dbSet('meta',meta);await dbSet('games',games);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
@@ -433,41 +419,45 @@ function isTicked(m){const mt=getMeta(m);if(mt.manualUntick)return false;if(mt.m
 function mechExists(name,excludeIdx=-1){return mechanics.some((m,i)=>i!==excludeIdx&&m.toLowerCase()===name.toLowerCase());}
 function mkBtn(label,cls,fn){const b=document.createElement('button');b.className=cls;b.textContent=label;b.addEventListener('click',fn);return b;}
 
-function applyPanelLayout(){
-  const inner=document.getElementById('mainInner');
-  const expH=document.getElementById('expBox').offsetHeight+11;
-  const remaining=inner.offsetHeight-expH;
-  const gameCount=games.length;
-  const rowH=57;
-  const minH=80;
-  const maxH=Math.floor(remaining*.45);
-  const contentH=gameCount*rowH+60;
-  document.getElementById('gamesPanel').style.maxHeight=Math.min(maxH,Math.max(minH,contentH))+'px';
-}
-function setPanelH(){
-  applyPanelLayout();
-  const bottom=document.getElementById('expBox').getBoundingClientRect().bottom;
-  const h=Math.max(370,window.innerHeight-bottom+40);
-  document.getElementById('spDetailInner').style.maxHeight=h+'px';
-  document.getElementById('spAddMechInner').style.maxHeight='300px';
-  document.getElementById('spAddGameInner').style.maxHeight=Math.min(600,window.innerHeight*.85)+'px';
-  // Change 24: position level panel 5px above exp box top
-  const expTop=document.getElementById('expBox').getBoundingClientRect().top;
-  document.getElementById('levelPanel').style.top=(expTop-5)+'px';
+// fix 7: generic panel toggle replaces repeated classList pairs
+function togglePanel(overlayId,panelId,open){
+  document.getElementById(overlayId).classList.toggle('open',open);
+  document.getElementById(panelId).classList.toggle('open',open);
 }
 
-// Change 17: edit mode panel swap
-function applyEditLayout(editing){
+// fix 6: merged applyPanelLayout + applyEditLayout into one function
+function applyPanelLayout(editing){
   const gamesPanel=document.getElementById('gamesPanel');
   const mechPanel=document.getElementById('mechPanel');
+  if(editing===undefined)editing=editingMechanics;
   if(editing){
     gamesPanel.style.display='none';
     mechPanel.style.flex='1';
   } else {
     gamesPanel.style.display='';
     mechPanel.style.flex='';
-    applyPanelLayout();
+    const expBox=document.getElementById('expBox');
+    const inner=document.getElementById('mainInner');
+    const expRect=expBox.getBoundingClientRect();
+    const innerRect=inner.getBoundingClientRect();
+    const remaining=innerRect.bottom-expRect.bottom-11;
+    const h=Math.max(130,Math.floor(remaining*.45));
+    gamesPanel.style.height=h+'px';
+    gamesPanel.style.maxHeight=h+'px';
+    gamesPanel.style.minHeight=h+'px';
   }
+}
+
+// fix 5: setPanelH now only handles sheet heights + level panel position
+// applyPanelLayout() is called separately where layout is needed
+function setPanelH(){
+  applyPanelLayout();
+  const expTop=document.getElementById('expBox').getBoundingClientRect().top;
+  const expBottom=document.getElementById('expBox').getBoundingClientRect().bottom;
+  const h=Math.max(370,window.innerHeight-expBottom+40);
+  document.getElementById('spDetailInner').style.maxHeight=h+'px';
+  document.getElementById('spAddGameInner').style.maxHeight=Math.min(600,window.innerHeight*.85)+'px';
+  document.getElementById('levelPanel').style.top=(expTop-5)+'px';
 }
 
 function openSP(id){document.getElementById(id).classList.add('open');}
@@ -478,8 +468,7 @@ function initSP(id){
   panel.addEventListener('click',e=>{if(e.target===panel){const r=inner.getBoundingClientRect();if(e.clientY<r.top)closeSP(id);}});
   let sy=0,cy=0,active=false,blocked=false;
   inner.addEventListener('touchstart',e=>{
-    const scrollables=inner.querySelectorAll('.mech-scroll,.games-list-scroll,.detail-scroll,.mech-pick-scroll');
-    blocked=false;for(const el of scrollables){if(el.contains(e.target)){blocked=true;break;}}
+    blocked=[...inner.querySelectorAll('.mech-scroll,.games-list-scroll,.detail-scroll,.mech-pick-scroll')].some(el=>el.contains(e.target));
     sy=e.touches[0].clientY;cy=sy;active=true;
   },{passive:true});
   inner.addEventListener('touchmove',e=>{
@@ -496,6 +485,22 @@ function initSP(id){
 }
 ['spDetail','spAddGame','spAddMech'].forEach(initSP);
 
+// fix 7: level panel uses togglePanel
+document.getElementById('btnExpInfo').addEventListener('click',()=>togglePanel('levelPanelOverlay','levelPanel',true));
+document.getElementById('btnLevelClose').addEventListener('click',()=>togglePanel('levelPanelOverlay','levelPanel',false));
+document.getElementById('levelPanelOverlay').addEventListener('click',()=>togglePanel('levelPanelOverlay','levelPanel',false));
+
+// fix 8: unified search-clear initialiser
+function initSearchClear(inputId,clearId,onClear){
+  const inp=document.getElementById(inputId);
+  const btn=document.getElementById(clearId);
+  inp.addEventListener('input',()=>btn.classList.toggle('visible',inp.value.length>0));
+  btn.addEventListener('mousedown',e=>e.preventDefault());
+  btn.addEventListener('click',()=>{inp.value='';btn.classList.remove('visible');onClear();inp.focus();});
+}
+initSearchClear('mechSearch','mechSearchClear',renderMechs);
+initSearchClear('gamesMechSearch','gamesMechSearchClear',()=>renderMechPicker(''));
+
 function updateExp(){
   const ticked=mechanics.filter(m=>isTicked(m)).length;
   const{level,cur,needed,pct}=getLevelProgress(ticked);
@@ -503,7 +508,8 @@ function updateExp(){
   document.getElementById('expLabel').innerHTML=`<span class="ew">EXP.</span> ${cur}/${needed} [${pct.toFixed(2)}%]`;
   document.getElementById('expLevelLabel').textContent=level===MAX_LEVEL?'MAX':'LV. '+level;
   drawTicks();
-  renderLevelTable(level);
+  // fix 9: only rebuild level table when level actually changes
+  if(level!==_lastRenderedLevel){_lastRenderedLevel=level;renderLevelTable(level);}
 }
 function drawTicks(){
   const canvas=document.getElementById('expCanvas'),wrap=document.getElementById('expWrap');
@@ -522,8 +528,7 @@ function renderLevelTable(currentLevel){
   const tbody=document.getElementById('levelTableBody');
   tbody.innerHTML='';
   LEVEL_EXP_NEEDED.forEach((needed,i)=>{
-    const lv=i+1;
-    const total=LEVEL_THRESHOLDS[i];
+    const lv=i+1,total=LEVEL_THRESHOLDS[i];
     const tr=document.createElement('tr');
     if(lv===currentLevel)tr.className='current-level';
     tr.innerHTML=`<td>${lv}</td><td>${needed}</td><td>${total}</td>`;
@@ -535,28 +540,15 @@ function renderLevelTable(currentLevel){
   tbody.append(trMax);
 }
 
-document.getElementById('btnExpInfo').addEventListener('click',()=>{
-  document.getElementById('levelPanel').classList.add('open');
-  document.getElementById('levelPanelOverlay').classList.add('open');
-});
-document.getElementById('btnLevelClose').addEventListener('click',()=>{
-  document.getElementById('levelPanel').classList.remove('open');
-  document.getElementById('levelPanelOverlay').classList.remove('open');
-});
-document.getElementById('levelPanelOverlay').addEventListener('click',()=>{
-  document.getElementById('levelPanel').classList.remove('open');
-  document.getElementById('levelPanelOverlay').classList.remove('open');
-});
-
-function renderGamesFilter(){
-  const el=document.getElementById('gamesFilterRow');el.innerHTML='';
-  if(!games.length)return;
-  const row=document.createElement('div');row.className='filter-row';
-  ['all','liked'].forEach(v=>row.append(mkBtn(v==='all'?'All':'Liked','btn sm'+(gamesFilter===v?' active-filter':''),()=>{gamesFilter=v;renderGames();renderGamesFilter();})));
-  el.append(row);
-}
+// fix 2: renderGamesFilter only lives inside renderGames; no external calls needed
 function renderGames(){
-  renderGamesFilter();
+  const filterEl=document.getElementById('gamesFilterRow');
+  filterEl.innerHTML='';
+  if(games.length){
+    const row=document.createElement('div');row.className='filter-row';
+    ['all','liked'].forEach(v=>row.append(mkBtn(v==='all'?'All':'Liked','btn sm'+(gamesFilter===v?' active-filter':''),()=>{gamesFilter=v;renderGames();})));
+    filterEl.append(row);
+  }
   const el=document.getElementById('gamesList');el.innerHTML='';
   let list=gamesFilter==='liked'?games.filter(g=>g.liked):games;
   if(!list.length){el.innerHTML=`<div class="empty">${games.length?'No liked games.':'No games recorded yet.'}</div>`;applyPanelLayout();return;}
@@ -585,6 +577,7 @@ function toggleGameLike(i){
   if(detailGameId===i){const h=document.getElementById('detailHeart');h.textContent=games[i].liked?'♥':'♡';h.className='heart'+(games[i].liked?' on':'');}
 }
 
+// fix 12: openDetail no longer calls setPanelH
 function openDetail(i){
   detailGameId=i;const g=games[i];
   document.getElementById('detailName').textContent=g.name;
@@ -596,7 +589,7 @@ function openDetail(i){
   if(g.thumb){const img=document.createElement('img');img.className='detail-thumb';img.src=g.thumb;img.alt=g.name;img.width=200;img.height=200;tw.append(img);}
   const mel=document.getElementById('detailMechs');
   mel.innerHTML=g.mechanics.length?g.mechanics.map(m=>`<span class="detail-chip">${esc(m)}</span>`).join(''):'<span style="color:var(--pc);font-style:italic">None recorded</span>';
-  setPanelH();openSP('spDetail');
+  openSP('spDetail');
 }
 
 function renderMechPicker(searchVal){
@@ -616,20 +609,19 @@ function renderMechPicker(searchVal){
     el.append(row);
   });
 }
+
+// fix 12: openAddGame no longer calls setPanelH
 function openAddGame(){
   selectedGameMechs=new Set();
   document.getElementById('newGameName').value='';
   const today=new Date();
-  const yyyy=today.getFullYear();
-  const mm=String(today.getMonth()+1).padStart(2,'0');
-  const dd=String(today.getDate()).padStart(2,'0');
-  document.getElementById('newGameDate').value=`${yyyy}-${mm}-${dd}`;
+  document.getElementById('newGameDate').value=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
   document.getElementById('gamesMechSearch').value='';
   document.getElementById('gamesMechSearchClear').classList.remove('visible');
   document.getElementById('addGameNameErr').className='err-msg';
   document.getElementById('btnAddGameSave').disabled=false;
   renderMechPicker('');
-  setPanelH();openSP('spAddGame');
+  openSP('spAddGame');
 }
 async function saveNewGame(){
   const name=document.getElementById('newGameName').value.trim();
@@ -645,28 +637,6 @@ document.getElementById('btnAddGame').addEventListener('click',openAddGame);
 document.getElementById('btnAddGameCancel').addEventListener('click',()=>closeSP('spAddGame'));
 document.getElementById('btnAddGameSave').addEventListener('click',saveNewGame);
 document.getElementById('newGameName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveNewGame();}});
-document.getElementById('gamesMechSearch').addEventListener('input',e=>{
-  renderMechPicker(e.target.value);
-  document.getElementById('gamesMechSearchClear').classList.toggle('visible',e.target.value.length>0);
-});
-
-// Change 26: prevent keyboard dismissal on clear tap
-document.getElementById('gamesMechSearchClear').addEventListener('mousedown',e=>e.preventDefault());
-document.getElementById('gamesMechSearchClear').addEventListener('click',()=>{
-  const inp=document.getElementById('gamesMechSearch');
-  inp.value='';
-  document.getElementById('gamesMechSearchClear').classList.remove('visible');
-  renderMechPicker('');
-  inp.focus();
-});
-document.getElementById('mechSearchClear').addEventListener('mousedown',e=>e.preventDefault());
-document.getElementById('mechSearchClear').addEventListener('click',()=>{
-  const inp=document.getElementById('mechSearch');
-  inp.value='';
-  document.getElementById('mechSearchClear').classList.remove('visible');
-  renderMechs();
-  inp.focus();
-});
 
 function renderMechHdr(){
   const el=document.getElementById('mechHdrBtns');el.innerHTML='';
@@ -676,9 +646,10 @@ function renderMechHdr(){
     el.append(mkBtn('Edit','btn sm',startEditMechs),mkBtn('Add','btn sm',openAddMech));
   }
 }
-function startEditMechs(){mechSnap=JSON.parse(JSON.stringify(mechanics));metaSnap=JSON.parse(JSON.stringify(meta));editingMechanics=true;renamingIdx=null;applyEditLayout(true);renderMechHdr();renderMechs();}
-function cancelEditMechs(){mechanics=JSON.parse(JSON.stringify(mechSnap));meta=JSON.parse(JSON.stringify(metaSnap));editingMechanics=false;renamingIdx=null;applyEditLayout(false);renderMechHdr();renderMechs();updateExp();saveAll();}
-function doneEditMechs(){editingMechanics=false;renamingIdx=null;applyEditLayout(false);renderMechHdr();renderMechs();updateExp();saveAll();}
+// fix 3: clone() helper used throughout
+function startEditMechs(){mechSnap=clone(mechanics);metaSnap=clone(meta);editingMechanics=true;renamingIdx=null;applyPanelLayout(true);renderMechHdr();renderMechs();}
+function cancelEditMechs(){mechanics=clone(mechSnap);meta=clone(metaSnap);editingMechanics=false;renamingIdx=null;applyPanelLayout(false);renderMechHdr();renderMechs();updateExp();saveAll();}
+function doneEditMechs(){editingMechanics=false;renamingIdx=null;applyPanelLayout(false);renderMechHdr();renderMechs();updateExp();saveAll();}
 
 function renderMechFilter(){
   const el=document.getElementById('mechFilterRow');el.innerHTML='';
@@ -722,17 +693,11 @@ function renderMechs(){
         row.append(wrap,doneBtn,cancelBtn);inp.focus();
       } else {
         const nm=document.createElement('span');nm.className='mech-edit-name';nm.textContent=m;
-        // Change 27: delete immediately, no modal
         row.append(nm,
           mkBtn('Rename','btn sm blue',()=>{renamingIdx=idx;renderMechs();}),
           mkBtn('Delete','btn sm danger',()=>{
             const didx=mechanics.indexOf(m);
-            if(didx!==-1){
-              mechanics.splice(didx,1);
-              delete meta[m];
-              games.forEach(g=>{g.mechanics=g.mechanics.filter(x=>x!==m);});
-              renderMechs();updateExp();saveAll();
-            }
+            if(didx!==-1){mechanics.splice(didx,1);delete meta[m];games.forEach(g=>{g.mechanics=g.mechanics.filter(x=>x!==m);});renderMechs();updateExp();saveAll();}
           })
         );
       }
@@ -753,11 +718,8 @@ function renderMechs(){
     if(!ticked.length&&!unticked.length)el.innerHTML='<div class="empty">Nothing to show.</div>';
   }
 }
-document.getElementById('mechSearch').addEventListener('input',e=>{
-  renderMechs();
-  document.getElementById('mechSearchClear').classList.toggle('visible',e.target.value.length>0);
-});
 
+// fix 15: add-mechanic functions and their listeners grouped together
 function openAddMech(){
   document.getElementById('newMechInp').value='';
   document.getElementById('addMechErr').className='err-msg';
@@ -778,7 +740,13 @@ document.getElementById('newMechInp').addEventListener('input',()=>{
   document.getElementById('btnAddMechSave').disabled=exists||!val;
 });
 document.getElementById('newMechInp').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveNewMech();}});
+document.getElementById('btnAddMechCancel').addEventListener('click',()=>closeSP('spAddMech'));
+document.getElementById('btnAddMechSave').addEventListener('click',saveNewMech);
 
+document.getElementById('detailHeart').addEventListener('click',()=>{if(detailGameId!==null)toggleGameLike(detailGameId);});
+document.getElementById('btnDetailBack').addEventListener('click',()=>closeSP('spDetail'));
+
+// fix 14: generateIcon runs after fonts are ready, not inside init()
 function generateIcon(){
   const size=180,c=document.createElement('canvas');c.width=size;c.height=size;
   const ctx=c.getContext('2d');
@@ -795,11 +763,7 @@ function generateIcon(){
   if(!link){link=document.createElement('link');link.rel='apple-touch-icon';document.head.appendChild(link);}
   link.href=c.toDataURL('image/png');
 }
-
-document.getElementById('detailHeart').addEventListener('click',()=>{if(detailGameId!==null)toggleGameLike(detailGameId);});
-document.getElementById('btnDetailBack').addEventListener('click',()=>closeSP('spDetail'));
-document.getElementById('btnAddMechCancel').addEventListener('click',()=>closeSP('spAddMech'));
-document.getElementById('btnAddMechSave').addEventListener('click',saveNewMech);
+document.fonts.ready.then(generateIcon);
 
 async function init(){
   await openDB();
@@ -808,14 +772,12 @@ async function init(){
   if(sm){
     mechanics=sm;
   } else {
-    try{
-      const resp=await fetch('./mechanics.json');
-      mechanics=await resp.json();
-    }catch(e){mechanics=[];}
+    try{const resp=await fetch('./mechanics.json');mechanics=await resp.json();}
+    catch(e){mechanics=[];}
   }
-  renderGames();renderGamesFilter();
+  renderGames();
   renderMechHdr();renderMechFilter();renderMechs();
-  updateExp();setPanelH();generateIcon();
+  updateExp();setPanelH();
   window.addEventListener('resize',()=>{drawTicks();setPanelH();});
   setTimeout(()=>{drawTicks();applyPanelLayout();},100);
   setTimeout(()=>{

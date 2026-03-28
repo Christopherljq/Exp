@@ -23,18 +23,22 @@ async function bggSearch(query){
     const resp=await fetch(`${WORKER}/search?query=${encodeURIComponent(query)}&type=boardgame`);
     if(!resp.ok)return[];
     const xml=(new DOMParser()).parseFromString(await resp.text(),'text/xml');
-    const results=[...xml.querySelectorAll('item')].slice(0,10).map(item=>({
+    const results=[...xml.querySelectorAll('item')].slice(0,20).map(item=>({
   id:item.getAttribute('id'),
   name:item.querySelector('name')?.getAttribute('value')||'',
   year:item.querySelector('yearpublished')?.getAttribute('value')||''
 }));
 const q=query.trim().toLowerCase();
-results.sort((a,b)=>{
-  const am=a.name.toLowerCase()===q?0:1;
-  const bm=b.name.toLowerCase()===q?0:1;
-  return am-bm;
-});
+function matchScore(name){
+  const n=name.toLowerCase();
+  if(n===q)return 0;
+  if(n.startsWith(q+' ')||n.startsWith(q+':'))return 1;
+  if(n.startsWith(q))return 2;
+  return 3;
+}
+results.sort((a,b)=>matchScore(a.name)-matchScore(b.name));
 return results.slice(0,5);
+
 
   }catch(e){console.warn('BGG search failed:',e);return[];}
 }

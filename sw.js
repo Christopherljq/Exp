@@ -1,5 +1,5 @@
 const CACHE='dexp-v3';
-const ASSETS=['.','./index.html','./mechanics.json'];
+const ASSETS=['.','./index.html','./style.css','./app.js','./mechanics.json'];
 self.addEventListener('install',e=>e.waitUntil(
   caches.open(CACHE).then(c=>c.addAll(ASSETS))
 ));

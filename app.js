@@ -167,9 +167,14 @@ async function openMechDetail(m){
         const resp=await fetch(`${WORKER}/search?query=${encodeURIComponent(m)}&type=boardgamemechanic`);
         if(resp.ok){
           const xml=(new DOMParser()).parseFromString(await resp.text(),'text/xml');
-          const first=xml.querySelector('item');
-          if(first){
-            bggId=first.getAttribute('id');
+          const items=[...xml.querySelectorAll('item')];
+          const exact=items.find(item=>{
+            const name=item.querySelector('name')?.getAttribute('value')||'';
+            return name.toLowerCase()===m.toLowerCase();
+          });
+          const match=exact||items[0];
+          if(match){
+            bggId=match.getAttribute('id');
             mt.bggId=bggId;
             saveAll();
           }

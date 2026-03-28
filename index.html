@@ -64,6 +64,7 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
   padding-bottom:calc(var(--safe-b) + 2px);
   overflow:hidden;
 }
+.sp-scroll-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;}
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 
 /* Spec 1+2: tighter spacing */
@@ -369,13 +370,13 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 </div>
 
 <!-- ADD GAME — z-index 201 -->
+<!-- ADD GAME — z-index 201 -->
 <div class="sp" id="spAddGame" style="z-index:201;">
   <div class="sp-inner" id="spAddGameInner">
     <div class="sp-handle"></div>
     <div class="sp-title">Add Game</div>
-    <div style="flex-shrink:0;">
+    <div class="sp-scroll-body">
       <label class="inp-label">Game Name</label>
-      <!-- Spec 7: BGG dropdown wrapper -->
       <div class="bgg-name-wrap">
         <input class="wood-inp" id="newGameName" type="text" placeholder="Enter game name" autocomplete="off"/>
         <div class="bgg-dropdown" id="bggDropdown"></div>
@@ -389,7 +390,6 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
         <button class="search-clear" id="gamesMechSearchClear">✕</button>
       </div>
       <div class="mech-pick-scroll" id="mechPickList"></div>
-      <!-- Spec 12: comments -->
       <label class="inp-label" style="margin-top:4px;">Comments</label>
       <textarea class="wood-textarea" id="newGameComments" placeholder="Add notes or comments..."></textarea>
     </div>

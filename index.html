@@ -26,7 +26,8 @@
       radial-gradient(ellipse at 90% 10%,rgba(60,120,160,.4) 0%,transparent 40%),
       linear-gradient(160deg,#6ab080 0%,#4a9060 20%,#2a6030 40%,#4a9060 60%,#6ab080 80%,#8ad0a0 100%);
 }
-html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#1a1a0e;}
+/* Spec 11: fallback changed to light amber */
+html{height:100%;width:100%;min-height:-webkit-fill-available;background:var(--bg);background-size:cover;background-attachment:fixed;background-color:#dcbe6e;}
 body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;font-family:'Crimson Text',Georgia,serif;font-size:16px;touch-action:manipulation;}
 
 #loadScreen{position:fixed;inset:0;z-index:999;background:#1a1a0e;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
@@ -49,21 +50,24 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 
 .mushrooms{position:fixed;bottom:calc(var(--safe-b) + 48px);left:18px;z-index:3;pointer-events:none;width:120px;height:150px;}
 
+/* Spec 11: triangle fill changed to light amber */
 .bottom-triangle{position:fixed;bottom:0;left:0;width:100%;height:55px;z-index:4;pointer-events:none;overflow:hidden;}
 .bottom-triangle svg{position:absolute;bottom:0;left:0;width:100%;height:100%;}
 
+/* Spec 1+2: maximized top/bottom, more space for panels */
 .app{
   position:fixed;inset:0;z-index:10;
   display:flex;flex-direction:column;align-items:center;
-  padding-top:calc(var(--safe-t) + 14px);
+  padding-top:calc(var(--safe-t) + 6px);
   padding-right:calc(var(--safe-r) + 14px);
   padding-left:calc(var(--safe-l) + 14px);
-  padding-bottom:calc(var(--safe-b) + 5px);
+  padding-bottom:calc(var(--safe-b) + 2px);
   overflow:hidden;
 }
 .inner{width:100%;max-width:var(--max-w);display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 
-.exp-box{flex-shrink:0;margin-bottom:11px;background:#1a1a0e;border:2px solid #050500;border-radius:8px;padding:10px 13px 12px;box-shadow:inset 0 2px 8px rgba(0,0,0,.8),0 3px 10px rgba(0,0,0,.5);position:relative;}
+/* Spec 1+2: tighter spacing */
+.exp-box{flex-shrink:0;margin-bottom:8px;background:#1a1a0e;border:2px solid #050500;border-radius:8px;padding:8px 13px 10px;box-shadow:inset 0 2px 8px rgba(0,0,0,.8),0 3px 10px rgba(0,0,0,.5);position:relative;}
 .app-title{text-align:center;font-family:'Cinzel',serif;font-size:1.45rem;font-weight:900;letter-spacing:2px;color:#f0e8d0;text-shadow:1px 1px 3px rgba(0,0,0,.8),0 0 14px rgba(200,212,32,.2);margin-bottom:8px;}
 
 .exp-info-btn{position:absolute;top:8px;right:10px;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(240,232,208,.5);background:rgba(255,255,255,.06);color:#f0e8d0;font-family:'Georgia',serif;font-size:.72rem;font-style:italic;font-weight:400;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-appearance:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 1px 3px rgba(0,0,0,.4);letter-spacing:0;padding:0;}
@@ -81,14 +85,15 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .exp-empty::after{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,.45),transparent);}
 .exp-ticks{position:absolute;inset:0;z-index:2;pointer-events:none;width:100%;height:100%;}
 
-.panel{position:relative;border-radius:7px;border:3px solid var(--ws);overflow:hidden;flex-shrink:0;margin-bottom:11px;
+/* Spec 1+2: reduced margin-bottom */
+.panel{position:relative;border-radius:7px;border:3px solid var(--ws);overflow:hidden;flex-shrink:0;margin-bottom:8px;
   background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),
     linear-gradient(175deg,var(--w1) 0%,var(--w2) 25%,var(--w3) 60%,var(--w4) 100%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -2px 0 rgba(0,0,0,.5),0 4px 16px rgba(0,0,0,.5);}
 .panel::before{content:'';position:absolute;inset:2px;border-radius:4px;border-top:1px solid rgba(255,255,255,.15);pointer-events:none;z-index:0;}
-.panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:2px solid var(--ws);position:relative;z-index:1;}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:2px solid var(--ws);position:relative;z-index:1;}
 .panel-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--wt);text-shadow:1px 1px 2px var(--ws);letter-spacing:.5px;}
-.panel-body{padding:10px 12px;position:relative;z-index:1;}
+.panel-body{padding:8px 12px;position:relative;z-index:1;}
 .hdr-btns{display:flex;align-items:center;gap:5px;flex-shrink:0;}
 
 .games-panel{display:flex;flex-direction:column;overflow:hidden;}
@@ -126,14 +131,15 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 
 .game-row{display:flex;align-items:center;padding:5px 10px;margin-bottom:5px;border-radius:5px;
   border:1px solid rgba(0,180,180,.5);background:linear-gradient(135deg,rgba(0,200,200,0.85),rgba(0,160,160,0.85));}
-.game-info{flex:1;cursor:pointer;user-select:none;-webkit-user-select:none;}
-.game-name{font-family:'Cinzel',serif;font-size:1rem;color:#1a1a00;font-weight:700;}
+.game-info{flex:1;cursor:pointer;user-select:none;-webkit-user-select:none;min-width:0;}
+.game-name{font-family:'Cinzel',serif;font-size:1rem;color:#1a1a00;font-weight:700;display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
 .game-date{font-size:.85rem;color:#1a3030;margin-top:2px;}
 .game-actions{display:flex;align-items:center;gap:5px;flex-shrink:0;}
 .game-row .heart{color:#1a1a00;}
 .game-row .heart.on{color:#e83030;}
 
-.game-thumb{width:44px;height:44px;border-radius:4px;object-fit:cover;flex-shrink:0;margin-right:8px;border:1px solid rgba(0,0,0,.2);}
+/* Spec 6: thumbnail clickable */
+.game-thumb{width:44px;height:44px;border-radius:4px;object-fit:cover;flex-shrink:0;margin-right:8px;border:1px solid rgba(0,0,0,.2);cursor:pointer;}
 .game-thumb-placeholder{width:44px;height:44px;border-radius:4px;flex-shrink:0;margin-right:8px;background:rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.3);font-family:'Cinzel',serif;}
 
 .mech-row{display:flex;align-items:center;padding:9px 10px;margin-bottom:4px;border-radius:5px;border:1px solid rgba(255,200,80,.07);min-height:44px;background:rgba(0,0,0,.18);}
@@ -157,6 +163,10 @@ body{width:100%;height:100%;min-height:-webkit-fill-available;overflow:hidden;fo
 .wood-inp::placeholder{color:var(--pc);opacity:.6;}
 input[type="date"].wood-inp{color:var(--wt);}
 input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
+/* Spec 12: comments textarea */
+.wood-textarea{width:100%;font-size:16px;font-family:'Crimson Text',serif;background:rgba(0,0,0,.38);border:2px solid var(--ws);border-radius:4px;color:var(--wt);padding:9px 12px;outline:none;box-shadow:inset 0 2px 5px rgba(0,0,0,.4);margin-bottom:10px;-webkit-appearance:none;resize:none;min-height:80px;line-height:1.5;}
+.wood-textarea:focus{border-color:var(--w1);}
+.wood-textarea::placeholder{color:var(--pc);opacity:.6;}
 .inp-label{font-family:'Cinzel',serif;font-size:.82rem;color:var(--wt);margin-bottom:5px;display:block;letter-spacing:.3px;}
 
 .mech-pick-scroll{max-height:180px;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;margin-bottom:8px;}
@@ -166,9 +176,20 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .mech-pick-chk.on::after{content:'✓';color:#a0ff80;font-size:11px;}
 .mech-pick-name{font-size:.95rem;color:var(--wt);flex:1;}
 
+/* Spec 7: BGG name search dropdown */
+.bgg-name-wrap{position:relative;flex-shrink:0;margin-bottom:4px;}
+.bgg-name-wrap .wood-inp{margin-bottom:0;}
+.bgg-dropdown{position:absolute;top:100%;left:0;right:0;background:linear-gradient(175deg,var(--w1) 0%,var(--w2) 60%,var(--w4) 100%);border:2px solid var(--ws);border-top:none;border-radius:0 0 6px 6px;z-index:50;display:none;max-height:210px;overflow-y:auto;box-shadow:0 6px 16px rgba(0,0,0,.5);}
+.bgg-dropdown.visible{display:block;}
+.bgg-drop-item{padding:9px 12px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.07);user-select:none;-webkit-user-select:none;touch-action:manipulation;}
+.bgg-drop-item:last-child{border-bottom:none;}
+.bgg-drop-item:active{background:rgba(255,255,255,.1);}
+.bgg-drop-name{font-family:'Cinzel',serif;font-size:.85rem;color:var(--wt);display:block;}
+.bgg-drop-year{font-size:.78rem;color:var(--pc);}
+.bgg-drop-hint{font-family:'Cinzel',serif;font-size:.78rem;color:var(--pc);padding:9px 12px;text-align:center;}
+
 .sp{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .sp.open{background:rgba(0,0,0,.55);pointer-events:all;}
-/* fix 11: max-height moved to CSS */
 .sp-inner{width:100%;max-width:var(--max-w);background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border-top:4px solid var(--ws);border-radius:18px 18px 0 0;padding:16px 16px calc(var(--safe-b) + 20px);overflow:hidden;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.56,1);will-change:transform;display:flex;flex-direction:column;}
 .sp.open .sp-inner{transform:translateY(0);}
 #spAddMechInner{max-height:300px;}
@@ -178,29 +199,42 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .btn-row-l{display:flex;gap:8px;justify-content:flex-start;margin-top:14px;flex-shrink:0;}
 
 .detail-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-shrink:0;}
-.detail-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--wt);flex:1;}
+/* Spec 9: detail-title flex for KS icon */
+.detail-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--wt);flex:1;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 .detail-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;}
 .detail-sec{font-family:'Cinzel',serif;font-size:.82rem;color:#d4a060;letter-spacing:.5px;margin:12px 0 5px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:3px;}
 .detail-val{font-size:1rem;color:var(--wt);line-height:1.5;}
 .detail-chip{display:inline-block;background:rgba(0,0,0,.28);border:1px solid rgba(255,200,80,.18);border-radius:3px;padding:4px 9px;font-size:.88rem;color:var(--wt);margin:3px 3px 3px 0;}
+/* Spec 12: comments display */
+.detail-comments{font-size:.95rem;color:var(--wt);line-height:1.6;white-space:pre-wrap;}
 .empty{text-align:center;color:var(--pc);font-style:italic;font-size:.95rem;padding:12px 0;}
 .err-msg{font-size:.82rem;color:#ff5555;margin-top:4px;display:none;}
 .err-msg.show{display:block;}
 
-.detail-thumb{width:200px;height:200px;object-fit:cover;border-radius:6px;border:2px solid rgba(255,200,80,.2);margin-bottom:4px;}
+/* Spec 8/9: BGG info chips in detail */
+.detail-info-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2px;}
+.detail-info-chip{background:rgba(0,0,0,.28);border:1px solid rgba(255,200,80,.18);border-radius:3px;padding:5px 10px;font-size:.88rem;color:var(--wt);}
+.detail-info-chip .lbl{font-family:'Cinzel',serif;font-size:.7rem;color:var(--pc);display:block;margin-bottom:2px;}
+
+/* Spec 6: clickable detail thumb */
+.detail-thumb{width:100%;max-width:220px;height:auto;object-fit:cover;border-radius:6px;border:2px solid rgba(255,200,80,.2);margin-bottom:4px;cursor:pointer;display:block;}
+
+/* Spec 6: full-width image overlay with pinch zoom */
+.img-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;overflow:hidden;}
+.img-overlay.open{display:flex;}
+.img-overlay-img{width:100%;height:auto;max-height:100vh;object-fit:contain;transform-origin:center center;touch-action:none;}
+
+/* Spec 4: delete confirmation, no animation */
+.del-overlay{position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;}
+.del-overlay.open{display:flex;}
+.del-box{background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border:3px solid var(--ws);border-radius:10px;padding:20px 18px 16px;width:82%;max-width:300px;box-shadow:0 8px 40px rgba(0,0,0,.7);}
+.del-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--wt);text-align:center;margin-bottom:8px;}
+.del-msg{font-size:.95rem;color:var(--wt);text-align:center;margin-bottom:16px;line-height:1.5;word-break:break-word;}
+.del-btns{display:flex;gap:8px;justify-content:center;}
 
 .level-panel-overlay{position:fixed;inset:0;z-index:599;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .level-panel-overlay.open{background:rgba(0,0,0,.45);pointer-events:all;}
-.level-panel{
-  position:fixed;z-index:600;right:14px;
-  width:min(280px,88%);
-  background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);
-  border:3px solid var(--ws);border-radius:10px;padding:14px 14px 12px;
-  transform:translateX(calc(100% + 20px));
-  transition:transform .35s cubic-bezier(.32,1,.56,1);
-  display:flex;flex-direction:column;
-  box-shadow:0 4px 24px rgba(0,0,0,.6);
-}
+.level-panel{position:fixed;z-index:600;right:14px;width:min(280px,88%);background:repeating-linear-gradient(88deg,transparent 0,transparent 20px,rgba(0,0,0,.05) 20px,rgba(0,0,0,.05) 22px),linear-gradient(175deg,var(--w1) 0%,#7a3a10 30%,var(--w4) 100%);border:3px solid var(--ws);border-radius:10px;padding:14px 14px 12px;transform:translateX(calc(100% + 20px));transition:transform .35s cubic-bezier(.32,1,.56,1);display:flex;flex-direction:column;box-shadow:0 4px 24px rgba(0,0,0,.6);}
 .level-panel.open{transform:translateX(0);}
 .level-panel-title{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;color:var(--wt);text-align:center;margin-bottom:10px;letter-spacing:.5px;flex-shrink:0;}
 .level-table{width:100%;border-collapse:collapse;}
@@ -231,16 +265,34 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
   </svg>
 </div>
 
+<!-- Spec 11: triangle light amber -->
 <div class="bottom-triangle">
   <svg viewBox="0 0 100 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="0,55 100,0 100,55" fill="#1a1a0e"/>
+    <polygon points="0,55 100,0 100,55" fill="#dcbe6e"/>
   </svg>
+</div>
+
+<!-- Spec 6: image overlay -->
+<div class="img-overlay" id="imgOverlay">
+  <img class="img-overlay-img" id="imgOverlayImg" src="" alt=""/>
+</div>
+
+<!-- Spec 4: delete confirmation, no animation -->
+<div class="del-overlay" id="delOverlay">
+  <div class="del-box">
+    <div class="del-title">Delete Mechanic</div>
+    <div class="del-msg" id="delMsg"></div>
+    <div class="del-btns">
+      <button class="btn sm" id="btnDelCancel">Cancel</button>
+      <button class="btn sm danger" id="btnDelConfirm">Delete</button>
+    </div>
+  </div>
 </div>
 
 <div class="level-panel-overlay" id="levelPanelOverlay"></div>
 <div class="level-panel" id="levelPanel">
   <div class="level-panel-title">Level Table</div>
-  <table class="level-table" id="levelTable">
+  <table class="level-table">
     <thead><tr><th>LV</th><th>EXP Needed</th><th>Total</th></tr></thead>
     <tbody id="levelTableBody"></tbody>
   </table>
@@ -305,8 +357,12 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
       <div id="detailThumbWrap"></div>
       <div class="detail-sec">Date Played</div>
       <div class="detail-val" id="detailDate"></div>
+      <div class="detail-sec" id="detailInfoSec" style="display:none">BGG Info</div>
+      <div id="detailInfo"></div>
       <div class="detail-sec">Mechanics</div>
       <div id="detailMechs"></div>
+      <div class="detail-sec" id="detailCommentsSec" style="display:none">Comments</div>
+      <div id="detailComments"></div>
     </div>
     <div class="btn-row-l"><button class="btn" id="btnDetailBack">Back</button></div>
   </div>
@@ -319,7 +375,11 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
     <div class="sp-title">Add Game</div>
     <div style="flex-shrink:0;">
       <label class="inp-label">Game Name</label>
-      <input class="wood-inp" id="newGameName" type="text" placeholder="Enter game name" autocomplete="off" style="margin-bottom:4px;"/>
+      <!-- Spec 7: BGG dropdown wrapper -->
+      <div class="bgg-name-wrap">
+        <input class="wood-inp" id="newGameName" type="text" placeholder="Enter game name" autocomplete="off"/>
+        <div class="bgg-dropdown" id="bggDropdown"></div>
+      </div>
       <div class="err-msg" id="addGameNameErr">Please enter a game name</div>
       <label class="inp-label" style="margin-top:8px;">Date Played</label>
       <input class="wood-inp" id="newGameDate" type="date"/>
@@ -329,6 +389,9 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
         <button class="search-clear" id="gamesMechSearchClear">✕</button>
       </div>
       <div class="mech-pick-scroll" id="mechPickList"></div>
+      <!-- Spec 12: comments -->
+      <label class="inp-label" style="margin-top:4px;">Comments</label>
+      <textarea class="wood-textarea" id="newGameComments" placeholder="Add notes or comments..."></textarea>
     </div>
     <div class="btn-row">
       <button class="btn" id="btnAddGameCancel">Cancel</button>
@@ -363,12 +426,13 @@ if('serviceWorker' in navigator){
 const LEVEL_THRESHOLDS=[5,11,18,26,35,45,56,68,81,95,110,126,143,161,180];
 const LEVEL_EXP_NEEDED=[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
 const MAX_LEVEL=16;
+// Spec 5: Cloudflare Worker URL
+const WORKER='https://bgg-proxy.christopherljq.workers.dev';
 
 function getLevel(ticked){
   for(let i=0;i<LEVEL_THRESHOLDS.length;i++){if(ticked<LEVEL_THRESHOLDS[i])return i+1;}
   return MAX_LEVEL;
 }
-
 function getLevelProgress(ticked){
   if(ticked>=LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length-1])return{level:MAX_LEVEL,cur:LEVEL_EXP_NEEDED[LEVEL_EXP_NEEDED.length-1],needed:LEVEL_EXP_NEEDED[LEVEL_EXP_NEEDED.length-1],pct:100};
   const threshIdx=LEVEL_THRESHOLDS.indexOf(ticked);
@@ -380,16 +444,53 @@ function getLevelProgress(ticked){
   return{level:lv,cur,needed,pct:needed>0?(cur/needed*100):0};
 }
 
-const GAPI_KEY='AIzaSyBmAdVIQg7Gm-dhYyJ1mx9unOLmytt3aC0';
-const GAPI_CX='d23a20ee0efa24503';
-async function fetchGameThumb(gameName){
+// Spec 5: BGG API functions
+async function bggSearch(query){
   try{
-    const url=`https://www.googleapis.com/customsearch/v1?key=${GAPI_KEY}&cx=${GAPI_CX}&q=${encodeURIComponent(gameName+' board game')}&searchType=image&num=1&imgSize=medium`;
-    const resp=await fetch(url);
-    const data=await resp.json();
-    if(data.items&&data.items.length>0)return data.items[0].image.thumbnailLink||data.items[0].link||null;
-  }catch(e){console.warn('Image fetch failed:',e);}
-  return null;
+    const resp=await fetch(`${WORKER}/search?query=${encodeURIComponent(query)}&type=boardgame`);
+    if(!resp.ok)return[];
+    const xml=(new DOMParser()).parseFromString(await resp.text(),'text/xml');
+    return[...xml.querySelectorAll('item')].slice(0,5).map(item=>({
+      id:item.getAttribute('id'),
+      name:item.querySelector('name')?.getAttribute('value')||'',
+      year:item.querySelector('yearpublished')?.getAttribute('value')||''
+    }));
+  }catch(e){console.warn('BGG search failed:',e);return[];}
+}
+async function bggThing(id){
+  try{
+    const resp=await fetch(`${WORKER}/thing?id=${id}&type=boardgame&stats=1`);
+    if(!resp.ok)return null;
+    const xml=(new DOMParser()).parseFromString(await resp.text(),'text/xml');
+    const item=xml.querySelector('item');
+    if(!item)return null;
+    const fix=s=>s?(s.startsWith('//')?'https:'+s:s):null;
+    const thumb=fix(item.querySelector('thumbnail')?.textContent?.trim());
+    const img=fix(item.querySelector('image')?.textContent?.trim());
+    const year=item.querySelector('yearpublished')?.getAttribute('value')||null;
+    const ratings=item.querySelector('ratings');
+    const avgRating=ratings?.querySelector('average')?.getAttribute('value');
+    const avgWeight=ratings?.querySelector('averageweight')?.getAttribute('value');
+    let rank=null;
+    for(const r of item.querySelectorAll('rank')){
+      if(r.getAttribute('type')==='subtype'&&r.getAttribute('name')==='boardgame'){
+        const v=r.getAttribute('value');rank=(v&&v!=='Not Ranked')?v:null;break;
+      }
+    }
+    let kickstarted=false;
+    const mechs=[];
+    for(const l of item.querySelectorAll('link')){
+      const t=l.getAttribute('type');
+      if(t==='boardgamefamily'&&(l.getAttribute('value')||'').toLowerCase().includes('kickstarter'))kickstarted=true;
+      if(t==='boardgamemechanic')mechs.push(l.getAttribute('value'));
+    }
+    return{
+      thumbnail:thumb,image:img,year,
+      avgRating:avgRating?parseFloat(avgRating).toFixed(2):null,
+      avgWeight:avgWeight?parseFloat(avgWeight).toFixed(2):null,
+      rank,kickstarted,mechanics:mechs
+    };
+  }catch(e){console.warn('BGG thing failed:',e);return null;}
 }
 
 const DB_NAME='dexp_db',DB_VER=1;
@@ -398,7 +499,6 @@ function openDB(){return new Promise((res,rej)=>{const req=indexedDB.open(DB_NAM
 function dbGet(k){return new Promise((res,rej)=>{const tx=db.transaction('store','readonly');const req=tx.objectStore('store').get(k);req.onsuccess=e=>res(e.target.result);req.onerror=e=>rej(e);});}
 function dbSet(k,v){return new Promise((res,rej)=>{const tx=db.transaction('store','readwrite');const req=tx.objectStore('store').put(v,k);req.onsuccess=()=>res();req.onerror=e=>rej(e);});}
 
-// fix 3: single clone helper replaces all JSON.parse/stringify pairs
 function clone(x){return JSON.parse(JSON.stringify(x));}
 
 let mechanics=[],meta={},games=[];
@@ -407,8 +507,11 @@ let editingMechanics=false;
 let detailGameId=null,renamingIdx=null;
 let mechSnap=null,metaSnap=null;
 let selectedGameMechs=new Set();
-// fix 9: track last rendered level so table only rebuilds on level change
 let _lastRenderedLevel=null;
+let pendingDeleteMech=null;
+let pendingBggData=null;
+let bggDropTimer=null;
+let bggDropBlocked=false;
 
 async function saveAll(){await dbSet('mechanics',mechanics);await dbSet('meta',meta);await dbSet('games',games);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
@@ -419,45 +522,95 @@ function isTicked(m){const mt=getMeta(m);if(mt.manualUntick)return false;if(mt.m
 function mechExists(name,excludeIdx=-1){return mechanics.some((m,i)=>i!==excludeIdx&&m.toLowerCase()===name.toLowerCase());}
 function mkBtn(label,cls,fn){const b=document.createElement('button');b.className=cls;b.textContent=label;b.addEventListener('click',fn);return b;}
 
-// fix 7: generic panel toggle replaces repeated classList pairs
+// Spec 9: Kickstarter icon SVG
+function ksIconSVG(size=16){
+  return `<svg width="${size}" height="${size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;flex-shrink:0;display:inline-block;"><circle cx="50" cy="50" r="50" fill="#05ce78"/><rect x="20" y="15" width="17" height="70" rx="8.5" fill="white"/><path d="M33,47 Q36,41 62,18 Q69,11 77,16 Q85,22 80,30 L52,50 L80,70 Q85,78 77,84 Q69,89 62,82 Q36,59 33,53Z" fill="white"/></svg>`;
+}
+
 function togglePanel(overlayId,panelId,open){
   document.getElementById(overlayId).classList.toggle('open',open);
   document.getElementById(panelId).classList.toggle('open',open);
 }
 
-// fix 6: merged applyPanelLayout + applyEditLayout into one function
+// Spec 6: image overlay with pinch zoom
+let imgScale=1,imgLastDist=0;
+function openImgOverlay(src){
+  if(!src)return;
+  const img=document.getElementById('imgOverlayImg');
+  img.src=src;imgScale=1;img.style.transform='scale(1)';
+  document.getElementById('imgOverlay').classList.add('open');
+}
+function closeImgOverlay(){document.getElementById('imgOverlay').classList.remove('open');}
+document.getElementById('imgOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('imgOverlay'))closeImgOverlay();});
+const _oImg=document.getElementById('imgOverlayImg');
+_oImg.addEventListener('touchstart',e=>{
+  if(e.touches.length===2)imgLastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+},{passive:true});
+_oImg.addEventListener('touchmove',e=>{
+  if(e.touches.length!==2)return;
+  const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  imgScale=Math.min(Math.max(imgScale*(d/imgLastDist),1),4);
+  imgLastDist=d;
+  _oImg.style.transform=`scale(${imgScale})`;
+},{passive:true});
+_oImg.addEventListener('touchend',()=>{if(imgScale<1.05){imgScale=1;_oImg.style.transform='scale(1)';}},{passive:true});
+
+// Spec 4: delete confirmation (no animation)
+function openDeleteConfirm(m){
+  pendingDeleteMech=m;
+  document.getElementById('delMsg').textContent=`Are you sure you want to delete "${m}"?`;
+  document.getElementById('delOverlay').classList.add('open');
+}
+function closeDeleteConfirm(){
+  pendingDeleteMech=null;
+  document.getElementById('delOverlay').classList.remove('open');
+}
+document.getElementById('btnDelCancel').addEventListener('click',closeDeleteConfirm);
+document.getElementById('delOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('delOverlay'))closeDeleteConfirm();});
+document.getElementById('btnDelConfirm').addEventListener('click',()=>{
+  if(!pendingDeleteMech)return;
+  const didx=mechanics.indexOf(pendingDeleteMech);
+  if(didx!==-1){
+    mechanics.splice(didx,1);delete meta[pendingDeleteMech];
+    games.forEach(g=>{g.mechanics=g.mechanics.filter(x=>x!==pendingDeleteMech);});
+    renderMechs();updateExp();saveAll();
+  }
+  closeDeleteConfirm();
+});
+
+// Spec 3+6: merged layout — dynamic games panel height capped at 45%
 function applyPanelLayout(editing){
   const gamesPanel=document.getElementById('gamesPanel');
   const mechPanel=document.getElementById('mechPanel');
   if(editing===undefined)editing=editingMechanics;
   if(editing){
-    gamesPanel.style.display='none';
-    mechPanel.style.flex='1';
+    gamesPanel.style.display='none';mechPanel.style.flex='1';
   } else {
-    gamesPanel.style.display='';
-    mechPanel.style.flex='';
-    const expBox=document.getElementById('expBox');
-    const inner=document.getElementById('mainInner');
-    const expRect=expBox.getBoundingClientRect();
-    const innerRect=inner.getBoundingClientRect();
-    const remaining=innerRect.bottom-expRect.bottom-11;
-    const h=Math.max(130,Math.floor(remaining*.45));
+    gamesPanel.style.display='';mechPanel.style.flex='';
+    const expRect=document.getElementById('expBox').getBoundingClientRect();
+    const innerRect=document.getElementById('mainInner').getBoundingClientRect();
+    const remaining=innerRect.bottom-expRect.bottom-8;
+    const maxH=Math.max(130,Math.floor(remaining*0.45));
+    // Spec 3: grow with content up to maxH
+    const HDR=40,PAD=16,FILTER=games.length>0?44:0,ROW=51;
+    const vis=gamesFilter==='liked'?games.filter(g=>g.liked).length:games.length;
+    const contentH=HDR+PAD+FILTER+(vis>0?vis*ROW:44);
+    const h=Math.min(maxH,Math.max(130,contentH));
     gamesPanel.style.height=h+'px';
-    gamesPanel.style.maxHeight=h+'px';
-    gamesPanel.style.minHeight=h+'px';
+    gamesPanel.style.maxHeight=maxH+'px';
+    gamesPanel.style.minHeight='130px';
   }
 }
 
-// fix 5: setPanelH now only handles sheet heights + level panel position
-// applyPanelLayout() is called separately where layout is needed
 function setPanelH(){
   applyPanelLayout();
-  const expTop=document.getElementById('expBox').getBoundingClientRect().top;
+  // Spec 10: level panel top slightly below app-title bottom
+  const titleRect=document.querySelector('.app-title').getBoundingClientRect();
+  document.getElementById('levelPanel').style.top=(titleRect.bottom+6)+'px';
   const expBottom=document.getElementById('expBox').getBoundingClientRect().bottom;
   const h=Math.max(370,window.innerHeight-expBottom+40);
   document.getElementById('spDetailInner').style.maxHeight=h+'px';
   document.getElementById('spAddGameInner').style.maxHeight=Math.min(600,window.innerHeight*.85)+'px';
-  document.getElementById('levelPanel').style.top=(expTop-5)+'px';
 }
 
 function openSP(id){document.getElementById(id).classList.add('open');}
@@ -485,12 +638,10 @@ function initSP(id){
 }
 ['spDetail','spAddGame','spAddMech'].forEach(initSP);
 
-// fix 7: level panel uses togglePanel
 document.getElementById('btnExpInfo').addEventListener('click',()=>togglePanel('levelPanelOverlay','levelPanel',true));
 document.getElementById('btnLevelClose').addEventListener('click',()=>togglePanel('levelPanelOverlay','levelPanel',false));
 document.getElementById('levelPanelOverlay').addEventListener('click',()=>togglePanel('levelPanelOverlay','levelPanel',false));
 
-// fix 8: unified search-clear initialiser
 function initSearchClear(inputId,clearId,onClear){
   const inp=document.getElementById(inputId);
   const btn=document.getElementById(clearId);
@@ -508,7 +659,6 @@ function updateExp(){
   document.getElementById('expLabel').innerHTML=`<span class="ew">EXP.</span> ${cur}/${needed} [${pct.toFixed(2)}%]`;
   document.getElementById('expLevelLabel').textContent=level===MAX_LEVEL?'MAX':'LV. '+level;
   drawTicks();
-  // fix 9: only rebuild level table when level actually changes
   if(level!==_lastRenderedLevel){_lastRenderedLevel=level;renderLevelTable(level);}
 }
 function drawTicks(){
@@ -523,10 +673,8 @@ function drawTicks(){
     ctx.beginPath();ctx.moveTo(x,h);ctx.lineTo(x,h-th);ctx.stroke();
   }
 }
-
 function renderLevelTable(currentLevel){
-  const tbody=document.getElementById('levelTableBody');
-  tbody.innerHTML='';
+  const tbody=document.getElementById('levelTableBody');tbody.innerHTML='';
   LEVEL_EXP_NEEDED.forEach((needed,i)=>{
     const lv=i+1,total=LEVEL_THRESHOLDS[i];
     const tr=document.createElement('tr');
@@ -540,30 +688,37 @@ function renderLevelTable(currentLevel){
   tbody.append(trMax);
 }
 
-// fix 2: renderGamesFilter only lives inside renderGames; no external calls needed
 function renderGames(){
-  const filterEl=document.getElementById('gamesFilterRow');
-  filterEl.innerHTML='';
+  const filterEl=document.getElementById('gamesFilterRow');filterEl.innerHTML='';
   if(games.length){
     const row=document.createElement('div');row.className='filter-row';
     ['all','liked'].forEach(v=>row.append(mkBtn(v==='all'?'All':'Liked','btn sm'+(gamesFilter===v?' active-filter':''),()=>{gamesFilter=v;renderGames();})));
     filterEl.append(row);
   }
   const el=document.getElementById('gamesList');el.innerHTML='';
-  let list=gamesFilter==='liked'?games.filter(g=>g.liked):games;
+  const list=gamesFilter==='liked'?games.filter(g=>g.liked):games;
   if(!list.length){el.innerHTML=`<div class="empty">${games.length?'No liked games.':'No games recorded yet.'}</div>`;applyPanelLayout();return;}
   list.forEach(g=>{
     const i=games.indexOf(g);
     const row=document.createElement('div');row.className='game-row';
-    if(g.thumb){
-      const img=document.createElement('img');img.className='game-thumb';img.src=g.thumb;img.alt='';img.width=44;img.height=44;
+    // Spec 6: thumbnail — clickable to open full image
+    const thumbSrc=g.thumbnail||g.thumb||null;
+    if(thumbSrc){
+      const img=document.createElement('img');img.className='game-thumb';
+      img.src=thumbSrc;img.alt='';img.width=44;img.height=44;
+      img.addEventListener('click',e=>{e.stopPropagation();openImgOverlay(g.image||thumbSrc);});
       row.append(img);
     } else {
       const ph=document.createElement('div');ph.className='game-thumb-placeholder';ph.textContent='?';
       row.append(ph);
     }
     const info=document.createElement('div');info.className='game-info';
-    info.innerHTML=`<div class="game-name">${esc(g.name)}</div><div class="game-date">${fmtDate(g.date)}</div>`;
+    // Spec 9: KS icon beside game name
+    const nameDiv=document.createElement('div');nameDiv.className='game-name';
+    const nameText=document.createTextNode(g.name);nameDiv.append(nameText);
+    if(g.kickstarted){const ks=document.createElement('span');ks.innerHTML=ksIconSVG(14);nameDiv.append(ks);}
+    const dateDiv=document.createElement('div');dateDiv.className='game-date';dateDiv.textContent=fmtDate(g.date);
+    info.append(nameDiv,dateDiv);
     info.addEventListener('click',()=>openDetail(i));
     const acts=document.createElement('div');acts.className='game-actions';
     const h=document.createElement('button');h.className='heart'+(g.liked?' on':'');h.textContent=g.liked?'♥':'♡';
@@ -577,20 +732,121 @@ function toggleGameLike(i){
   if(detailGameId===i){const h=document.getElementById('detailHeart');h.textContent=games[i].liked?'♥':'♡';h.className='heart'+(games[i].liked?' on':'');}
 }
 
-// fix 12: openDetail no longer calls setPanelH
 function openDetail(i){
   detailGameId=i;const g=games[i];
-  document.getElementById('detailName').textContent=g.name;
+  // Spec 9: name + KS icon in header
+  const dn=document.getElementById('detailName');dn.innerHTML='';
+  dn.append(document.createTextNode(g.name));
+  if(g.kickstarted){const ks=document.createElement('span');ks.innerHTML=ksIconSVG(18);dn.append(ks);}
   document.getElementById('detailDate').textContent=fmtDate(g.date)||'—';
   const h=document.getElementById('detailHeart');
   h.textContent=g.liked?'♥':'♡';h.className='heart'+(g.liked?' on':'');
-  const tw=document.getElementById('detailThumbWrap');
-  tw.innerHTML='';
-  if(g.thumb){const img=document.createElement('img');img.className='detail-thumb';img.src=g.thumb;img.alt=g.name;img.width=200;img.height=200;tw.append(img);}
+  // Spec 6: clickable thumb in detail
+  const tw=document.getElementById('detailThumbWrap');tw.innerHTML='';
+  const thumbSrc=g.thumbnail||g.thumb||null;
+  if(thumbSrc){
+    const img=document.createElement('img');img.className='detail-thumb';
+    img.src=thumbSrc;img.alt=g.name;
+    img.addEventListener('click',()=>openImgOverlay(g.image||thumbSrc));
+    tw.append(img);
+  }
+  // Spec 8/9: BGG info section
+  const infoEl=document.getElementById('detailInfo');infoEl.innerHTML='';
+  const hasInfo=!!(g.year||g.avgRating||g.avgWeight);
+  document.getElementById('detailInfoSec').style.display=hasInfo?'':'none';
+  if(hasInfo){
+    const row=document.createElement('div');row.className='detail-info-row';
+    [
+      g.year?{lbl:'Year',val:g.year}:null,
+      g.avgRating?{lbl:'Rating',val:g.avgRating}:null,
+      g.avgWeight?{lbl:'Weight',val:g.avgWeight+'/5'}:null,
+      {lbl:'BGG Rank',val:g.rank?'#'+g.rank:'N/A'}
+    ].filter(Boolean).forEach(({lbl,val})=>{
+      const c=document.createElement('div');c.className='detail-info-chip';
+      c.innerHTML=`<span class="lbl">${lbl}</span>${esc(String(val))}`;
+      row.append(c);
+    });
+    infoEl.append(row);
+  }
+  // Mechanics
   const mel=document.getElementById('detailMechs');
-  mel.innerHTML=g.mechanics.length?g.mechanics.map(m=>`<span class="detail-chip">${esc(m)}</span>`).join(''):'<span style="color:var(--pc);font-style:italic">None recorded</span>';
+  mel.innerHTML=(g.mechanics&&g.mechanics.length)?g.mechanics.map(m=>`<span class="detail-chip">${esc(m)}</span>`).join(''):'<span style="color:var(--pc);font-style:italic">None recorded</span>';
+  // Spec 12: comments
+  const commSec=document.getElementById('detailCommentsSec');
+  const commEl=document.getElementById('detailComments');
+  if(g.comments){
+    commSec.style.display='';commEl.className='detail-comments';commEl.textContent=g.comments;
+  } else {
+    commSec.style.display='none';commEl.textContent='';
+  }
   openSP('spDetail');
 }
+
+// Spec 7: BGG dropdown logic
+function hideBggDropdown(){
+  const el=document.getElementById('bggDropdown');
+  el.classList.remove('visible');el.innerHTML='';
+}
+function showBggDropdown(results){
+  const el=document.getElementById('bggDropdown');el.innerHTML='';
+  if(!results.length){el.classList.remove('visible');return;}
+  results.forEach(r=>{
+    const item=document.createElement('div');item.className='bgg-drop-item';
+    item.innerHTML=`<span class="bgg-drop-name">${esc(r.name)}</span><span class="bgg-drop-year">${r.year||''}</span>`;
+    item.addEventListener('mousedown',e=>e.preventDefault());
+    item.addEventListener('click',async()=>{
+      hideBggDropdown();
+      document.getElementById('newGameName').value=r.name;
+      bggDropBlocked=true;
+      const data=await bggThing(r.id);
+      pendingBggData=data;
+      if(data)await applyBggMechanics(data.mechanics||[]);
+    });
+    el.append(item);
+  });
+  el.classList.add('visible');
+}
+async function applyBggMechanics(bggMechs){
+  let changed=false;
+  bggMechs.forEach(bm=>{
+    const match=mechanics.find(m=>m.toLowerCase()===bm.toLowerCase());
+    if(match){selectedGameMechs.add(match);}
+    else{
+      const idx=mechanics.findIndex(m=>m.toLowerCase()>bm.toLowerCase());
+      if(idx===-1)mechanics.push(bm);else mechanics.splice(idx,0,bm);
+      selectedGameMechs.add(bm);changed=true;
+    }
+  });
+  if(changed)saveAll();
+  renderMechPicker(document.getElementById('gamesMechSearch').value);
+}
+
+const newGameNameInp=document.getElementById('newGameName');
+newGameNameInp.addEventListener('input',e=>{
+  const val=e.target.value.trim();
+  bggDropBlocked=false;pendingBggData=null;
+  clearTimeout(bggDropTimer);
+  if(val.length<3){hideBggDropdown();return;}
+  const el=document.getElementById('bggDropdown');
+  el.innerHTML='<div class="bgg-drop-hint">Searching...</div>';
+  el.classList.add('visible');
+  // Spec 7: 500ms debounce
+  bggDropTimer=setTimeout(async()=>{showBggDropdown(await bggSearch(val));},500);
+});
+newGameNameInp.addEventListener('blur',()=>{
+  setTimeout(async()=>{
+    hideBggDropdown();
+    if(bggDropBlocked){bggDropBlocked=false;return;}
+    const name=document.getElementById('newGameName').value.trim();
+    if(!name||pendingBggData)return;
+    // Spec 5: fetch on blur for manually typed names
+    const results=await bggSearch(name);
+    if(!results.length)return;
+    const data=await bggThing(results[0].id);
+    pendingBggData=data;
+    if(data)await applyBggMechanics(data.mechanics||[]);
+  },200);
+});
 
 function renderMechPicker(searchVal){
   const el=document.getElementById('mechPickList');el.innerHTML='';
@@ -609,15 +865,15 @@ function renderMechPicker(searchVal){
     el.append(row);
   });
 }
-
-// fix 12: openAddGame no longer calls setPanelH
 function openAddGame(){
-  selectedGameMechs=new Set();
+  selectedGameMechs=new Set();pendingBggData=null;bggDropBlocked=false;
+  hideBggDropdown();
   document.getElementById('newGameName').value='';
-  const today=new Date();
-  document.getElementById('newGameDate').value=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  const t=new Date();
+  document.getElementById('newGameDate').value=`${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
   document.getElementById('gamesMechSearch').value='';
   document.getElementById('gamesMechSearchClear').classList.remove('visible');
+  document.getElementById('newGameComments').value='';
   document.getElementById('addGameNameErr').className='err-msg';
   document.getElementById('btnAddGameSave').disabled=false;
   renderMechPicker('');
@@ -627,11 +883,18 @@ async function saveNewGame(){
   const name=document.getElementById('newGameName').value.trim();
   if(!name){document.getElementById('addGameNameErr').className='err-msg show';return;}
   const date=document.getElementById('newGameDate').value;
+  const comments=document.getElementById('newGameComments').value.trim();
   document.getElementById('btnAddGameSave').disabled=true;
-  const thumb=await fetchGameThumb(name);
-  games.push({name,date,mechanics:[...selectedGameMechs],liked:false,thumb});
+  const d=pendingBggData;
+  games.push({
+    name,date,mechanics:[...selectedGameMechs],liked:false,comments:comments||'',
+    thumbnail:d?.thumbnail||null,image:d?.image||null,
+    year:d?.year||null,avgRating:d?.avgRating||null,avgWeight:d?.avgWeight||null,
+    rank:d?.rank||null,kickstarted:d?.kickstarted||false
+  });
   saveAll();renderGames();updateExp();closeSP('spAddGame');
   document.getElementById('btnAddGameSave').disabled=false;
+  pendingBggData=null;
 }
 document.getElementById('btnAddGame').addEventListener('click',openAddGame);
 document.getElementById('btnAddGameCancel').addEventListener('click',()=>closeSP('spAddGame'));
@@ -640,13 +903,9 @@ document.getElementById('newGameName').addEventListener('keydown',e=>{if(e.key==
 
 function renderMechHdr(){
   const el=document.getElementById('mechHdrBtns');el.innerHTML='';
-  if(editingMechanics){
-    el.append(mkBtn('Cancel','btn sm',cancelEditMechs),mkBtn('Done','btn sm',doneEditMechs));
-  } else {
-    el.append(mkBtn('Edit','btn sm',startEditMechs),mkBtn('Add','btn sm',openAddMech));
-  }
+  if(editingMechanics){el.append(mkBtn('Cancel','btn sm',cancelEditMechs),mkBtn('Done','btn sm',doneEditMechs));}
+  else{el.append(mkBtn('Edit','btn sm',startEditMechs),mkBtn('Add','btn sm',openAddMech));}
 }
-// fix 3: clone() helper used throughout
 function startEditMechs(){mechSnap=clone(mechanics);metaSnap=clone(meta);editingMechanics=true;renamingIdx=null;applyPanelLayout(true);renderMechHdr();renderMechs();}
 function cancelEditMechs(){mechanics=clone(mechSnap);meta=clone(metaSnap);editingMechanics=false;renamingIdx=null;applyPanelLayout(false);renderMechHdr();renderMechs();updateExp();saveAll();}
 function doneEditMechs(){editingMechanics=false;renamingIdx=null;applyPanelLayout(false);renderMechHdr();renderMechs();updateExp();saveAll();}
@@ -657,7 +916,6 @@ function renderMechFilter(){
     el.append(mkBtn(l,'btn sm'+(mechFilter===v?' active-filter':''),()=>{mechFilter=v;renderMechs();renderMechFilter();}));
   });
 }
-
 function renderMechs(){
   const el=document.getElementById('mechList');el.innerHTML='';
   const search=document.getElementById('mechSearch').value.trim().toLowerCase();
@@ -695,10 +953,7 @@ function renderMechs(){
         const nm=document.createElement('span');nm.className='mech-edit-name';nm.textContent=m;
         row.append(nm,
           mkBtn('Rename','btn sm blue',()=>{renamingIdx=idx;renderMechs();}),
-          mkBtn('Delete','btn sm danger',()=>{
-            const didx=mechanics.indexOf(m);
-            if(didx!==-1){mechanics.splice(didx,1);delete meta[m];games.forEach(g=>{g.mechanics=g.mechanics.filter(x=>x!==m);});renderMechs();updateExp();saveAll();}
-          })
+          mkBtn('Delete','btn sm danger',()=>openDeleteConfirm(m))
         );
       }
       el.append(row);
@@ -718,8 +973,11 @@ function renderMechs(){
     if(!ticked.length&&!unticked.length)el.innerHTML='<div class="empty">Nothing to show.</div>';
   }
 }
+document.getElementById('mechSearch').addEventListener('input',e=>{
+  renderMechs();
+  document.getElementById('mechSearchClear').classList.toggle('visible',e.target.value.length>0);
+});
 
-// fix 15: add-mechanic functions and their listeners grouped together
 function openAddMech(){
   document.getElementById('newMechInp').value='';
   document.getElementById('addMechErr').className='err-msg';
@@ -746,11 +1004,9 @@ document.getElementById('btnAddMechSave').addEventListener('click',saveNewMech);
 document.getElementById('detailHeart').addEventListener('click',()=>{if(detailGameId!==null)toggleGameLike(detailGameId);});
 document.getElementById('btnDetailBack').addEventListener('click',()=>closeSP('spDetail'));
 
-// fix 14: generateIcon runs after fonts are ready, not inside init()
 function generateIcon(){
   const size=180,c=document.createElement('canvas');c.width=size;c.height=size;
-  const ctx=c.getContext('2d');
-  const r=24;
+  const ctx=c.getContext('2d');const r=24;
   ctx.beginPath();ctx.moveTo(r,0);ctx.lineTo(size-r,0);ctx.arcTo(size,0,size,r,r);ctx.lineTo(size,size-r);ctx.arcTo(size,size,size-r,size,r);ctx.lineTo(r,size);ctx.arcTo(0,size,0,size-r,r);ctx.lineTo(0,r);ctx.arcTo(0,0,r,0,r);ctx.closePath();
   ctx.fillStyle='#1a1a0e';ctx.fill();
   ctx.strokeStyle='rgba(240,232,208,0.25)';ctx.lineWidth=1.2;
@@ -769,12 +1025,8 @@ async function init(){
   await openDB();
   const [sm,smeta,sg]=await Promise.all([dbGet('mechanics'),dbGet('meta'),dbGet('games')]);
   meta=smeta||{};games=sg||[];
-  if(sm){
-    mechanics=sm;
-  } else {
-    try{const resp=await fetch('./mechanics.json');mechanics=await resp.json();}
-    catch(e){mechanics=[];}
-  }
+  if(sm){mechanics=sm;}
+  else{try{const resp=await fetch('./mechanics.json');mechanics=await resp.json();}catch(e){mechanics=[];}}
   renderGames();
   renderMechHdr();renderMechFilter();renderMechs();
   updateExp();setPanelH();

@@ -154,7 +154,7 @@ input[type="date"].wood-inp::-webkit-date-and-time-value{text-align:left;}
 .detail-info-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2px;}
 .detail-info-chip{background:rgba(0,0,0,.28);border:1px solid rgba(255,200,80,.18);border-radius:3px;padding:5px 10px;font-size:.88rem;color:var(--wt);}
 .detail-info-chip .lbl{font-family:'Cinzel',serif;font-size:.7rem;color:var(--pc);display:block;margin-bottom:2px;}
-.detail-thumb{width:100%;max-width:165px;height:auto;object-fit:cover;border-radius:6px;border:2px solid rgba(255,200,80,.2);margin-bottom:4px;cursor:pointer;display:block;}
+.detail-thumb{width:100%;max-width:220px;height:auto;object-fit:cover;border-radius:6px;border:2px solid rgba(255,200,80,.2);margin-bottom:4px;cursor:pointer;display:block;}
 .img-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;overflow:hidden;}
 .img-overlay.open{display:flex;}
 .img-overlay-img{width:100%;height:auto;max-height:100vh;object-fit:contain;transform-origin:center center;touch-action:none;}

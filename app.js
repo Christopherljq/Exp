@@ -14,7 +14,8 @@ function getLevelProgress(ticked){
   const last=t[t.length-1];
   if(ticked>=last)return{level:MAX_LEVEL,cur:e[e.length-1],needed:e[e.length-1],pct:100,levelUp:false};
   const threshIdx=t.indexOf(ticked);
-  if(threshIdx!==-1){const needed=e[threshIdx];return{level:threshIdx+1,cur:needed,needed,pct:100,levelUp:true};}
+  if(threshIdx!==-1){const needed=e[threshIdx];return{level:threshIdx+2,cur:needed,needed,pct:100,levelUp:true};}
+
   const lv=getLevel(ticked);const prevTotal=lv>1?t[lv-2]:0;const needed=e[lv-1];const cur=ticked-prevTotal;
   return{level:lv,cur,needed,pct:needed>0?(cur/needed*100):0,levelUp:false};
 }

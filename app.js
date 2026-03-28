@@ -20,28 +20,47 @@ function getLevelProgress(ticked){
 }
 async function bggSearch(query){
   try{
+    const q=query.trim().toLowerCase();
+    // First try exact search
+    const exactResp=await fetch(`${WORKER}/search?query=${encodeURIComponent(query)}&type=boardgame&exact=1`);
+    let exactResults=[];
+    if(exactResp.ok){
+      const xml=(new DOMParser()).parseFromString(await exactResp.text(),'text/xml');
+      exactResults=[...xml.querySelectorAll('item')].map(item=>({
+        id:item.getAttribute('id'),
+        name:item.querySelector('name')?.getAttribute('value')||'',
+        year:item.querySelector('yearpublished')?.getAttribute('value')||''
+      }));
+    }
+    // Then do regular search
     const resp=await fetch(`${WORKER}/search?query=${encodeURIComponent(query)}&type=boardgame`);
-    if(!resp.ok)return[];
-    const xml=(new DOMParser()).parseFromString(await resp.text(),'text/xml');
-    const results=[...xml.querySelectorAll('item')].slice(0,20).map(item=>({
-  id:item.getAttribute('id'),
-  name:item.querySelector('name')?.getAttribute('value')||'',
-  year:item.querySelector('yearpublished')?.getAttribute('value')||''
-}));
-const q=query.trim().toLowerCase();
-function matchScore(name){
-  const n=name.toLowerCase();
-  if(n===q)return 0;
-  if(n.startsWith(q+' ')||n.startsWith(q+':'))return 1;
-  if(n.startsWith(q))return 2;
-  return 3;
-}
-results.sort((a,b)=>matchScore(a.name)-matchScore(b.name));
-return results.slice(0,5);
-
-
+    let results=[];
+    if(resp.ok){
+      const xml=(new DOMParser()).parseFromString(await resp.text(),'text/xml');
+      results=[...xml.querySelectorAll('item')].slice(0,20).map(item=>({
+        id:item.getAttribute('id'),
+        name:item.querySelector('name')?.getAttribute('value')||'',
+        year:item.querySelector('yearpublished')?.getAttribute('value')||''
+      }));
+    }
+    // Merge exact results at top, remove duplicates
+    const seen=new Set();
+    const merged=[];
+    [...exactResults,...results].forEach(r=>{
+      if(!seen.has(r.id)){seen.add(r.id);merged.push(r);}
+    });
+    function matchScore(name){
+      const n=name.toLowerCase();
+      if(n===q)return 0;
+      if(n.startsWith(q+' ')||n.startsWith(q+':'))return 1;
+      if(n.startsWith(q))return 2;
+      return 3;
+    }
+    merged.sort((a,b)=>matchScore(a.name)-matchScore(b.name));
+    return merged.slice(0,5);
   }catch(e){console.warn('BGG search failed:',e);return[];}
 }
+
 async function bggThing(id){
   try{
     const resp=await fetch(`${WORKER}/thing?id=${id}&type=boardgame&stats=1`);

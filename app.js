@@ -435,10 +435,14 @@ newGameNameInp.addEventListener('blur',()=>{
     const name=document.getElementById('newGameName').value.trim();
     if(!name||pendingBggData)return;
     const results=await bggSearch(name);if(!results.length)return;
-    const data=await bggThing(results[0].id);pendingBggData=data;
+    const q=name.toLowerCase();
+    const exact=results.find(r=>r.name.toLowerCase()===q);
+    const best=exact||results[0];
+    const data=await bggThing(best.id);pendingBggData=data;
     if(data)await applyBggMechanics(data.mechanics||[]);
   },200);
 });
+
 function renderMechPicker(searchVal){
   const el=document.getElementById('mechPickList');el.innerHTML='';
   const s=(searchVal||'').trim().toLowerCase();

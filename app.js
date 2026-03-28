@@ -263,9 +263,10 @@ function renderGamesHdr(){
   if(editingGames){el.append(mkBtn('Cancel','btn sm',cancelEditGames),mkBtn('Done','btn sm',doneEditGames));}
   else{el.append(mkBtn('Edit','btn sm',startEditGames),mkBtn('Add','btn sm',openAddGame));}
 }
-function startEditGames(){editingGames=true;applyPanelLayout('gameEdit');renderGamesHdr();renderGames();}
-function cancelEditGames(){editingGames=false;applyPanelLayout('normal');renderGamesHdr();renderGames();}
+function startEditGames(){gamesSnap=clone(games);editingGames=true;applyPanelLayout('gameEdit');renderGamesHdr();renderGames();}
+function cancelEditGames(){games=clone(gamesSnap);editingGames=false;applyPanelLayout('normal');renderGamesHdr();renderGames();updateExp();renderMechs();saveAll();}
 function doneEditGames(){editingGames=false;applyPanelLayout('normal');renderGamesHdr();renderGames();}
+
 
 function renderGames(){
   renderGamesHdr();

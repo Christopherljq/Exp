@@ -79,7 +79,7 @@ let pendingDeleteMech=null,pendingDeleteGame=null,delMode='mech';
 let pendingBggData=null,bggDropTimer=null,bggDropBlocked=false;
 let gameFormMode='add',editingGameIdx=null;
 let currentMechName=null;
-const mechDescCache={};
+
 async function saveAll(){await dbSet('mechanics',mechanics);await dbSet('meta',meta);await dbSet('games',games);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function fmtDate(s){if(!s)return'';return new Date(s+'T00:00:00').toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}

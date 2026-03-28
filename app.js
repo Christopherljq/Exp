@@ -1,9 +1,9 @@
 'use strict';
-document.addEventListener('DOMContentLoaded',()=>{
 window.onerror=function(msg,src,line){
   document.querySelector('#loadScreen span').textContent=msg+' L'+line;
   return true;
 };
+
 
 
 if('serviceWorker' in navigator){
@@ -662,6 +662,6 @@ async function init(){
   },700);
 }
 init().catch(e=>{console.error(e);document.querySelector('#loadScreen span').textContent='Error loading. Please refresh.';});
-});
+
 
                           

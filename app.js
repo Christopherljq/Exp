@@ -72,7 +72,8 @@ let mechanics=[],meta={},games=[];
 let mechFilter='all',gamesFilter='all';
 let editingMechanics=false,editingGames=false;
 let detailGameId=null,renamingIdx=null;
-let mechSnap=null,metaSnap=null;
+let mechSnap=null,metaSnap=null,gamesSnap=null;
+
 let selectedGameMechs=new Set();
 let _lastRenderedLevel=null;
 let pendingDeleteMech=null,pendingDeleteGame=null,delMode='mech';

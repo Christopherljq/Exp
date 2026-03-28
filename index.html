@@ -651,6 +651,7 @@ function initSearchClear(inputId,clearId,onClear){
 }
 initSearchClear('mechSearch','mechSearchClear',renderMechs);
 initSearchClear('gamesMechSearch','gamesMechSearchClear',()=>renderMechPicker(''));
+document.getElementById('gamesMechSearch').addEventListener('input',e=>renderMechPicker(e.target.value));
 
 function updateExp(){
   const ticked=mechanics.filter(m=>isTicked(m)).length;

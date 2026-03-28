@@ -4,8 +4,6 @@ window.onerror=function(msg,src,line){
   return true;
 };
 
-
-
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(e=>console.error('SW reg failed:',e)));
 }
